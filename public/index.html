@@ -3,350 +3,441 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>유니텍 관리시스템 - 테스트</title>
+    <title>유니텍 관리시스템 - 로그인</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-        
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        
-        .content {
-            padding: 40px;
-        }
-        
-        .status-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        
-        .status-card {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 25px;
-            border-left: 5px solid #4facfe;
-        }
-        
-        .status-card h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-        
-        .status-indicator {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-        
-        .status-success { background: #28a745; }
-        .status-warning { background: #ffc107; }
-        .status-error { background: #dc3545; }
-        
-        .test-section {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .test-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-        
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary {
-            background: #4facfe;
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: #369bf4;
-            transform: translateY(-2px);
-        }
-        
-        .btn-success {
-            background: #28a745;
-            color: white;
-        }
-        
-        .btn-success:hover {
-            background: #1e7e34;
-            transform: translateY(-2px);
-        }
-        
-        .test-results {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 1px solid #e9ecef;
-        }
-        
-        .result-item {
             display: flex;
             align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
+            justify-content: center;
+            padding: 20px;
         }
-        
-        .result-item:last-child {
-            border-bottom: none;
-        }
-        
-        .employees-list {
-            background: white;
-            border-radius: 10px;
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            margin-top: 20px;
+            width: 100%;
+            max-width: 900px;
+            min-height: 500px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
         }
-        
-        .employee-item {
+
+        .login-left {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .login-left::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .company-logo {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .company-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .company-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .features {
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            font-size: 1rem;
+        }
+
+        .feature-item i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .login-right {
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .login-title {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .login-subtitle {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 50px 15px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #4facfe;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.2);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1.1rem;
+        }
+
+        .password-toggle {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: #4facfe;
+        }
+
+        .form-options {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
-            border-bottom: 1px solid #f0f0f0;
-            transition: background 0.2s ease;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
         }
-        
-        .employee-item:hover {
-            background: #f8f9fa;
-        }
-        
-        .employee-item:last-child {
-            border-bottom: none;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 40px;
+
+        .remember-me {
+            display: flex;
+            align-items: center;
             color: #666;
+        }
+
+        .remember-me input {
+            margin-right: 8px;
+        }
+
+        .forgot-password {
+            color: #4facfe;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #369bf4;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .test-link {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #e1e5e9;
+        }
+
+        .test-link a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .test-link a:hover {
+            color: #4facfe;
+        }
+
+        .test-link i {
+            margin-right: 8px;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .login-container {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .login-left {
+                padding: 40px 30px;
+                min-height: 200px;
+            }
+
+            .company-name {
+                font-size: 2rem;
+            }
+
+            .company-logo {
+                font-size: 2.5rem;
+            }
+
+            .login-right {
+                padding: 40px 30px;
+            }
+
+            .features {
+                display: none;
+            }
+        }
+
+        /* 로딩 애니메이션 */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes spin {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🏭 유니텍 관리시스템</h1>
-            <p>배포 연동 테스트 페이지</p>
+    <div class="login-container">
+        <!-- 왼쪽 브랜딩 영역 -->
+        <div class="login-left">
+            <div class="company-logo">🏭</div>
+            <h1 class="company-name">유니텍</h1>
+            <p class="company-subtitle">스마트 제조 관리 시스템</p>
+            
+            <div class="features">
+                <div class="feature-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>실시간 생산 모니터링</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-cogs"></i>
+                    <span>장비 관리 시스템</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-users"></i>
+                    <span>직원 근태 관리</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-tools"></i>
+                    <span>A/S 관리 시스템</span>
+                </div>
+            </div>
         </div>
-        
-        <div class="content">
-            <!-- 시스템 상태 -->
-            <div class="status-grid">
-                <div class="status-card">
-                    <h3>🗄️ 데이터베이스</h3>
-                    <p><span class="status-indicator status-success"></span>Supabase 연결됨</p>
-                    <p>customers 테이블: 활성</p>
-                </div>
-                
-                <div class="status-card">
-                    <h3>🚀 API 서버</h3>
-                    <p><span class="status-indicator" id="api-status"></span><span id="api-text">확인 중...</span></p>
-                    <p>Express.js 서버</p>
-                </div>
-                
-                <div class="status-card">
-                    <h3>🌐 배포 상태</h3>
-                    <p><span class="status-indicator status-warning"></span>테스트 진행 중</p>
-                    <p>Vercel + Render 연동</p>
-                </div>
+
+        <!-- 오른쪽 로그인 폼 -->
+        <div class="login-right">
+            <div class="login-header">
+                <h2 class="login-title">로그인</h2>
+                <p class="login-subtitle">관리자 계정으로 로그인하세요</p>
             </div>
-            
-            <!-- 기능 테스트 -->
-            <div class="test-section">
-                <h3>🧪 기능 테스트</h3>
-                <div class="test-buttons">
-                    <button class="btn btn-primary" onclick="testAPI()">API 연결 테스트</button>
-                    <button class="btn btn-primary" onclick="testDatabase()">데이터베이스 테스트</button>
-                    <button class="btn btn-success" onclick="loadEmployees()">직원 목록 불러오기</button>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">사용자 ID</label>
+                    <input 
+                        type="text" 
+                        class="form-input" 
+                        id="username" 
+                        placeholder="사용자 ID를 입력하세요"
+                        required
+                    >
+                    <i class="fas fa-user input-icon"></i>
                 </div>
-                
-                <div class="test-results" id="test-results" style="display: none;">
-                    <h4>📊 테스트 결과</h4>
-                    <div id="results-content"></div>
+
+                <div class="form-group">
+                    <label class="form-label">비밀번호</label>
+                    <input 
+                        type="password" 
+                        class="form-input" 
+                        id="password" 
+                        placeholder="비밀번호를 입력하세요"
+                        required
+                    >
+                    <i class="fas fa-eye password-toggle input-icon" onclick="togglePassword()"></i>
                 </div>
-            </div>
-            
-            <!-- 직원 목록 (데모) -->
-            <div class="test-section">
-                <h3>👥 직원 관리 (데모)</h3>
-                <p>Supabase에서 실제 데이터를 가져와 표시합니다.</p>
-                <div id="employees-container">
-                    <div class="loading" id="employees-loading" style="display: none;">
-                        🔄 데이터 로딩 중...
-                    </div>
-                    <div class="employees-list" id="employees-list"></div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="remember">
+                        로그인 상태 유지
+                    </label>
+                    <a href="#" class="forgot-password">비밀번호를 잊으셨나요?</a>
                 </div>
+
+                <button type="submit" class="login-button" id="loginBtn">
+                    로그인
+                </button>
+            </form>
+
+            <div class="test-link">
+                <a href="test.html">
+                    <i class="fas fa-flask"></i>
+                    시스템 연동 테스트 페이지
+                </a>
             </div>
         </div>
     </div>
 
     <script>
-        // API 기본 URL (배포 시 자동 감지)
-        const API_BASE = window.location.hostname === 'localhost' 
-            ? 'http://localhost:3001' 
-            : 'https://total-admin.onrender.com';
-        
-        // API 상태 확인
-        async function checkAPIStatus() {
-            try {
-                const response = await fetch(`${API_BASE}/healthz`);
-                const data = await response.json();
-                
-                document.getElementById('api-status').className = 'status-indicator status-success';
-                document.getElementById('api-text').textContent = 'API 서버 정상';
-                return true;
-            } catch (error) {
-                document.getElementById('api-status').className = 'status-indicator status-error';
-                document.getElementById('api-text').textContent = 'API 서버 오프라인';
-                return false;
+        // 비밀번호 보기/숨기기
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.querySelector('.password-toggle');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.replace('fa-eye-slash', 'fa-eye');
             }
         }
-        
-        // API 연결 테스트
-        async function testAPI() {
-            showResults('API 연결 테스트 중...');
+
+        // 로그인 폼 처리
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
             
-            try {
-                const response = await fetch(`${API_BASE}/healthz`);
-                const data = await response.json();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            
+            // 간단한 데모 로그인 (나중에 실제 인증으로 교체)
+            if (username === 'admin' && password === 'unitech2024') {
+                loginBtn.textContent = '로그인 중...';
+                loginBtn.classList.add('loading');
                 
-                addResult('✅ API 연결 성공', JSON.stringify(data, null, 2));
-            } catch (error) {
-                addResult('❌ API 연결 실패', error.message);
+                // 로딩 시뮬레이션
+                setTimeout(() => {
+                    alert('✅ 로그인 성공!\n\n대시보드로 이동합니다.');
+                    // 나중에 대시보드 페이지로 이동
+                    // window.location.href = 'dashboard.html';
+                }, 1500);
+            } else {
+                alert('❌ 로그인 실패\n\n아이디 또는 비밀번호를 확인해주세요.\n\n데모 계정:\nID: admin\nPW: unitech2024');
             }
-        }
-        
-        // 데이터베이스 테스트
-        async function testDatabase() {
-            showResults('데이터베이스 연결 테스트 중...');
-            
-            try {
-                const response = await fetch(`${API_BASE}/api/test-db`);
-                const data = await response.json();
-                
-                if (response.ok) {
-                    addResult('✅ 데이터베이스 연결 성공', `테이블 확인: ${data.tables || 'customers'}`);
-                } else {
-                    addResult('❌ 데이터베이스 오류', data.error);
-                }
-            } catch (error) {
-                addResult('❌ 데이터베이스 테스트 실패', error.message);
+        });
+
+        // 엔터키로 로그인
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('loginForm').dispatchEvent(new Event('submit'));
             }
-        }
-        
-        // 직원 목록 불러오기
-        async function loadEmployees() {
-            const loading = document.getElementById('employees-loading');
-            const list = document.getElementById('employees-list');
+        });
+
+        // 폼 입력 시 애니메이션
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
             
-            loading.style.display = 'block';
-            list.innerHTML = '';
-            
-            try {
-                const response = await fetch(`${API_BASE}/api/employees`);
-                const data = await response.json();
-                
-                loading.style.display = 'none';
-                
-                if (response.ok && data.length > 0) {
-                    data.forEach(employee => {
-                        const item = document.createElement('div');
-                        item.className = 'employee-item';
-                        item.innerHTML = `
-                            <div>
-                                <strong>${employee.name}</strong>
-                                <div style="color: #666; font-size: 14px;">${employee.email || '이메일 없음'}</div>
-                            </div>
-                            <div style="color: #4facfe; font-weight: 600;">ID: ${employee.id}</div>
-                        `;
-                        list.appendChild(item);
-                    });
-                } else {
-                    list.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">데이터가 없습니다.</div>';
-                }
-            } catch (error) {
-                loading.style.display = 'none';
-                list.innerHTML = `<div style="padding: 20px; text-align: center; color: #dc3545;">❌ 데이터 로딩 실패: ${error.message}</div>`;
-            }
-        }
-        
-        // 결과 표시 함수들
-        function showResults(message) {
-            const results = document.getElementById('test-results');
-            const content = document.getElementById('results-content');
-            
-            results.style.display = 'block';
-            content.innerHTML = `<p>${message}</p>`;
-        }
-        
-        function addResult(title, detail) {
-            const content = document.getElementById('results-content');
-            const item = document.createElement('div');
-            item.className = 'result-item';
-            item.innerHTML = `
-                <div>
-                    <strong>${title}</strong>
-                    ${detail ? `<div style="margin-top: 5px; color: #666; font-size: 14px; font-family: monospace;">${detail}</div>` : ''}
-                </div>
-            `;
-            content.appendChild(item);
-        }
-        
-        // 페이지 로드 시 API 상태 확인
-        document.addEventListener('DOMContentLoaded', () => {
-            checkAPIStatus();
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
         });
     </script>
 </body>
