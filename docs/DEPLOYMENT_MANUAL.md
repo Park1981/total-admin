@@ -35,20 +35,31 @@
 ```
 📁 total-admin/
 ├── 🌐 public/              (프론트엔드)
-│   ├── index.html          (로그인 페이지)
-│   ├── dashboard.html      (대시보드)
-│   └── test.html           (시스템 테스트)
+│   ├── index.html
+│   ├── dashboard.html
+│   └── test.html
 │
 ├── ⚙️ backend/             (백엔드 서버)
-│   └── server.js           (Express.js API)
+│   ├── app.js              (Express 앱 구성)
+│   ├── server.js           (Express 서버 실행)
+│   ├── server.test.js      (API 테스트)
+│   ├── 📁 lib/
+│   │   └── supabaseClient.js
+│   ├── 📁 routes/
+│   │   ├── index.js
+│   │   └── employees.route.js
+│   ├── 📁 controllers/
+│   │   └── employees.controller.js
+│   └── 📁 services/
+│       └── employees.service.js
 │
 ├── 🔧 config/              (설정 파일들)
-│   ├── render.yaml         (Render 배포 설정)
-│   ├── render-env-vars.txt (환경변수 가이드)
+│   ├── render.yaml
+│   ├── render-env-vars.txt
 │   └── render-setup-guide.md
 │
 ├── 📜 docs/                (문서)
-│   ├── DEPLOYMENT_MANUAL.md (이 파일)
+│   ├── DEPLOYMENT_MANUAL.md
 │   └── QUICK_START.md
 │
 ├── 📜 scripts/             (자동화 스크립트)
@@ -88,50 +99,67 @@ mkdir -p public backend config docs scripts src/types supabase/migrations .githu
 
 ### 2단계: 핵심 파일들 생성
 
-#### `backend/server.js` (Express 서버)
+#### `backend/lib/supabaseClient.js` (Supabase 공용 클라이언트)
+```javascript
+import { createClient } from '@supabase/supabase-js';
+import 'dotenv/config';
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error('Supabase URL and Anon Key must be provided.');
+}
+
+export const supabase = createClient(supabaseUrl, supabaseKey);
+```
+
+#### `backend/app.js` (Express 앱 구성)
 ```javascript
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
-import { createClient } from '@supabase/supabase-js';
 import 'dotenv/config';
 
+import apiRouter from './routes/index.js';
+
 const app = express();
-const port = process.env.PORT || 3001;
 
-// Supabase 클라이언트
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
-);
-
-// 미들웨어
+// Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static('public')); // Serve static files
 
-// API 엔드포인트
+// App-level routes
 app.get('/healthz', (req, res) => {
-  res.json({ 
-    status: 'healthy', 
+  res.json({
+    status: 'healthy',
     timestamp: new Date().toISOString(),
     service: 'total-admin',
     version: '1.0.0'
   });
 });
 
-app.get('/api/employees', async (req, res) => {
-  const { data, error } = await supabase
-    .from('customers')
-    .select('id, name, email')
-    .order('id');
-  
-  if (error) return res.status(500).json({ error: error.message });
-  res.json(data || []);
+app.get('/', (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'public', 'index.html'));
 });
 
+// API routes
+app.use('/api', apiRouter);
+
+export default app;
+```
+
+#### `backend/server.js` (Express 서버 실행)
+```javascript
+import app from './app.js';
+
+const port = process.env.PORT || 3001;
+
 app.listen(port, () => {
-  console.log(`✅ 서버 실행: http://localhost:${port}`);
+  console.log(`✅ 유니텍 관리시스템 서버 실행 중: http://localhost:${port}`);
+  console.log(`📊 테스트 페이지: http://localhost:${port}`);
+  console.log(`🔗 API 엔드포인트: http://localhost:${port}/api`);
 });
 ```
 
@@ -193,15 +221,21 @@ services:
 {
   "name": "total-admin",
   "version": "1.0.0",
+  "description": "",
   "main": "server.js",
-  "type": "module",
   "scripts": {
-    "start": "node backend/server.js",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "pipeline": "powershell -ExecutionPolicy Bypass -File ./scripts/pipeline.ps1",
     "typegen": "npx supabase gen types typescript --linked > src/types/db.ts",
     "seed": "node ./scripts/seed.js",
-    "dbpush": "npx supabase db push --linked"
+    "dbpush": "npx supabase db push --linked",
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
     "cors": "^2.8.5",
@@ -209,7 +243,10 @@ services:
     "express": "^5.1.0"
   },
   "devDependencies": {
-    "supabase": "^2.40.7"
+    "cross-env": "^10.0.0",
+    "jest": "^30.1.3",
+    "supabase": "^2.40.7",
+    "supertest": "^7.1.4"
   }
 }
 ```
@@ -361,6 +398,15 @@ SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_ANON_KEY=your-anon-key
 SUPABASE_DB_PW=your-db-password
 ```
+
+### 테스트 환경
+```bash
+# 모든 테스트 실행
+npm test
+```
+- `backend` 폴더 내의 `*.test.js` 파일을 찾아 자동으로 테스트를 실행합니다.
+- `jest.unstable_mockModule`을 사용하여 DB나 외부 API를 모킹(mocking)할 수 있습니다.
+- 테스트 실행 전, `.env` 파일에 `SUPABASE_URL`과 `SUPABASE_ANON_KEY`가 설정되어 있어야 합니다. (모킹되지 않은 테스트의 경우)
 
 ---
 

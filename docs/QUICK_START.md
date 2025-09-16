@@ -31,6 +31,7 @@ git add . && git commit -m "init" && git push origin master
 git clone https://github.com/Park1981/total-admin.git
 cd total-admin
 npm install
+npm test   # → 모든 자동화 테스트 실행
 npm start  # → http://localhost:3001 (backend/server.js 실행)
 ```
 
