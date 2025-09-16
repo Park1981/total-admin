@@ -50,10 +50,9 @@ app.get('/api', (req, res) => {
 // 데이터베이스 연결 테스트
 app.get('/api/test-db', async (req, res) => {
   try {
-    const { data, error } = await supabase
+    const { count, error } = await supabase
       .from('customers')
-      .select('count(*)')
-      .single();
+      .select('*', { count: 'exact', head: true });
     
     if (error) {
       return res.status(500).json({ 
@@ -66,7 +65,7 @@ app.get('/api/test-db', async (req, res) => {
       success: true,
       message: 'Database connection successful',
       tables: 'customers',
-      count: data?.count || 0
+      count: count || 0
     });
   } catch (err) {
     res.status(500).json({ 
