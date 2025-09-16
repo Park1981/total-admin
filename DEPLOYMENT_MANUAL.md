@@ -6,7 +6,7 @@
 
 ### 🔗 배포된 URL
 - **프론트엔드**: https://total-admin-brown.vercel.app
-- **백엔드 API**: https://admin-system-i2qw.onrender.com
+- **백엔드 API**: https://total-admin.onrender.com
 - **GitHub**: https://github.com/Park1981/total-admin
 - **데이터베이스**: Supabase (tgxmccwadzxjnxxusupw.supabase.co)
 
@@ -151,19 +151,33 @@ services:
         value: 10000
 ```
 
-#### `package.json` 스크립트 추가
+#### `package.json` 완전한 설정 (⚠️ 중요)
 ```json
 {
+  "name": "total-admin",
+  "version": "1.0.0",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js",
     "pipeline": "powershell -ExecutionPolicy Bypass -File ./scripts/pipeline.ps1",
     "typegen": "npx supabase gen types typescript --linked > src/types/db.ts",
     "seed": "node ./scripts/seed.js",
     "dbpush": "npx supabase db push --linked"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.4",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "supabase": "^2.40.7"
   }
 }
 ```
+
+**⚠️ 중요**: `@supabase/supabase-js`와 `dotenv`는 반드시 `dependencies`에 있어야 함! `devDependencies`에 있으면 production 배포시 설치되지 않아서 에러 발생!
 
 ### 3단계: Supabase 설정
 
@@ -324,11 +338,28 @@ vercel logs
 ```
 
 ### Render 배포 실패
+
+#### 에러 1: `Cannot find module '/opt/render/project/src/index.js'`
+**원인**: Render가 잘못된 진입점을 찾고 있음
+**해결책**:
 ```bash
-# 1. 환경변수 모두 설정했는지 확인
-# 2. package.json main: "server.js" 확인
-# 3. render.yaml 설정 확인
-# 4. 빌드 로그 확인
+# 1. package.json 확인 - main: "server.js"여야 함
+# 2. render.yaml 확인 - startCommand: "node server.js"여야 함  
+# 3. Render 대시보드에서 Start Command 직접 확인/수정
+# 4. Manual Deploy 실행
+```
+
+#### 에러 2: `Cannot find package '@supabase/supabase-js'`
+**원인**: Production에 필요한 패키지가 devDependencies에 있음
+**해결책**:
+```json
+// package.json에서 dependencies로 이동
+"dependencies": {
+  "@supabase/supabase-js": "^2.57.4",
+  "dotenv": "^17.2.2",
+  "cors": "^2.8.5", 
+  "express": "^5.1.0"
+}
 ```
 
 ### Supabase 연결 실패
@@ -363,6 +394,34 @@ curl https://your-api/api/test-db
 - [ ] 로그 모니터링
 - [ ] 성능 최적화
 - [ ] 보안 강화 (JWT)
+
+---
+
+## ✅ 배포 성공 체크리스트
+
+### 필수 파일 확인
+- [ ] `package.json` - main: "server.js", type: "module"
+- [ ] `package.json` - @supabase/supabase-js, dotenv가 dependencies에 있음
+- [ ] `server.js` - Express 서버 파일 존재
+- [ ] `vercel.json` - Vercel 라우팅 설정
+- [ ] `render.yaml` - startCommand: "node server.js"
+- [ ] `public/index.html` - 프론트엔드 페이지
+
+### Render 배포 확인
+- [ ] https://total-admin.onrender.com/healthz 응답함
+- [ ] Start Command가 "node server.js"로 설정됨
+- [ ] 환경변수 모두 설정됨 (SUPABASE_URL, SUPABASE_ANON_KEY)
+- [ ] 빌드 로그에 에러 없음
+
+### Vercel 배포 확인  
+- [ ] https://total-admin-brown.vercel.app 로딩됨
+- [ ] "API 연결 테스트" 버튼 작동함
+- [ ] "직원 목록 불러오기" 버튼 작동함
+
+### 전체 시스템 테스트
+- [ ] Frontend → Backend API 연결됨
+- [ ] Backend → Supabase 데이터베이스 연결됨
+- [ ] 실제 데이터 조회/입력 가능함
 
 ---
 

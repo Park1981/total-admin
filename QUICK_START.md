@@ -4,7 +4,7 @@
 
 ### 즉시 사용 가능한 URL들
 - **📱 관리 페이지**: https://total-admin-brown.vercel.app
-- **🔧 API 서버**: https://admin-system-i2qw.onrender.com
+- **🔧 API 서버**: https://total-admin.onrender.com
 - **📊 GitHub**: https://github.com/Park1981/total-admin
 
 ### 기능 테스트
