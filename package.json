@@ -9,8 +9,8 @@
     "typegen": "npx supabase gen types typescript --linked > src/types/db.ts",
     "seed": "node ./scripts/seed.js",
     "dbpush": "npx supabase db push --linked",
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js"
   },
   "keywords": [],
   "author": "",
