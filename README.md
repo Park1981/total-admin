@@ -1,41 +1,144 @@
-﻿# total-admin
+# 🏭 유니텍 관리시스템
 
-??以꾨줈 ?붿빟: **Supabase + (?좏깮)Vercel + (?좏깮)Render** + ?먯씠?꾪듃 ?묒뾽???꾪븳 ?쒖옉 ?쒗뵆由?
+Supabase + Vercel + Render 기반의 현대적인 회사 관리 시스템
 
-## 鍮좊Ⅸ ?쒖옉
-1) Supabase ?꾨줈?앺듃 留뚮뱾怨? ?꾨옒 ?쒖꽌 ?ㅽ뻾:
-\\\powershell
-# Supabase 濡쒓렇??& ?꾨줈?앺듃 ?곌껐
+## ✨ 주요 기능
+
+- 👥 **직원 관리**: 직원 정보 CRUD 
+- 🔧 **제조장비 관리**: 장비 현황 및 유지보수
+- 🛠️ **A/S 관리**: 고객 서비스 요청 처리
+- 📊 **대시보드**: 실시간 현황 모니터링
+
+## 🚀 기술 스택
+
+### Backend
+- **Node.js + Express.js**: RESTful API 서버
+- **Supabase**: PostgreSQL 데이터베이스 + 인증
+- **TypeScript**: 타입 안전성
+
+### Frontend  
+- **HTML/CSS/JavaScript**: 반응형 웹 UI
+- **자동 타입 생성**: Supabase 스키마 동기화
+
+### 배포
+- **Vercel**: 프론트엔드 배포
+- **Render**: 백엔드 API 배포
+- **GitHub Actions**: CI/CD 자동화
+
+## 📋 빠른 시작
+
+### 1. 저장소 클론
+```bash
+git clone https://github.com/Park1981/total-admin.git
+cd total-admin
+npm install
+```
+
+### 2. 환경 설정
+```bash
+# .env 파일 생성 (예시 참고)
+cp .env.example .env
+
+# Supabase 프로젝트 연결
 supabase login
-# ??쒕낫?쒖뿉???앹꽦???꾨줈?앺듃 ref ?ъ슜
-supabase link --project-ref <your-project-ref>
+supabase link --project-ref your-project-ref
+```
 
-# ?ㅽ궎留?Pull / ????앹꽦
+### 3. 데이터베이스 설정
+```bash
+# 스키마 동기화 및 타입 생성
 supabase db pull
 npm run typegen
 
-# 留덉씠洹몃젅?댁뀡 ?곸슜(?덉쓣 ?? + ?쒕뱶
-npm run dbpush
+# 마이그레이션 적용 및 시드 데이터
+npm run dbpush  
 npm run seed
+```
 
-# ?뚯씠?꾨씪???먮룞 ?쒖꽌 ?ㅽ뻾)
+### 4. 개발 서버 실행
+```bash
+npm start
+# 서버: http://localhost:3001
+# 테스트 페이지: http://localhost:3001
+```
+
+## 🛠️ 개발 명령어
+
+```bash
+# 전체 파이프라인 실행 (추천)
 npm run pipeline
-\\\
 
-## 濡쒖뺄 ?꾩껜 ?ㅽ깮 (?듭뀡)
-Docker 媛????
-\\\powershell
-npm run local:start
-# ...?뚯뒪??..
-npm run local:stop
-\\\
+# 개별 명령어
+npm run typegen    # TypeScript 타입 생성
+npm run seed       # 시드 데이터 삽입
+npm run dbpush     # 마이그레이션 적용
+```
 
-## 諛고룷(?좏깮)
-- Vercel: \ercel\ CLI ?먮뒗 GitHub ?곕룞
-- Render: GitHub ?곕룞 + \ender.yaml\ 湲곕컲(?듭뀡)
+## 🌐 배포
 
-## ?먯씠?꾪듃 ?ъ슜
-- Codex/Gemini/Claude Code?먯꽌 猷⑦떞:
-  - "?ㅽ궎留?蹂寃???留덉씠洹몃젅?댁뀡 ??db push ??????앹꽦 ???쒕뱶 ???ъ뒪泥댄겕 ??PR ?붿빟"
-  - IDE/?곕??먯뿉??\
-pm run pipeline\ 濡???踰덉뿉 ?ㅽ뻾 媛??
+### Vercel (프론트엔드)
+```bash
+# Vercel CLI 설치 및 배포
+npm install -g vercel
+vercel --prod
+```
+
+### Render (백엔드)
+- GitHub 저장소를 Render에 연결
+- `render.yaml` 설정 자동 적용
+- 환경변수 설정 필요
+
+## 📊 API 엔드포인트
+
+- `GET /healthz` - 서버 상태 확인
+- `GET /api` - API 정보
+- `GET /api/employees` - 직원 목록 조회
+- `POST /api/employees` - 새 직원 추가
+- `GET /api/test-db` - 데이터베이스 연결 테스트
+
+## 🔧 환경 변수
+
+```env
+API_BASE_URL=http://localhost:3001
+SUPABASE_URL=your-supabase-url
+SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_DB_PW=your-db-password
+```
+
+## 📁 프로젝트 구조
+
+```
+total-admin/
+├── public/           # 프론트엔드 정적 파일
+├── scripts/          # 자동화 스크립트
+├── src/              # 소스 코드
+│   └── types/        # TypeScript 타입 정의
+├── supabase/         # 데이터베이스 마이그레이션
+├── .github/          # GitHub Actions 워크플로우
+├── server.js         # Express.js 서버
+└── package.json      # 프로젝트 설정
+```
+
+## 🎯 다음 개발 계획
+
+- [ ] 제조장비 관리 모듈
+- [ ] A/S 요청 관리 시스템  
+- [ ] 사용자 권한 관리
+- [ ] 실시간 알림 기능
+- [ ] 데이터 내보내기 기능
+
+## 🤝 기여하기
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/amazing-feature`)
+3. Commit your Changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the Branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 라이센스
+
+MIT License - 자세한 내용은 [LICENSE](LICENSE) 파일을 참고하세요.
+
+---
+
+**Made with ❤️ by 유니텍 개발팀**
