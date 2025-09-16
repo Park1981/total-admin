@@ -1,0 +1,22 @@
+﻿name: CD
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: npm ci || npm i
+      - name: Supabase DB push (linked)
+        run: |
+          npx supabase db push --linked
+      - name: ????앹꽦
+        run: npm run typegen
+      - name: ?ъ뒪泥댄겕 (?듭뀡)
+        run: |
+          if [ -n "${{ secrets.API_BASE_URL }}" ]; then
+            curl -sSf "${{ secrets.API_BASE_URL }}/healthz" || echo "skip"
+          fi

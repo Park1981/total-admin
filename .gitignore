@@ -1,0 +1,13 @@
+﻿# 湲곕낯 ?몄씠利?
+node_modules
+dist
+.env
+.env.*
+.DS_Store
+
+# Supabase 濡쒖뺄 ?곗씠??(?꾩슂??議곗젙)
+supabase/.branches
+supabase/.temp
+
+# 濡쒓렇
+npm-debug.log*

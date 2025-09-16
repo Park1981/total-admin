@@ -1,0 +1,9 @@
+﻿services:
+  - type: web
+    name: total-admin-api
+    env: node
+    plan: free
+    buildCommand: "npm install && npm run build"
+    startCommand: "npm run start"
+    autoDeploy: true
+    healthCheckPath: /healthz
