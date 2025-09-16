@@ -11,3 +11,4 @@ supabase/.temp
 
 # 濡쒓렇
 npm-debug.log*
+.vercel

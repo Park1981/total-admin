@@ -3,7 +3,12 @@
     name: total-admin-api
     env: node
     plan: free
-    buildCommand: "npm install && npm run build"
-    startCommand: "npm run start"
+    buildCommand: "npm install"
+    startCommand: "npm start"
     autoDeploy: true
     healthCheckPath: /healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
