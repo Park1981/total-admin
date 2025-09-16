@@ -8,7 +8,7 @@
 - **📊 GitHub**: https://github.com/Park1981/total-admin
 
 ### 기능 테스트
-1. **관리 페이지 접속** → 유니텍 관리시스템 화면 확인
+1. **관리 페이지 접속** → 유니태크(주) 관리시스템 화면 확인
 2. **API 연결 테스트** 버튼 클릭 → 서버 응답 확인  
 3. **직원 목록 불러오기** 버튼 클릭 → Alice, Bob 데이터 확인
 
@@ -31,7 +31,7 @@ git add . && git commit -m "init" && git push origin master
 git clone https://github.com/Park1981/total-admin.git
 cd total-admin
 npm install
-npm start  # → http://localhost:3001
+npm start  # → http://localhost:3001 (backend/server.js 실행)
 ```
 
 ## 📋 체크리스트

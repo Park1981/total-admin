@@ -29,6 +29,43 @@
 
 ---
 
+## 📁 프로젝트 폴더 구조
+
+### ✅ **최적화된 폴더 구조 (2024-09-16 개선)**
+```
+📁 total-admin/
+├── 🌐 public/              (프론트엔드)
+│   ├── index.html          (로그인 페이지)
+│   ├── dashboard.html      (대시보드)
+│   └── test.html           (시스템 테스트)
+│
+├── ⚙️ backend/             (백엔드 서버)
+│   └── server.js           (Express.js API)
+│
+├── 🔧 config/              (설정 파일들)
+│   ├── render.yaml         (Render 배포 설정)
+│   ├── render-env-vars.txt (환경변수 가이드)
+│   └── render-setup-guide.md
+│
+├── 📜 docs/                (문서)
+│   ├── DEPLOYMENT_MANUAL.md (이 파일)
+│   └── QUICK_START.md
+│
+├── 📜 scripts/             (자동화 스크립트)
+├── 📜 src/                 (타입 정의)
+├── 📜 supabase/            (DB 마이그레이션)
+├── 📄 package.json         (의존성 관리)
+└── 📄 vercel.json          (Vercel 설정)
+```
+
+### 🎯 **구조 설명**
+- **public/**: 정적 HTML 파일들 (Vercel에서 서빙)
+- **backend/**: Express.js API 서버 (Render에서 실행)
+- **config/**: 배포 및 환경 설정 파일들
+- **docs/**: 프로젝트 문서 (메뉴얼, 가이드)
+
+---
+
 ## 🚀 전체 배포 프로세스 (처음부터)
 
 ### 1단계: 프로젝트 기본 구조 생성
@@ -45,13 +82,13 @@ npm pkg set type="module"
 # 필수 의존성 설치
 npm install express cors @supabase/supabase-js dotenv
 
-# 기본 폴더 구조
-mkdir -p public scripts src/types supabase/migrations .github/workflows
+# 개선된 폴더 구조
+mkdir -p public backend config docs scripts src/types supabase/migrations .github/workflows
 ```
 
 ### 2단계: 핵심 파일들 생성
 
-#### `server.js` (Express 서버)
+#### `backend/server.js` (Express 서버)
 ```javascript
 import express from 'express';
 import cors from 'cors';
@@ -98,13 +135,13 @@ app.listen(port, () => {
 });
 ```
 
-#### `vercel.json` (Vercel 설정)
+#### `vercel.json` (Vercel 설정) - 루트에 위치
 ```json
 {
   "version": 2,
   "builds": [
     {
-      "src": "./server.js",
+      "src": "./backend/server.js",
       "use": "@vercel/node"
     },
     {
@@ -123,7 +160,7 @@ app.listen(port, () => {
     },
     {
       "src": "/api/(.*)",
-      "dest": "./server.js"
+      "dest": "./backend/server.js"
     },
     {
       "src": "/(.*)",
@@ -133,7 +170,7 @@ app.listen(port, () => {
 }
 ```
 
-#### `render.yaml` (Render 설정)
+#### `config/render.yaml` (Render 설정)
 ```yaml
 services:
   - type: web
@@ -141,7 +178,7 @@ services:
     env: node
     plan: free
     buildCommand: "npm install"
-    startCommand: "node server.js"
+    startCommand: "node backend/server.js"
     autoDeploy: true
     healthCheckPath: /healthz
     envVars:
@@ -159,7 +196,7 @@ services:
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js",
+    "start": "node backend/server.js",
     "pipeline": "powershell -ExecutionPolicy Bypass -File ./scripts/pipeline.ps1",
     "typegen": "npx supabase gen types typescript --linked > src/types/db.ts",
     "seed": "node ./scripts/seed.js",
@@ -344,7 +381,7 @@ vercel logs
 **해결책**:
 ```bash
 # 1. package.json 확인 - main: "server.js"여야 함
-# 2. render.yaml 확인 - startCommand: "node server.js"여야 함  
+# 2. render.yaml 확인 - startCommand: "node backend/server.js"여야 함  
 # 3. Render 대시보드에서 Start Command 직접 확인/수정
 # 4. Manual Deploy 실행
 ```
@@ -404,7 +441,7 @@ curl https://your-api/api/test-db
 - [ ] `package.json` - @supabase/supabase-js, dotenv가 dependencies에 있음
 - [ ] `server.js` - Express 서버 파일 존재
 - [ ] `vercel.json` - Vercel 라우팅 설정
-- [ ] `render.yaml` - startCommand: "node server.js"
+- [ ] `render.yaml` - startCommand: "node backend/server.js"
 - [ ] `public/index.html` - 프론트엔드 페이지
 
 ### Render 배포 확인
