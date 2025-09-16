@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>유니텍 관리시스템 - 로그인</title>
+    <title>유니태크(주) 관리시스템 - 로그인</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -306,7 +306,7 @@
         <!-- 왼쪽 브랜딩 영역 -->
         <div class="login-left">
             <div class="company-logo">🏭</div>
-            <h1 class="company-name">유니텍(주)</h1>
+            <h1 class="company-name">유니태크(주)</h1>
             <p class="company-subtitle">스마트 제조 관리 시스템</p>
             
             <div class="features">
@@ -344,6 +344,7 @@
                         class="form-input" 
                         id="username" 
                         placeholder="사용자 ID를 입력하세요"
+                        autocomplete="username"
                         required
                     >
                     <i class="fas fa-user input-icon"></i>
@@ -356,6 +357,7 @@
                         class="form-input" 
                         id="password" 
                         placeholder="비밀번호를 입력하세요"
+                        autocomplete="current-password"
                         required
                     >
                     <i class="fas fa-eye password-toggle input-icon" onclick="togglePassword()"></i>
@@ -379,6 +381,9 @@
                     <i class="fas fa-flask"></i>
                     시스템 연동 테스트 페이지
                 </a>
+                <div style="margin-top: 15px; color: #999; font-size: 0.8rem;">
+                    📅 Last updated: 2024-09-16 16:45 KST
+                </div>
             </div>
         </div>
     </div>
