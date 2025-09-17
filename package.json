@@ -2,7 +2,7 @@
   "name": "total-admin",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "backend/server.js",
   "scripts": {
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "pipeline": "powershell -ExecutionPolicy Bypass -File ./scripts/pipeline.ps1",
