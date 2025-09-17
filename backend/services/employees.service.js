@@ -1,5 +1,18 @@
 import { supabase } from '../lib/supabaseClient.js';
 
+// 데이터베이스 테스트
+export async function testDb() {
+  const { count, error } = await supabase
+    .from('employees')
+    .select('*', { count: 'exact', head: true });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return { table: 'employees', count };
+}
+
 // 원래 스타일로 간단하게
 export async function getAll() {
   const { data, error } = await supabase

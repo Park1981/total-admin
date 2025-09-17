@@ -1,5 +1,15 @@
 import * as employeeService from '../services/employees.service.js';
 
+// 데이터베이스 테스트
+export async function httpTestDb(req, res) {
+  try {
+    const result = await employeeService.testDb();
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
 // 모든 직원 조회
 export async function httpGetAll(req, res) {
   try {

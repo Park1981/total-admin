@@ -187,7 +187,7 @@
                 <div class="status-card">
                     <h3>🗄️ 데이터베이스</h3>
                     <p><span class="status-indicator status-success"></span>Supabase 연결됨</p>
-                    <p>customers 테이블: 활성</p>
+                    <p>employees 테이블: 활성</p>
                 </div>
                 
                 <div class="status-card">
@@ -273,11 +273,11 @@
             showResults('데이터베이스 연결 테스트 중...');
             
             try {
-                const response = await fetch(`${API_BASE}/api/test-db`);
+                const response = await fetch(`${API_BASE}/api/employees/test-db`);
                 const data = await response.json();
                 
                 if (response.ok) {
-                    addResult('✅ 데이터베이스 연결 성공', `테이블 확인: ${data.tables || 'customers'}`);
+                    addResult('✅ 데이터베이스 연결 성공', `테이블: ${data.table}, 행: ${data.count}개`);
                 } else {
                     addResult('❌ 데이터베이스 오류', data.error);
                 }
@@ -309,7 +309,7 @@
                                 <strong>${employee.name}</strong>
                                 <div style="color: #666; font-size: 14px;">${employee.email || '이메일 없음'}</div>
                             </div>
-                            <div style="color: #4facfe; font-weight: 600;">ID: ${employee.id}</div>
+                            <div style="color: #4facfe; font-weight: 600;">ID: ${employee.employee_id}</div>
                         `;
                         list.appendChild(item);
                     });
