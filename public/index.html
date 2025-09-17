@@ -404,7 +404,7 @@
         }
 
         // 로그인 폼 처리
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        document.getElementById('loginForm').addEventListener('submit_hardcoded_removed', async function(e) {
             e.preventDefault();
             
             const username = document.getElementById('username').value;
@@ -444,6 +444,79 @@
                 this.parentElement.style.transform = 'translateY(0)';
             });
         });
+    </script>
+    <script>
+      (function() {
+        const form = document.getElementById('loginForm');
+        if (!form) return;
+        form.addEventListener('submit', function(e) {
+          const username = document.getElementById('username')?.value || '';
+          const password = document.getElementById('password')?.value || '';
+          const loginBtn = document.getElementById('loginBtn');
+          const isDemo = (username === 'admin' && password === 'unitech2024');
+          if (!isDemo) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            const useDemo = confirm('데모비번?\n\nID: admin\nPW: unitech2024\n\n확인을 누르면 데모 계정으로 이동해요.');
+            if (useDemo) {
+              if (loginBtn) {
+                loginBtn.textContent = '로그인 중...';
+                loginBtn.classList.add('loading');
+              }
+              setTimeout(() => { window.location.replace('dashboard.html'); }, 800);
+            } else {
+              alert('아이디 또는 비밀번호를 다시 확인해줘.');
+            }
+          }
+        }, true);
+      })();
+    </script>
+    <script>
+      (function() {
+        const form = document.getElementById('loginForm');
+        if (!form) return;
+        const API_BASE = (window.location.hostname === 'localhost')
+          ? 'http://localhost:3001'
+          : (window.location.origin.includes('onrender.com') ? window.location.origin : 'https://total-admin.onrender.com');
+
+        form.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          const username = document.getElementById('username')?.value?.trim() || '';
+          const password = document.getElementById('password')?.value || '';
+          const loginBtn = document.getElementById('loginBtn');
+
+          if (loginBtn) {
+            loginBtn.textContent = '로그인 중...';
+            loginBtn.classList.add('loading');
+          }
+
+          try {
+            const res = await fetch(`${API_BASE}/api/employees/login`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ username, password })
+            });
+            const data = await res.json().catch(() => ({}));
+            if (res.ok && data && (data.success || data.user)) {
+              window.location.replace('dashboard.html');
+            } else {
+              const msg = (data && data.error) ? data.error : '로그인에 실패했어. 아이디/비번을 확인해줘.';
+              alert(msg);
+              if (loginBtn) {
+                loginBtn.textContent = '로그인';
+                loginBtn.classList.remove('loading');
+              }
+            }
+          } catch (err) {
+            alert('네트워크 오류로 로그인에 실패했어. 잠시 후 다시 시도해줘.');
+            if (loginBtn) {
+              loginBtn.textContent = '로그인';
+              loginBtn.classList.remove('loading');
+            }
+          }
+        }, true);
+      })();
     </script>
 </body>
 </html>
