@@ -7,11 +7,15 @@ import {
   httpDeactivate,
   httpLogin
 } from '../controllers/employees.controller.js';
+import { httpGetAllEmployees } from '../controllers/employees2.controller.js';
 
 const employeesRouter = express.Router();
 
 // 인증 API (와일드카드 라우트보다 먼저 배치)
 employeesRouter.post('/login', httpLogin);             // 로그인
+
+// 새로운 테스트 API
+employeesRouter.get('/test', httpGetAllEmployees);     // 새로운 서비스 테스트
 
 // 직원 관리 API
 employeesRouter.get('/', httpGetAll);                  // 모든 직원 조회
