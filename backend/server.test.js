@@ -44,6 +44,6 @@ describe('API Server', () => {
 
     // 4. Assertions
     expect(response.body).toEqual([{ id: 99, name: 'Unstable Mock Employee' }]);
-    expect(supabase.from).toHaveBeenCalledWith('customers');
+    expect(supabase.from).toHaveBeenCalledWith('employees');
   });
 });

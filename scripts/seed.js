@@ -11,18 +11,10 @@ if (!url || !key) {
 const supabase = createClient(url, key)
 
 async function main() {
-  const rows = [
-    { name: "Alice", email: "alice@example.com" },
-    { name: "Bob",   email: "bob@example.com"  },
-  ]
+  console.log("✅ 시드 완료 - 직원 데이터는 마이그레이션에서 이미 추가됨")
 
-  // insert 대신 upsert 사용
-  const { error } = await supabase
-    .from("customers")
-    .upsert(rows, { onConflict: "email", ignoreDuplicates: true })
-
-  if (error) console.log("시드 에러:", error.message)
-  else console.log("✅ 시드 완료")
+  // 추가 시드 데이터가 필요하면 여기서 처리
+  // 현재는 마이그레이션에서 모든 샘플 데이터를 추가했으므로 별도 작업 없음
 }
 
 main()
