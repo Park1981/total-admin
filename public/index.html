@@ -299,6 +299,37 @@
             from { transform: translate(-50%, -50%) rotate(0deg); }
             to { transform: translate(-50%, -50%) rotate(360deg); }
         }
+
+        /* 에러 메시지 스타일 */
+        .error-message {
+            margin-top: 15px;
+            padding: 12px 15px;
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            color: #dc2626;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeInDown 0.3s ease;
+        }
+
+        .error-message i {
+            font-size: 1rem;
+            color: #dc2626;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -374,6 +405,12 @@
                 <button type="submit" class="login-button" id="loginBtn">
                     로그인
                 </button>
+
+                <!-- 에러 메시지 영역 -->
+                <div id="errorMessage" class="error-message" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span id="errorText"></span>
+                </div>
             </form>
 
             <div class="test-link">
@@ -403,14 +440,31 @@
             }
         }
 
-        // 데모 핸들러 제거: 실제 API 기반 로그인은 아래 스크립트에서 처리합니다.
+        // 에러 메시지 표시 함수
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            if (errorDiv && errorText) {
+                errorText.textContent = message;
+                errorDiv.style.display = 'flex';
+            }
+        }
 
-        // 폼 입력 시 애니메이션
+        // 에러 메시지 숨기기 함수
+        function hideError() {
+            const errorDiv = document.getElementById('errorMessage');
+            if (errorDiv) {
+                errorDiv.style.display = 'none';
+            }
+        }
+
+        // 폼 입력 시 애니메이션 및 에러 메시지 숨기기
         document.querySelectorAll('.form-input').forEach(input => {
             input.addEventListener('focus', function() {
                 this.parentElement.style.transform = 'translateY(-2px)';
+                hideError(); // 입력 시 에러 메시지 숨김
             });
-            
+
             input.addEventListener('blur', function() {
                 this.parentElement.style.transform = 'translateY(0)';
             });
@@ -442,17 +496,19 @@
             });
             const data = await res.json().catch(() => ({}));
             if (res.ok && data && (data.success || data.user)) {
+              // 로그인 성공 시 세션 저장
+              sessionStorage.setItem('isLoggedIn', 'true');
               window.location.replace('dashboard.html');
             } else {
               const msg = (data && data.error) ? data.error : '로그인에 실패했습니다. 아이디/비밀번호를 확인해주세요.';
-              alert(msg);
+              showError(msg);
               if (loginBtn) {
                 loginBtn.textContent = '로그인';
                 loginBtn.classList.remove('loading');
               }
             }
           } catch (err) {
-            alert('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+            showError('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
             if (loginBtn) {
               loginBtn.textContent = '로그인';
               loginBtn.classList.remove('loading');
