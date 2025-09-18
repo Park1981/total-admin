@@ -1,4 +1,7 @@
 import { supabase } from '../lib/supabaseClient.js';
+import bcrypt from 'bcrypt';
+
+const SALT_ROUNDS = 10;
 
 // 데이터베이스 테스트
 export async function testDb() {
@@ -28,16 +31,18 @@ export async function getAll() {
   return data || [];
 }
 
-export async function create({ username, password_hash, name, title, mobile, email, role = 'staff' }) {
-  if (!username || !password_hash || !name) {
+export async function create({ username, password, name, title, mobile, email, role = 'staff' }) {
+  if (!username || !password || !name) {
     const err = new Error('Username, password, and name are required');
     err.statusCode = 400;
     throw err;
   }
 
+  const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
   const { data, error } = await supabase
     .from('employees')
-    .insert([{ username, password_hash, name, title, mobile, email, role, active: true }])
+    .insert([{ username, password_hash: hashedPassword, name, title, mobile, email, role, active: true }])
     .select('employee_id, username, name, title, mobile, email, role, active, created_at')
     .single();
 
@@ -56,8 +61,16 @@ export async function getByUsername(username) {
     .single();
 
   if (error) {
+    // 사용자 정보가 없을 때 null을 반환하도록 수정
+    if (error.code === 'PGRST116') {
+      return null;
+    }
     throw new Error(error.message);
   }
 
   return data;
+}
+
+export async function verifyPassword(password, hashedPassword) {
+  return await bcrypt.compare(password, hashedPassword);
 }

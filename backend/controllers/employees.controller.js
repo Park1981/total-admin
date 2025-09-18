@@ -23,6 +23,7 @@ export async function httpGetAll(req, res) {
 // 직원 생성
 export async function httpCreate(req, res) {
   try {
+    // 이제 password 필드로 받음
     const newEmployee = await employeeService.create(req.body);
     res.status(201).json({ success: true, data: newEmployee });
   } catch (error) {
@@ -77,9 +78,15 @@ export async function httpLogin(req, res) {
     // 직원 정보 조회
     const employee = await employeeService.getByUsername(username);
 
-    // 비밀번호 확인 (일단 평문 비교)
-    if (employee.password_hash !== password) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+    if (!employee) {
+      return res.status(401).json({ error: '아이디 또는 비밀번호가 잘못되었습니다.' });
+    }
+
+    // 비밀번호 확인 (bcrypt.compare 사용)
+    const isValidPassword = await employeeService.verifyPassword(password, employee.password_hash);
+
+    if (!isValidPassword) {
+      return res.status(401).json({ error: '아이디 또는 비밀번호가 잘못되었습니다.' });
     }
 
     // 비밀번호 제외하고 반환
@@ -90,7 +97,10 @@ export async function httpLogin(req, res) {
       message: 'Login successful',
       user: userInfo
     });
+
   } catch (error) {
-    res.status(401).json({ error: 'Invalid credentials' });
+    // 예상치 못한 서버 오류 처리
+    console.error('Login Error:', error);
+    res.status(500).json({ error: '로그인 처리 중 오류가 발생했습니다.' });
   }
 }
