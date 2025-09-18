@@ -463,8 +463,8 @@
           }
 
           try {
-            // 같은 오리진에서 제공되므로 상대경로 사용
-            const res = await fetch(`/api/employees/login`, {
+            // Render에서 호스팅되는 API 서버 사용
+            const res = await fetch(`https://total-admin.onrender.com/api/employees/login`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ username, password })
