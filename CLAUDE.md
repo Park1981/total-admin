@@ -112,3 +112,11 @@ total-admin/
 - MVC pattern separates concerns for better maintainability
 - Pipeline script requires PowerShell execution policy bypass
 - Direct database URLs use port 5432 instead of pooler port 6543 for better performance
+
+### ⚠️ CRITICAL: 작업 전 문서 확인 필수
+**구조 변경이나 문제 해결 전에 반드시 docs/ 폴더 확인!**
+- `docs/DEPLOYMENT_MANUAL.md`: 배포 아키텍처 및 정확한 구조
+- `docs/CURRENT_STATUS.md`: 이전 이슈들과 해결된 문제들
+- `docs/PLAN.md` & `docs/DB_PLAN.md`: 원래 기획 의도
+- **교훈**: 2025-09-18 로그인 문제 해결 과정에서 docs 확인 후 올바른 아키텍처 발견
+- **원칙**: 기존 문서가 정답을 담고 있을 가능성이 높음 - 새로 만들기 전에 문서부터!
