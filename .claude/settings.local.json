@@ -12,7 +12,9 @@
       "Bash(find:*)",
       "Bash(npm install)",
       "Bash(pkill:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(git stash:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []
