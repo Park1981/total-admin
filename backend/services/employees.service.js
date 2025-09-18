@@ -31,14 +31,14 @@ export async function getAll() {
   return data || [];
 }
 
-export async function create({ username, password, name, title, mobile, email, role = 'staff' }) {
-  if (!username || !password || !name) {
+export async function create({ username, password_hash, name, title, mobile, email, role = 'staff' }) {
+  if (!username || !password_hash || !name) {
     const err = new Error('Username, password, and name are required');
     err.statusCode = 400;
     throw err;
   }
 
-  const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+  const hashedPassword = await bcrypt.hash(password_hash, SALT_ROUNDS);
 
   const { data, error } = await supabase
     .from('employees')
