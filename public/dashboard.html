@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>유니태크(주) 관리시스템 - 대시보드</title>
+    <title>UNITECH PORTAL - 대시보드</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -12,9 +12,36 @@
             box-sizing: border-box;
         }
 
+        /* CSS Variables for Theme Support */
+        :root {
+            --dashboard-bg-gradient: linear-gradient(135deg, #2c1810 0%, #8b4513 25%, #4a0e4e 75%, #1a1a2e 100%);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-backdrop: blur(20px);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #e2e8f0;
+            --text-accent: #94a3b8;
+            --card-shadow: rgba(0, 0, 0, 0.3);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --dashboard-bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 75%, #94a3b8 100%);
+                --glass-bg: rgba(255, 255, 255, 0.85);
+                --glass-backdrop: blur(15px);
+                --glass-border: rgba(0, 0, 0, 0.1);
+                --text-primary: #1e293b;
+                --text-secondary: #334155;
+                --text-accent: #64748b;
+                --card-shadow: rgba(0, 0, 0, 0.1);
+                --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            }
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f7fa;
+            background: var(--dashboard-bg-gradient);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -22,10 +49,12 @@
 
         /* 헤더 스타일 */
         .header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-backdrop);
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--text-primary);
             padding: 0 30px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px var(--card-shadow);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -132,15 +161,16 @@
         }
 
         .page-title h1 {
-            color: #333;
-            font-size: 2.2rem;
+            color: var(--text-primary);
+            font-size: 2.5rem;
             font-weight: 600;
             margin-bottom: 8px;
+            text-shadow: 0 4px 12px var(--card-shadow);
         }
 
         .page-subtitle {
-            color: #666;
-            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
         }
 
         /* 섹션 스타일 */
@@ -151,21 +181,21 @@
         .section-header {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e1e5e9;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--glass-border);
         }
 
         .section-header h2 {
-            color: #333;
-            font-size: 1.5rem;
+            color: var(--text-primary);
+            font-size: 1.6rem;
             font-weight: 600;
             margin-right: 15px;
         }
 
         .section-header i {
-            color: #4facfe;
-            font-size: 1.3rem;
+            color: var(--text-primary);
+            font-size: 1.4rem;
         }
 
         /* 카드 그리드 */
@@ -176,12 +206,13 @@
         }
 
         .dashboard-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            border: 1px solid #e9ecef;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-backdrop);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 32px 64px var(--card-shadow);
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -194,12 +225,13 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: var(--accent-gradient);
         }
 
         .dashboard-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 40px 80px var(--card-shadow);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
         .card-header {
@@ -210,30 +242,33 @@
         }
 
         .card-title {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
-            color: #333;
+            color: var(--text-primary);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
         .card-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            border-radius: 12px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-gradient);
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            box-shadow: 0 8px 20px rgba(79, 172, 254, 0.3);
         }
 
         .card-content {
-            color: #666;
+            color: var(--text-secondary);
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
         }
 
         .card-stats {
@@ -247,43 +282,169 @@
         }
 
         .stat-number {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
-            color: #4facfe;
+            color: var(--text-primary);
+            text-shadow: 0 2px 8px rgba(79, 172, 254, 0.3);
         }
 
         .stat-label {
-            font-size: 0.9rem;
-            color: #999;
-            margin-top: 5px;
+            font-size: 0.85rem;
+            color: var(--text-accent);
+            margin-top: 8px;
+            font-weight: 500;
         }
 
         .card-action {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            color: #4facfe;
+            gap: 10px;
+            color: white;
             text-decoration: none;
             font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 8px;
+            padding: 12px 20px;
+            border-radius: 12px;
             transition: all 0.3s ease;
-            border: 1px solid #4facfe;
-            background: transparent;
+            background: var(--accent-gradient);
             cursor: pointer;
             font-size: 0.9rem;
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.3);
+            border: none;
         }
 
         .card-action:hover {
-            background: #4facfe;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        /* 최근 활동 목록 */
+        .recent-list {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .recent-list h4 {
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .recent-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .recent-item:last-child {
+            border-bottom: none;
+        }
+
+        .recent-item-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .recent-item-time {
+            color: var(--text-accent);
+            font-size: 0.8rem;
+        }
+
+        .recent-item-badge {
+            background: var(--accent-gradient);
             color: white;
-            transform: translateY(-2px);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-left: 10px;
+        }
+
+        /* 토스트 메시지 */
+        .toast-container {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-backdrop);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px var(--card-shadow);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 300px;
+            transform: translateX(400px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast .toast-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: white;
+        }
+
+        .toast.success .toast-icon {
+            background: #10b981;
+        }
+
+        .toast.error .toast-icon {
+            background: #ef4444;
+        }
+
+        .toast.info .toast-icon {
+            background: #3b82f6;
+        }
+
+        .toast .toast-message {
+            flex: 1;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .toast .toast-close {
+            background: none;
+            border: none;
+            color: var(--text-accent);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* 푸터 */
         .footer {
-            background: #2d3748;
-            color: white;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-backdrop);
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-primary);
             padding: 25px 30px;
             margin-top: auto;
         }
@@ -384,7 +545,7 @@
         <div class="header-content">
             <div class="company-brand">
                 <i class="fas fa-industry"></i>
-                유니태크(주)
+                UNITECH PORTAL
             </div>
             
             <nav>
@@ -416,7 +577,7 @@
     <main class="main-content">
         <div class="page-title">
             <h1>관리 대시보드</h1>
-            <p class="page-subtitle">유니태크(주) 스마트 제조 관리 시스템에 오신 것을 환영합니다.</p>
+            <p class="page-subtitle">UNITECH PORTAL 실시간 모니터링 대시보드</p>
         </div>
 
         <!-- 생산 관리 섹션 -->
@@ -452,8 +613,26 @@
                             <div class="stat-label">가동 라인</div>
                         </div>
                     </div>
+                    <div class="recent-list">
+                        <h4><i class="fas fa-clock"></i> 최근 활동</h4>
+                        <div class="recent-item">
+                            <span class="recent-item-text">라인 A 생산 완료</span>
+                            <span class="recent-item-badge">완료</span>
+                            <span class="recent-item-time">5분 전</span>
+                        </div>
+                        <div class="recent-item">
+                            <span class="recent-item-text">라인 B 점검 시작</span>
+                            <span class="recent-item-badge">진행중</span>
+                            <span class="recent-item-time">12분 전</span>
+                        </div>
+                        <div class="recent-item">
+                            <span class="recent-item-text">라인 C 재가동</span>
+                            <span class="recent-item-badge">완료</span>
+                            <span class="recent-item-time">25분 전</span>
+                        </div>
+                    </div>
                     <div style="margin-top: 20px;">
-                        <button class="card-action">
+                        <button class="card-action" onclick="showToast('success', '무차별 생산 현황 상세 정보를 불러오고 있습니다.')">
                             <i class="fas fa-arrow-right"></i>
                             상세보기
                         </button>
@@ -486,8 +665,26 @@
                             <div class="stat-label">재검사</div>
                         </div>
                     </div>
+                    <div class="recent-list">
+                        <h4><i class="fas fa-clipboard-check"></i> 최근 검사</h4>
+                        <div class="recent-item">
+                            <span class="recent-item-text">SP-001 품질 검사</span>
+                            <span class="recent-item-badge">합격</span>
+                            <span class="recent-item-time">3분 전</span>
+                        </div>
+                        <div class="recent-item">
+                            <span class="recent-item-text">SP-002 외관 검사</span>
+                            <span class="recent-item-badge">합격</span>
+                            <span class="recent-item-time">8분 전</span>
+                        </div>
+                        <div class="recent-item">
+                            <span class="recent-item-text">SP-003 기능 테스트</span>
+                            <span class="recent-item-badge">재검사</span>
+                            <span class="recent-item-time">15분 전</span>
+                        </div>
+                    </div>
                     <div style="margin-top: 20px;">
-                        <button class="card-action">
+                        <button class="card-action" onclick="showToast('info', '품질 관리 시스템에 접속하시겠습니까?')">
                             <i class="fas fa-arrow-right"></i>
                             상세보기
                         </button>
@@ -529,8 +726,26 @@
                             <div class="stat-label">점검중</div>
                         </div>
                     </div>
+                    <div class="recent-list">
+                        <h4><i class="fas fa-wrench"></i> 최근 유지보수</h4>
+                        <div class="recent-item">
+                            <span class="recent-item-text">CNC-001 예방 점검</span>
+                            <span class="recent-item-badge">완료</span>
+                            <span class="recent-item-time">1시간 전</span>
+                        </div>
+                        <div class="recent-item">
+                            <span class="recent-item-text">PRESS-02 오일 교체</span>
+                            <span class="recent-item-badge">진행중</span>
+                            <span class="recent-item-time">2시간 전</span>
+                        </div>
+                        <div class="recent-item">
+                            <span class="recent-item-text">CONV-03 벨트 조정</span>
+                            <span class="recent-item-badge">완료</span>
+                            <span class="recent-item-time">3시간 전</span>
+                        </div>
+                    </div>
                     <div style="margin-top: 20px;">
-                        <button class="card-action">
+                        <button class="card-action" onclick="showToast('info', '장비 관리 시스템에 접속하시겠습니까?')">
                             <i class="fas fa-arrow-right"></i>
                             상세보기
                         </button>
@@ -563,8 +778,26 @@
                             <div class="stat-label">완료</div>
                         </div>
                     </div>
+                    <div class="recent-list">
+                        <h4><i class="fas fa-headset"></i> 최근 A/S</h4>
+                        <div class="recent-item">
+                            <span class="recent-item-text">고객 A 전원 문제</span>
+                            <span class="recent-item-badge">진행중</span>
+                            <span class="recent-item-time">30분 전</span>
+                        </div>
+                        <div class="recent-item">
+                            <span class="recent-item-text">고객 B 소음 불량</span>
+                            <span class="recent-item-badge">완료</span>
+                            <span class="recent-item-time">1시간 전</span>
+                        </div>
+                        <div class="recent-item">
+                            <span class="recent-item-text">고객 C 뉴즈 교체</span>
+                            <span class="recent-item-badge">완료</span>
+                            <span class="recent-item-time">2시간 전</span>
+                        </div>
+                    </div>
                     <div style="margin-top: 20px;">
-                        <button class="card-action">
+                        <button class="card-action" onclick="showToast('success', 'A/S 관리 시스템에 접속합니다.')">
                             <i class="fas fa-arrow-right"></i>
                             상세보기
                         </button>
@@ -590,6 +823,9 @@
         </div>
     </footer>
 
+    <!-- 토스트 메시지 컨테이너 -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <script>
         // 페이지 로드 시 로그인 상태 확인
         (function() {
@@ -601,65 +837,112 @@
             }
         })();
 
+        // 토스트 메시지 시스템
+        function showToast(type, message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+
+            let icon = '';
+            switch(type) {
+                case 'success': icon = '✓'; break;
+                case 'error': icon = '✗'; break;
+                case 'info': icon = 'i'; break;
+                default: icon = 'i';
+            }
+
+            toast.innerHTML = `
+                <div class="toast-icon">${icon}</div>
+                <div class="toast-message">${message}</div>
+                <button class="toast-close" onclick="closeToast(this)">×</button>
+            `;
+
+            container.appendChild(toast);
+
+            // 애니메이션 트리거
+            setTimeout(() => toast.classList.add('show'), 100);
+
+            // 5초 후 자동 삭제
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    closeToast(toast.querySelector('.toast-close'));
+                }
+            }, 5000);
+        }
+
+        function closeToast(button) {
+            const toast = button.parentNode;
+            toast.classList.remove('show');
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 400);
+        }
+
         // 로그아웃 기능
         function logout() {
-            if (confirm('정말 로그아웃 하시겠습니까?')) {
-                // 세션 정보 제거
+            showToast('info', '로그아웃을 진행합니다...');
+            setTimeout(() => {
                 sessionStorage.removeItem('isLoggedIn');
-                alert('로그아웃되었습니다.');
-                window.location.href = 'index.html';
-            }
+                showToast('success', '로그아웃이 완료되었습니다.');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            }, 1000);
         }
 
         // 섹션 열기
         function openSection(section) {
             switch(section) {
                 case 'production-status':
-                    alert('🏭 생산 현황 페이지\n\n실시간 생산 라인 모니터링 시스템\n(추후 개발 예정)');
+                    showToast('info', '🏭 생산 현황 페이지 - 실시간 생산 라인 모니터링 시스템 (추후 개발 예정)');
                     break;
                 case 'quality-control':
-                    alert('✅ 품질 관리 페이지\n\n품질 검사 및 불량률 관리\n(추후 개발 예정)');
+                    showToast('info', '✅ 품질 관리 페이지 - 품질 검사 및 불량률 관리 (추후 개발 예정)');
                     break;
                 case 'equipment':
-                    alert('🔧 장비 관리 페이지\n\n제조 장비 상태 모니터링\n(추후 개발 예정)');
+                    showToast('info', '🔧 장비 관리 페이지 - 제조 장비 상태 모니터링 (추후 개발 예정)');
                     break;
                 case 'service':
-                    alert('🛠️ A/S 관리 페이지\n\n고객 A/S 요청 및 처리\n(추후 개발 예정)');
+                    showToast('info', '🛠️ A/S 관리 페이지 - 고객 A/S 요청 및 처리 (추후 개발 예정)');
                     break;
                 case 'test':
-                    window.open('test.html', '_blank');
+                    showToast('success', '시스템 테스트 페이지를 새 창에서 엽니다.');
+                    setTimeout(() => window.open('test.html', '_blank'), 500);
                     break;
             }
         }
 
         // 정보 표시
         function showInfo() {
-            alert('🏢 유니태크(주)\n\n스마트 제조 관리 시스템\n서울시 금천구 디지털로 121, 1505 에이스가산타워\n\n© 2024 UniTech Corp. All rights reserved.');
+            showToast('info', '🏢 유니태크(주) - 스마트 제조 관리 시스템 | 서울시 금천구 디지털로 121, 1505 에이스가산타워');
         }
 
         function showSupport() {
-            alert('🛠️ 기술 지원\n\n시스템 문의사항이나 기술 지원이 필요하시면\n관리자에게 문의해주세요.\n\n📧 support@unitech.co.kr');
+            showToast('info', '🛠️ 기술 지원 - 시스템 문의사항이나 기술 지원이 필요하시면 관리자에게 문의해주세요. | 📧 support@unitech.co.kr');
         }
 
         // 페이지 로드 시 환영 메시지
         window.addEventListener('load', function() {
             setTimeout(() => {
+                showToast('success', '🎉 UNITECH PORTAL에 오신 것을 환영합니다! 실시간 대시보드가 준비되었습니다.');
                 console.log('🎉 유니태크(주) 관리시스템에 오신 것을 환영합니다!');
-                console.log('📅 Dashboard updated: 2024-09-16 16:45 KST');
-            }, 1000);
+                console.log('📅 Dashboard updated: 2025-09-23 14:30 KST');
+            }, 1500);
         });
 
         // 네비게이션 메뉴 클릭 처리
         document.querySelectorAll('.nav-item a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
-                
+
                 // 활성 상태 변경
                 document.querySelectorAll('.nav-item a').forEach(l => l.classList.remove('active'));
                 this.classList.add('active');
-                
+
                 const menuName = this.textContent;
-                alert(`📋 ${menuName} 메뉴\n\n해당 기능은 추후 개발 예정입니다.`);
+                showToast('info', `📋 ${menuName} 메뉴 - 해당 기능은 추후 개발 예정입니다.`);
             });
         });
     </script>
