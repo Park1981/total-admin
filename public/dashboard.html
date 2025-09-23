@@ -551,9 +551,9 @@
             <nav>
                 <ul class="nav-menu">
                     <li class="nav-item"><a href="#" class="active">대시보드</a></li>
-                    <li class="nav-item"><a href="#">생산관리</a></li>
-                    <li class="nav-item"><a href="#">장비관리</a></li>
-                    <li class="nav-item"><a href="#">직원관리</a></li>
+                    <li class="nav-item"><a href="#" onclick="openProductManagement()">제품관리</a></li>
+                    <li class="nav-item"><a href="#">납품관리</a></li>
+                    <li class="nav-item"><a href="#">거래처관리</a></li>
                     <li class="nav-item"><a href="#">A/S관리</a></li>
                 </ul>
             </nav>
@@ -580,174 +580,174 @@
             <p class="page-subtitle">UNITECH PORTAL 실시간 모니터링 대시보드</p>
         </div>
 
-        <!-- 생산 관리 섹션 -->
+        <!-- 제품 관리 섹션 -->
         <section class="dashboard-section">
             <div class="section-header">
-                <h2>생산 관리</h2>
-                <i class="fas fa-chart-line"></i>
+                <h2>제품 관리</h2>
+                <i class="fas fa-boxes"></i>
             </div>
             <div class="cards-grid">
-                <div class="dashboard-card" onclick="openSection('production-status')">
+                <div class="dashboard-card" onclick="openProductManagement()">
                     <div class="card-header">
                         <h3 class="card-title">
-                            생산 현황
+                            제품 템플릿
                         </h3>
                         <div class="card-icon">
-                            <i class="fas fa-chart-bar"></i>
+                            <i class="fas fa-cube"></i>
                         </div>
                     </div>
                     <div class="card-content">
-                        실시간 생산 라인 모니터링 및 현황 관리
+                        챔버시스템, 측정장비, 소모품 등 제품 템플릿 및 옵션 관리
                     </div>
                     <div class="card-stats">
                         <div class="stat-item">
-                            <div class="stat-number">87%</div>
-                            <div class="stat-label">가동률</div>
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">템플릿</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number">1,245</div>
-                            <div class="stat-label">일일 생산량</div>
+                            <div class="stat-number">48</div>
+                            <div class="stat-label">옵션</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number">3</div>
-                            <div class="stat-label">가동 라인</div>
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">카테고리</div>
                         </div>
                     </div>
                     <div class="recent-list">
-                        <h4><i class="fas fa-clock"></i> 최근 활동</h4>
+                        <h4><i class="fas fa-plus"></i> 최근 추가</h4>
                         <div class="recent-item">
-                            <span class="recent-item-text">라인 A 생산 완료</span>
-                            <span class="recent-item-badge">완료</span>
-                            <span class="recent-item-time">5분 전</span>
+                            <span class="recent-item-text">대형 챔버 40m³ 옵션</span>
+                            <span class="recent-item-badge">옵션</span>
+                            <span class="recent-item-time">2일 전</span>
                         </div>
                         <div class="recent-item">
-                            <span class="recent-item-text">라인 B 점검 시작</span>
-                            <span class="recent-item-badge">진행중</span>
-                            <span class="recent-item-time">12분 전</span>
+                            <span class="recent-item-text">샘플링펀프 4ch 템플릿</span>
+                            <span class="recent-item-badge">템플릿</span>
+                            <span class="recent-item-time">1주 전</span>
                         </div>
                         <div class="recent-item">
-                            <span class="recent-item-text">라인 C 재가동</span>
-                            <span class="recent-item-badge">완료</span>
-                            <span class="recent-item-time">25분 전</span>
+                            <span class="recent-item-text">멸균기 CLS-60S 모델</span>
+                            <span class="recent-item-badge">템플릿</span>
+                            <span class="recent-item-time">2주 전</span>
                         </div>
                     </div>
                     <div style="margin-top: 20px;">
-                        <button class="card-action" onclick="showToast('success', '무차별 생산 현황 상세 정보를 불러오고 있습니다.')">
+                        <button class="card-action" onclick="openProductManagement()">
                             <i class="fas fa-arrow-right"></i>
-                            상세보기
+                            관리하기
                         </button>
                     </div>
                 </div>
 
-                <div class="dashboard-card" onclick="openSection('quality-control')">
+                <div class="dashboard-card" onclick="openSection('delivery-management')">
                     <div class="card-header">
                         <h3 class="card-title">
-                            품질 관리
+                            납품 관리
                         </h3>
                         <div class="card-icon">
-                            <i class="fas fa-check-circle"></i>
+                            <i class="fas fa-truck"></i>
                         </div>
                     </div>
                     <div class="card-content">
-                        품질 검사 및 불량률 관리 시스템
+                        주문서, 납품서 및 고객별 맞춤 제품 납품 관리
                     </div>
                     <div class="card-stats">
                         <div class="stat-item">
-                            <div class="stat-number">98.2%</div>
-                            <div class="stat-label">합격률</div>
+                            <div class="stat-number">15</div>
+                            <div class="stat-label">진행중</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number">23</div>
-                            <div class="stat-label">검사 완료</div>
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">준비중</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number">2</div>
-                            <div class="stat-label">재검사</div>
+                            <div class="stat-number">42</div>
+                            <div class="stat-label">완료</div>
                         </div>
                     </div>
                     <div class="recent-list">
-                        <h4><i class="fas fa-clipboard-check"></i> 최근 검사</h4>
+                        <h4><i class="fas fa-shipping-fast"></i> 최근 납품</h4>
                         <div class="recent-item">
-                            <span class="recent-item-text">SP-001 품질 검사</span>
-                            <span class="recent-item-badge">합격</span>
-                            <span class="recent-item-time">3분 전</span>
+                            <span class="recent-item-text">A사 대형 챔버 26m³</span>
+                            <span class="recent-item-badge">납품완료</span>
+                            <span class="recent-item-time">1일 전</span>
                         </div>
                         <div class="recent-item">
-                            <span class="recent-item-text">SP-002 외관 검사</span>
-                            <span class="recent-item-badge">합격</span>
-                            <span class="recent-item-time">8분 전</span>
+                            <span class="recent-item-text">B연구원 소형 9ch</span>
+                            <span class="recent-item-badge">제작중</span>
+                            <span class="recent-item-time">3일 전</span>
                         </div>
                         <div class="recent-item">
-                            <span class="recent-item-text">SP-003 기능 테스트</span>
-                            <span class="recent-item-badge">재검사</span>
-                            <span class="recent-item-time">15분 전</span>
+                            <span class="recent-item-text">C대학 샘플링펀프</span>
+                            <span class="recent-item-badge">설치완료</span>
+                            <span class="recent-item-time">1주 전</span>
                         </div>
                     </div>
                     <div style="margin-top: 20px;">
-                        <button class="card-action" onclick="showToast('info', '품질 관리 시스템에 접속하시겠습니까?')">
+                        <button class="card-action" onclick="showToast('info', '납품 관리 시스템에 접속하시겠습니까?')">
                             <i class="fas fa-arrow-right"></i>
-                            상세보기
+                            관리하기
                         </button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 운영 관리 섹션 -->
+        <!-- 거래처 및 A/S 관리 섹션 -->
         <section class="dashboard-section">
             <div class="section-header">
-                <h2>운영 관리</h2>
-                <i class="fas fa-cogs"></i>
+                <h2>거래처 및 A/S 관리</h2>
+                <i class="fas fa-handshake"></i>
             </div>
             <div class="cards-grid">
-                <div class="dashboard-card" onclick="openSection('equipment')">
+                <div class="dashboard-card" onclick="openSection('partner-management')">
                     <div class="card-header">
                         <h3 class="card-title">
-                            장비 관리
+                            거래처 관리
                         </h3>
                         <div class="card-icon">
-                            <i class="fas fa-tools"></i>
+                            <i class="fas fa-building"></i>
                         </div>
                     </div>
                     <div class="card-content">
-                        제조 장비 상태 모니터링 및 유지보수 관리
+                        고객사, 공급업체 및 협력업체 정보 관리
                     </div>
                     <div class="card-stats">
                         <div class="stat-item">
-                            <div class="stat-number">12</div>
-                            <div class="stat-label">총 장비</div>
+                            <div class="stat-number">128</div>
+                            <div class="stat-label">총 거래처</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number">11</div>
-                            <div class="stat-label">정상</div>
+                            <div class="stat-number">85</div>
+                            <div class="stat-label">고객사</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number">1</div>
-                            <div class="stat-label">점검중</div>
+                            <div class="stat-number">43</div>
+                            <div class="stat-label">공급업체</div>
                         </div>
                     </div>
                     <div class="recent-list">
-                        <h4><i class="fas fa-wrench"></i> 최근 유지보수</h4>
+                        <h4><i class="fas fa-user-plus"></i> 최근 등록</h4>
                         <div class="recent-item">
-                            <span class="recent-item-text">CNC-001 예방 점검</span>
-                            <span class="recent-item-badge">완료</span>
-                            <span class="recent-item-time">1시간 전</span>
+                            <span class="recent-item-text">한국환경산업기술원</span>
+                            <span class="recent-item-badge">고객사</span>
+                            <span class="recent-item-time">2일 전</span>
                         </div>
                         <div class="recent-item">
-                            <span class="recent-item-text">PRESS-02 오일 교체</span>
-                            <span class="recent-item-badge">진행중</span>
-                            <span class="recent-item-time">2시간 전</span>
+                            <span class="recent-item-text">삼성전자 연구소</span>
+                            <span class="recent-item-badge">고객사</span>
+                            <span class="recent-item-time">1주 전</span>
                         </div>
                         <div class="recent-item">
-                            <span class="recent-item-text">CONV-03 벨트 조정</span>
-                            <span class="recent-item-badge">완료</span>
-                            <span class="recent-item-time">3시간 전</span>
+                            <span class="recent-item-text">전자부품 전문업체</span>
+                            <span class="recent-item-badge">공급업체</span>
+                            <span class="recent-item-time">2주 전</span>
                         </div>
                     </div>
                     <div style="margin-top: 20px;">
-                        <button class="card-action" onclick="showToast('info', '장비 관리 시스템에 접속하시겠습니까?')">
+                        <button class="card-action" onclick="showToast('info', '거래처 관리 시스템에 접속하시겠습니까?')">
                             <i class="fas fa-arrow-right"></i>
-                            상세보기
+                            관리하기
                         </button>
                     </div>
                 </div>
@@ -892,17 +892,22 @@
             }, 1000);
         }
 
+        // 제품관리 페이지 열기
+        function openProductManagement() {
+            showToast('success', '📦 제품관리 시스템에 접속합니다...');
+            setTimeout(() => {
+                window.location.href = 'products.html';
+            }, 800);
+        }
+
         // 섹션 열기
         function openSection(section) {
             switch(section) {
-                case 'production-status':
-                    showToast('info', '🏭 생산 현황 페이지 - 실시간 생산 라인 모니터링 시스템 (추후 개발 예정)');
+                case 'delivery-management':
+                    showToast('info', '🚚 납품 관리 페이지 - 주문서 및 납품서 관리 (추후 개발 예정)');
                     break;
-                case 'quality-control':
-                    showToast('info', '✅ 품질 관리 페이지 - 품질 검사 및 불량률 관리 (추후 개발 예정)');
-                    break;
-                case 'equipment':
-                    showToast('info', '🔧 장비 관리 페이지 - 제조 장비 상태 모니터링 (추후 개발 예정)');
+                case 'partner-management':
+                    showToast('info', '🏢 거래처 관리 페이지 - 고객사 및 공급업체 관리 (추후 개발 예정)');
                     break;
                 case 'service':
                     showToast('info', '🛠️ A/S 관리 페이지 - 고객 A/S 요청 및 처리 (추후 개발 예정)');
@@ -935,6 +940,11 @@
         // 네비게이션 메뉴 클릭 처리
         document.querySelectorAll('.nav-item a').forEach(link => {
             link.addEventListener('click', function(e) {
+                // 제품관리는 특별 처리
+                if (this.textContent === '제품관리') {
+                    return; // onclick 함수가 처리하도록 함
+                }
+
                 e.preventDefault();
 
                 // 활성 상태 변경
@@ -942,7 +952,9 @@
                 this.classList.add('active');
 
                 const menuName = this.textContent;
-                showToast('info', `📋 ${menuName} 메뉴 - 해당 기능은 추후 개발 예정입니다.`);
+                if (menuName !== '대시보드') {
+                    showToast('info', `📋 ${menuName} 메뉴 - 해당 기능은 추후 개발 예정입니다.`);
+                }
             });
         });
     </script>

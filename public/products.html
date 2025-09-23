@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNITECH PORTAL - 제품관리</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* CSS Variables for Theme Support */
+        :root {
+            --dashboard-bg-gradient: linear-gradient(135deg, #2c1810 0%, #8b4513 25%, #4a0e4e 75%, #1a1a2e 100%);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-backdrop: blur(20px);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #e2e8f0;
+            --text-accent: #94a3b8;
+            --card-shadow: rgba(0, 0, 0, 0.3);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --input-bg: rgba(255, 255, 255, 0.1);
+            --input-border: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --dashboard-bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 75%, #94a3b8 100%);
+                --glass-bg: rgba(255, 255, 255, 0.85);
+                --glass-backdrop: blur(15px);
+                --glass-border: rgba(0, 0, 0, 0.1);
+                --text-primary: #1e293b;
+                --text-secondary: #334155;
+                --text-accent: #64748b;
+                --card-shadow: rgba(0, 0, 0, 0.1);
+                --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+                --input-bg: rgba(255, 255, 255, 0.7);
+                --input-border: rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dashboard-bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 헤더 스타일 */
+        .header {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-backdrop);
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 0 30px;
+            box-shadow: 0 8px 32px var(--card-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .company-brand {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .company-brand i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--text-primary);
+        }
+
+        .back-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: var(--glass-backdrop);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--card-shadow);
+        }
+
+        /* 메인 컨텐츠 */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            color: var(--text-primary);
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            backdrop-filter: var(--glass-backdrop);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--card-shadow);
+        }
+
+        /* 컨텐츠 컨테이너 */
+        .content-container {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-backdrop);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 32px 64px var(--card-shadow);
+            overflow: hidden;
+        }
+
+        /* 탭 네비게이션 */
+        .tab-nav {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 20px;
+            background: none;
+            border: none;
+            color: var(--text-accent);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: var(--text-primary);
+            border-bottom-color: #4facfe;
+            background: rgba(79, 172, 254, 0.1);
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* 탭 컨텐츠 */
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* 목록 스타일 */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px var(--card-shadow);
+            border-color: rgba(79, 172, 254, 0.3);
+        }
+
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .product-code {
+            font-size: 0.85rem;
+            color: var(--text-accent);
+            font-family: 'Courier New', monospace;
+        }
+
+        .product-category {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .product-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .product-options {
+            margin-bottom: 20px;
+        }
+
+        .options-title {
+            font-size: 0.85rem;
+            color: var(--text-accent);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .option-tag {
+            display: inline-block;
+            background: rgba(79, 172, 254, 0.1);
+            color: #4facfe;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            margin-right: 8px;
+            margin-bottom: 4px;
+            border: 1px solid rgba(79, 172, 254, 0.2);
+        }
+
+        /* 토스트 메시지 */
+        .toast-container {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-backdrop);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px var(--card-shadow);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 300px;
+            transform: translateX(400px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast .toast-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: white;
+        }
+
+        .toast.success .toast-icon { background: #10b981; }
+        .toast.error .toast-icon { background: #ef4444; }
+        .toast.info .toast-icon { background: #3b82f6; }
+
+        .toast .toast-message {
+            flex: 1;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .toast .toast-close {
+            background: none;
+            border: none;
+            color: var(--text-accent);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 15px;
+            }
+
+            .main-content {
+                padding: 20px 15px;
+            }
+
+            .page-header {
+                flex-direction: column;
+                gap: 20px;
+                align-items: stretch;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-nav {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header-content">
+            <div class="company-brand">
+                <i class="fas fa-boxes"></i>
+                UNITECH PORTAL
+            </div>
+
+            <div class="breadcrumb">
+                <a href="dashboard.html">대시보드</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>제품관리</span>
+            </div>
+
+            <button class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                대시보드로
+            </button>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="main-content">
+        <!-- 페이지 헤더 -->
+        <div class="page-header">
+            <div>
+                <h1>제품관리</h1>
+                <p class="page-subtitle">제품 템플릿 및 옵션 관리 시스템</p>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-secondary" onclick="refreshProducts()">
+                    <i class="fas fa-sync-alt"></i>
+                    새로고침
+                </button>
+                <button class="btn btn-primary" onclick="showAddProductForm()">
+                    <i class="fas fa-plus"></i>
+                    새 제품 추가
+                </button>
+            </div>
+        </div>
+
+        <!-- 컨텐츠 컨테이너 -->
+        <div class="content-container">
+            <!-- 탭 네비게이션 -->
+            <div class="tab-nav">
+                <button class="tab-btn active" onclick="switchTab('templates')">
+                    <i class="fas fa-cube"></i>
+                    제품 템플릿
+                </button>
+                <button class="tab-btn" onclick="switchTab('add')">
+                    <i class="fas fa-plus-circle"></i>
+                    제품 추가
+                </button>
+            </div>
+
+            <!-- 제품 목록 탭 -->
+            <div id="templates-tab" class="tab-content active">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 style="color: var(--text-primary); margin: 0;">등록된 제품 템플릿</h3>
+                    <span id="product-count" style="color: var(--text-accent); font-size: 0.9rem;">총 0개</span>
+                </div>
+
+                <div id="products-grid" class="product-grid">
+                    <!-- 제품 목록이 여기에 로드됩니다 -->
+                </div>
+            </div>
+
+            <!-- 제품 추가 탭 -->
+            <div id="add-tab" class="tab-content">
+                <h3 style="color: var(--text-primary); margin-bottom: 20px;">새 제품 템플릿 추가</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 30px;">
+                    기본 제품 템플릿을 생성하고 다양한 옵션을 설정할 수 있습니다.
+                </p>
+
+                <!-- 제품 추가 폼이 여기에 들어갑니다 -->
+                <div style="text-align: center; padding: 60px 20px;">
+                    <i class="fas fa-hammer" style="font-size: 3rem; color: var(--text-accent); margin-bottom: 20px;"></i>
+                    <h4 style="color: var(--text-primary); margin-bottom: 10px;">제품 추가 폼 준비중</h4>
+                    <p style="color: var(--text-secondary);">곧 제품 추가 기능이 제공됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 토스트 메시지 컨테이너 -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // 페이지 로드 시 로그인 상태 확인
+        (function() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            if (!isLoggedIn) {
+                showToast('error', '로그인이 필요합니다.');
+                setTimeout(() => {
+                    window.location.replace('index.html');
+                }, 1500);
+                return;
+            }
+        })();
+
+        // 토스트 메시지 시스템
+        function showToast(type, message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+
+            let icon = '';
+            switch(type) {
+                case 'success': icon = '✓'; break;
+                case 'error': icon = '✗'; break;
+                case 'info': icon = 'i'; break;
+                default: icon = 'i';
+            }
+
+            toast.innerHTML = `
+                <div class="toast-icon">${icon}</div>
+                <div class="toast-message">${message}</div>
+                <button class="toast-close" onclick="closeToast(this)">×</button>
+            `;
+
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 100);
+
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    closeToast(toast.querySelector('.toast-close'));
+                }
+            }, 5000);
+        }
+
+        function closeToast(button) {
+            const toast = button.parentNode;
+            toast.classList.remove('show');
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 400);
+        }
+
+        // 뒤로가기
+        function goBack() {
+            showToast('info', '대시보드로 이동합니다...');
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 800);
+        }
+
+        // 탭 전환
+        function switchTab(tabName) {
+            // 모든 탭 버튼 비활성화
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // 모든 탭 컨텐츠 숨기기
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // 선택된 탭 활성화
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            showToast('info', `${tabName === 'templates' ? '제품 템플릿' : '제품 추가'} 탭으로 전환되었습니다.`);
+        }
+
+        // 제품 새로고침
+        function refreshProducts() {
+            showToast('info', '제품 목록을 새로고침합니다...');
+            loadProducts();
+        }
+
+        // 제품 추가 폼 표시
+        function showAddProductForm() {
+            switchTab('add');
+            document.querySelectorAll('.tab-btn')[1].classList.add('active');
+            document.querySelectorAll('.tab-btn')[0].classList.remove('active');
+            showToast('success', '제품 추가 폼으로 이동합니다.');
+        }
+
+        // 제품 목록 로드 (샘플 데이터)
+        function loadProducts() {
+            const sampleProducts = [
+                {
+                    template_code: 'CH-LARGE',
+                    template_name: '대형 챔버 시스템',
+                    category: 'CHAMBER',
+                    description: '대형 건축 내장재, 가구, 가전제품 등 대형 시험체의 VOC 및 포름알데히드 분석 솔루션',
+                    options: ['24m³', '26m³', '40m³', '15~30°C', '자동배기']
+                },
+                {
+                    template_code: 'CH-SMALL',
+                    template_name: '소형 챔버 시스템',
+                    category: 'CHAMBER',
+                    description: '건축자재 및 가구 VOC/포름알데히드 포집장치',
+                    options: ['9ch', '12ch', '18ch', '항온조', '타이머']
+                },
+                {
+                    template_code: 'PUMP-SAMPLING',
+                    template_name: '샘플링펌프',
+                    category: 'EQUIPMENT',
+                    description: '각종 시험에서의 공기 포집 최고의 솔루션',
+                    options: ['2ch', '4ch', '디지털유량계', '적산유량제어']
+                },
+                {
+                    template_code: 'AUTO-CLAVE',
+                    template_name: '멸균기(Auto Clave)',
+                    category: 'AUTOCLAVE',
+                    description: '멸균기(AUTOCLAVE) 시리즈',
+                    options: ['40L', '60L', '100~137°C', 'ONE TOUCH LOCK']
+                }
+            ];
+
+            const grid = document.getElementById('products-grid');
+            const productCount = document.getElementById('product-count');
+
+            grid.innerHTML = '';
+
+            sampleProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-header">
+                        <div>
+                            <div class="product-title">${product.template_name}</div>
+                            <div class="product-code">${product.template_code}</div>
+                        </div>
+                        <div class="product-category">${product.category}</div>
+                    </div>
+                    <div class="product-description">${product.description}</div>
+                    <div class="product-options">
+                        <div class="options-title">사용 가능한 옵션:</div>
+                        ${product.options.map(option => `<span class="option-tag">${option}</span>`).join('')}
+                    </div>
+                `;
+                grid.appendChild(productCard);
+            });
+
+            productCount.textContent = `총 ${sampleProducts.length}개`;
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('load', function() {
+            showToast('success', '🎯 제품관리 시스템에 오신 것을 환영합니다!');
+            setTimeout(() => {
+                loadProducts();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

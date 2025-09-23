@@ -49,13 +49,15 @@ supabase db pull       # Pull latest schema changes
 
 **Supabase Integration**
 - Centralized client in `backend/lib/supabaseClient.js`
-- Currently uses 'customers' table as primary entity (acting as employees)
+- Currently uses 'employees' table for authentication and user management
+- Migration completed: customers → employees (2025-09-17)
 - Environment variables: SUPABASE_URL, SUPABASE_ANON_KEY
 - TypeScript types auto-generated in src/types/db.ts
 
 **API Design**
 - RESTful endpoints under /api prefix (routed through backend/routes/)
 - Health check at /healthz endpoint
+- Login endpoint: POST /api/employees/login (username/password auth)
 - Static file serving from public/ directory
 - CORS enabled for cross-origin requests
 - Modular route organization
@@ -107,7 +109,9 @@ total-admin/
 
 ### Important Notes
 - Server runs on port 3001 by default (configurable via PORT env var)
-- Database operations currently focused on 'customers' table
+- Database operations use 'employees' table (migrated from customers 2025-09-17)
+- Login credentials: admin/admin123, manager1/manager123, staff1/staff123, staff2/staff123, jpark/jpark123
+- Frontend calls Render API: https://total-admin.onrender.com/api/employees/login
 - Jest test framework configured with ES modules support
 - MVC pattern separates concerns for better maintainability
 - Pipeline script requires PowerShell execution policy bypass
@@ -120,3 +124,19 @@ total-admin/
 - `docs/PLAN.md` & `docs/DB_PLAN.md`: 원래 기획 의도
 - **교훈**: 2025-09-18 로그인 문제 해결 과정에서 docs 확인 후 올바른 아키텍처 발견
 - **원칙**: 기존 문서가 정답을 담고 있을 가능성이 높음 - 새로 만들기 전에 문서부터!
+
+## 현재 배포 상태 (2025-09-18)
+
+### 배포 URL
+- **프론트엔드**: https://total-admin-brown.vercel.app (Vercel)
+- **백엔드 API**: https://total-admin.onrender.com (Render)
+- **GitHub**: https://github.com/Park1981/total-admin
+- **데이터베이스**: Supabase (tgxmccwadzxjnxxusupw.supabase.co)
+
+### 현재 구현된 기능
+- ✅ 로그인 시스템 (employees 테이블 기반)
+- ✅ 글래스모피즘 디자인 (다크/라이트 테마 자동 감지)
+- ✅ 반응형 레이아웃
+- ✅ UNITECH PORTAL 브랜딩
+- ✅ MVC 구조 백엔드 API
+
