@@ -463,8 +463,23 @@
 
         .form-group label {
             color: var(--text-primary);
-            font-weight: 500;
-            font-size: 0.95rem;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        /* placeholder 색상 개선 */
+        .form-group input::placeholder,
+        .form-group select::placeholder,
+        .form-group textarea::placeholder,
+        .spec-key::placeholder,
+        .spec-value::placeholder,
+        .option-type::placeholder,
+        .option-type-label::placeholder,
+        .option-value::placeholder,
+        .option-label::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.8;
         }
 
         .form-group input,
@@ -725,9 +740,30 @@
             </div>
 
             <div class="breadcrumb">
-                <a href="dashboard.html">대시보드</a>
+                <a href="dashboard.html">
+                    <i class="fas fa-tachometer-alt"></i>
+                    대시보드
+                </a>
                 <i class="fas fa-chevron-right"></i>
-                <span>제품관리</span>
+                <a href="products.html" style="color: var(--text-primary); font-weight: 600;">
+                    <i class="fas fa-cube"></i>
+                    제품관리
+                </a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="#" onclick="alert('납품관리 준비중')" style="opacity: 0.6;">
+                    <i class="fas fa-truck"></i>
+                    납품관리
+                </a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="#" onclick="alert('거래처관리 준비중')" style="opacity: 0.6;">
+                    <i class="fas fa-handshake"></i>
+                    거래처관리
+                </a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="#" onclick="alert('A/S관리 준비중')" style="opacity: 0.6;">
+                    <i class="fas fa-tools"></i>
+                    A/S관리
+                </a>
             </div>
 
             <button class="back-btn" onclick="goBack()">
@@ -801,19 +837,6 @@
 
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="templateCode">템플릿 코드 *</label>
-                                <input type="text" id="templateCode" name="template_code"
-                                       placeholder="예: CH-MEDIUM" required>
-                                <small>영문 대문자, 숫자, 하이픈 사용 권장</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="templateName">제품명 *</label>
-                                <input type="text" id="templateName" name="template_name"
-                                       placeholder="예: 중형 챔버 시스템" required>
-                            </div>
-
-                            <div class="form-group">
                                 <label for="category">카테고리 *</label>
                                 <select id="category" name="category" required>
                                     <option value="">카테고리 선택</option>
@@ -830,6 +853,19 @@
                                     <option value="false">일반 제품</option>
                                     <option value="true">소모품</option>
                                 </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="templateCode">템플릿 코드 *</label>
+                                <input type="text" id="templateCode" name="template_code"
+                                       placeholder="예: CH-MEDIUM" required>
+                                <small>영문 대문자, 숫자, 하이픈 사용 권장</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="templateName">제품명 *</label>
+                                <input type="text" id="templateName" name="template_name"
+                                       placeholder="예: 중형 챔버 시스템" required>
                             </div>
                         </div>
 
@@ -1019,65 +1055,141 @@
             showToast('success', '제품 추가 폼으로 이동합니다.');
         }
 
-        // 제품 목록 로드 (샘플 데이터)
-        function loadProducts() {
-            const sampleProducts = [
-                {
-                    template_code: 'CH-LARGE',
-                    template_name: '대형 챔버 시스템',
-                    category: 'CHAMBER',
-                    description: '대형 건축 내장재, 가구, 가전제품 등 대형 시험체의 VOC 및 포름알데히드 분석 솔루션',
-                    options: ['24m³', '26m³', '40m³', '15~30°C', '자동배기']
-                },
-                {
-                    template_code: 'CH-SMALL',
-                    template_name: '소형 챔버 시스템',
-                    category: 'CHAMBER',
-                    description: '건축자재 및 가구 VOC/포름알데히드 포집장치',
-                    options: ['9ch', '12ch', '18ch', '항온조', '타이머']
-                },
-                {
-                    template_code: 'PUMP-SAMPLING',
-                    template_name: '샘플링펌프',
-                    category: 'EQUIPMENT',
-                    description: '각종 시험에서의 공기 포집 최고의 솔루션',
-                    options: ['2ch', '4ch', '디지털유량계', '적산유량제어']
-                },
-                {
-                    template_code: 'AUTO-CLAVE',
-                    template_name: '멸균기(Auto Clave)',
-                    category: 'AUTOCLAVE',
-                    description: '멸균기(AUTOCLAVE) 시리즈',
-                    options: ['40L', '60L', '100~137°C', 'ONE TOUCH LOCK']
-                }
-            ];
-
+        // 제품 목록 로드 (실제 API 데이터)
+        async function loadProducts() {
             const grid = document.getElementById('products-grid');
             const productCount = document.getElementById('product-count');
 
-            grid.innerHTML = '';
+            // 로딩 표시
+            grid.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-secondary);"><i class="fas fa-spinner fa-spin"></i> 제품 목록을 불러오는 중...</div>';
 
-            sampleProducts.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card';
-                productCard.innerHTML = `
-                    <div class="product-header">
-                        <div>
-                            <div class="product-title">${product.template_name}</div>
-                            <div class="product-code">${product.template_code}</div>
+            try {
+                // API에서 제품 템플릿 데이터 가져오기
+                const response = await fetch('/api/products/templates');
+                const result = await response.json();
+
+                if (!result.success) {
+                    throw new Error(result.message || '제품 목록을 불러올 수 없습니다.');
+                }
+
+                const products = result.data;
+                grid.innerHTML = '';
+
+                if (products.length === 0) {
+                    grid.innerHTML = `
+                        <div style="text-align: center; padding: 60px 20px;">
+                            <i class="fas fa-cube" style="font-size: 3rem; color: var(--text-accent); margin-bottom: 20px;"></i>
+                            <h4 style="color: var(--text-primary); margin-bottom: 10px;">등록된 제품이 없습니다</h4>
+                            <p style="color: var(--text-secondary);">새 제품 추가 탭에서 제품을 등록해보세요.</p>
                         </div>
-                        <div class="product-category">${product.category}</div>
-                    </div>
-                    <div class="product-description">${product.description}</div>
-                    <div class="product-options">
-                        <div class="options-title">사용 가능한 옵션:</div>
-                        ${product.options.map(option => `<span class="option-tag">${option}</span>`).join('')}
+                    `;
+                    productCount.textContent = '총 0개';
+                    return;
+                }
+
+                // 각 제품에 대해 카드 생성
+                products.forEach(product => {
+                    // 옵션들을 사용자 친화적으로 변환
+                    const optionLabels = [];
+                    if (product.product_options && product.product_options.length > 0) {
+                        product.product_options.forEach(option => {
+                            optionLabels.push(option.option_label);
+                        });
+                    }
+
+                    // 기본 사양도 옵션으로 표시
+                    if (product.base_specifications) {
+                        Object.entries(product.base_specifications).forEach(([key, value]) => {
+                            optionLabels.push(`${key}: ${value}`);
+                        });
+                    }
+
+                    // 카테고리 한글명 변환
+                    const categoryNames = {
+                        'CHAMBER': '챔버시스템',
+                        'EQUIPMENT': '측정장비',
+                        'PARTS': '소모품',
+                        'AUTOCLAVE': '멸균기'
+                    };
+
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.innerHTML = `
+                        <div class="product-header">
+                            <div>
+                                <div class="product-title">${product.template_name}</div>
+                                <div class="product-code">${product.template_code}</div>
+                            </div>
+                            <div class="product-category">${categoryNames[product.category] || product.category}</div>
+                        </div>
+                        <div class="product-description">${product.description || '설명이 없습니다.'}</div>
+                        <div class="product-options">
+                            <div class="options-title">사용 가능한 옵션:</div>
+                            ${optionLabels.length > 0
+                                ? optionLabels.map(option => `<span class="option-tag">${option}</span>`).join('')
+                                : '<span style="color: var(--text-accent); font-style: italic;">옵션 없음</span>'
+                            }
+                        </div>
+                        <div class="product-actions" style="margin-top: 15px; display: flex; gap: 10px;">
+                            <button class="btn-edit-product" onclick="editProduct('${product.template_id}')" style="padding: 6px 12px; border: 1px solid var(--glass-border); background: rgba(59, 130, 246, 0.1); color: #3b82f6; border-radius: 4px; font-size: 0.85rem; cursor: pointer;">
+                                <i class="fas fa-edit"></i> 수정
+                            </button>
+                            <button class="btn-delete-product" onclick="deleteProduct('${product.template_id}', '${product.template_name}')" style="padding: 6px 12px; border: 1px solid var(--glass-border); background: rgba(239, 68, 68, 0.1); color: #ef4444; border-radius: 4px; font-size: 0.85rem; cursor: pointer;">
+                                <i class="fas fa-trash"></i> 삭제
+                            </button>
+                        </div>
+                    `;
+                    grid.appendChild(productCard);
+                });
+
+                productCount.textContent = `총 ${products.length}개`;
+
+            } catch (error) {
+                console.error('제품 목록 로드 오류:', error);
+                grid.innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ef4444; margin-bottom: 20px;"></i>
+                        <h4 style="color: var(--text-primary); margin-bottom: 10px;">제품 목록을 불러올 수 없습니다</h4>
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">${error.message}</p>
+                        <button onclick="loadProducts()" style="padding: 10px 20px; background: var(--accent-gradient); color: white; border: none; border-radius: 6px; cursor: pointer;">
+                            <i class="fas fa-retry"></i> 다시 시도
+                        </button>
                     </div>
                 `;
-                grid.appendChild(productCard);
-            });
+                productCount.textContent = '로드 실패';
+                showToast('error', '제품 목록 로드 실패: ' + error.message);
+            }
+        }
 
-            productCount.textContent = `총 ${sampleProducts.length}개`;
+        // 제품 수정 (임시 구현)
+        function editProduct(templateId) {
+            showToast('info', '제품 수정 기능은 곧 구현될 예정입니다.');
+        }
+
+        // 제품 삭제
+        async function deleteProduct(templateId, templateName) {
+            if (!confirm(`"${templateName}" 제품을 정말 삭제하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/products/templates/${templateId}`, {
+                    method: 'DELETE'
+                });
+
+                const result = await response.json();
+
+                if (!result.success) {
+                    throw new Error(result.message || '제품 삭제에 실패했습니다.');
+                }
+
+                showToast('success', `"${templateName}" 제품이 삭제되었습니다.`);
+                loadProducts(); // 목록 새로고침
+
+            } catch (error) {
+                console.error('제품 삭제 오류:', error);
+                showToast('error', '제품 삭제 실패: ' + error.message);
+            }
         }
 
         // 페이지 로드 시 초기화

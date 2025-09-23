@@ -152,7 +152,7 @@
         .input-icon {
             position: absolute;
             right: 15px;
-            top: 50%;
+            top: calc(50% + 12px);  /* label 높이 보정 */
             transform: translateY(-50%);
             color: var(--login-text-light);
             font-size: 1.1rem;
@@ -393,15 +393,6 @@
                 </div>
             </form>
 
-            <div class="test-link">
-                <a href="test.html">
-                    <i class="fas fa-flask"></i>
-                    시스템 연동 테스트 페이지
-                </a>
-                <div style="margin-top: 15px; color: #999; font-size: 0.8rem;">
-                    📅 Last updated: 2024-09-16 16:45 KST
-                </div>
-            </div>
         </div>
     </div>
 
