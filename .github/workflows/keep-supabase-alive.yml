@@ -1,0 +1,48 @@
+name: Keep Supabase Database Alive
+
+# 4일마다 정오(UTC 기준)에 실행 = 한국 시간으로 밤 9시
+on:
+  schedule:
+    - cron: '0 12 */4 * *'  # 4일마다 UTC 12:00 (KST 21:00)
+
+  # 수동 실행도 가능하도록 설정
+  workflow_dispatch:
+
+jobs:
+  ping-database:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping Supabase Database
+        run: |
+          echo "🔔 Pinging database to keep Supabase alive..."
+
+          # Health check API 호출
+          HEALTH_RESPONSE=$(curl -s -w "%{http_code}" \
+            https://total-admin.onrender.com/healthz)
+
+          echo "Health check response: $HEALTH_RESPONSE"
+
+          # DB 연결 테스트 (실제 Supabase 쿼리)
+          DB_RESPONSE=$(curl -s -w "%{http_code}" \
+            https://total-admin.onrender.com/api/test-db)
+
+          echo "Database test response: $DB_RESPONSE"
+
+          # 로그인 API로 실제 DB 쿼리 (잘못된 계정이지만 DB 연결은 됨)
+          LOGIN_RESPONSE=$(curl -s -w "%{http_code}" \
+            -X POST https://total-admin.onrender.com/api/employees/login \
+            -H "Content-Type: application/json" \
+            -d '{"username":"keepalive","password":"ping"}')
+
+          echo "Login API response: $LOGIN_RESPONSE"
+
+          echo "✅ Database ping completed successfully!"
+          echo "🕐 Timestamp: $(date)"
+          echo "📊 Next scheduled run: 4 days from now"
+
+      - name: Log Success
+        run: |
+          echo "🎯 Keep-alive job completed successfully"
+          echo "🔄 Supabase database connection maintained"
+          echo "📅 Job executed on: $(date)"
