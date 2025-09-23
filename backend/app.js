@@ -7,8 +7,21 @@ import apiRouter from './routes/index.js';
 
 const app = express();
 
+// CORS 설정
+const corsOptions = {
+  origin: [
+    'https://total-admin-brown.vercel.app',
+    'http://localhost:3001',
+    'http://localhost:3000',
+    'http://127.0.0.1:3001'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static('public')); // Serve static files
 

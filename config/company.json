@@ -1,0 +1,52 @@
+{
+  "company": {
+    "name": {
+      "ko": "유니태크(주)",
+      "en": "UNITECH Co., Ltd."
+    },
+    "website": "unitechco.co.kr",
+    "contact": {
+      "email": "unitech@unitechco.co.kr",
+      "phone": "02-534-1430",
+      "fax": "02-534-1432"
+    },
+    "address": {
+      "ko": {
+        "full": "서울특별시 금천구 디지털로 121, 에이스가산타워 1505호",
+        "street": "디지털로 121",
+        "building": "에이스가산타워 1505호",
+        "district": "금천구",
+        "city": "서울특별시",
+        "postalCode": "08505"
+      },
+      "en": {
+        "full": "1505, Ace Gasan Tower, 121, Digital-ro, Geumcheon-gu, Seoul, 08505, Rep. of Korea",
+        "street": "121, Digital-ro",
+        "building": "1505, Ace Gasan Tower",
+        "district": "Geumcheon-gu",
+        "city": "Seoul",
+        "postalCode": "08505",
+        "country": "Republic of Korea"
+      }
+    },
+    "business": {
+      "type": "manufacturing",
+      "specialties": [
+        "챔버시스템",
+        "측정장비",
+        "맞춤형 제조",
+        "소모품",
+        "A/S 서비스"
+      ],
+      "description": {
+        "ko": "VOC 및 포름알데히드 측정용 챔버시스템, 샘플링펌프 등 맞춤형 제조업체",
+        "en": "Custom manufacturer of chamber systems for VOC and formaldehyde measurement, sampling pumps, and related equipment"
+      }
+    },
+    "portal": {
+      "name": "UNITECH PORTAL",
+      "version": "1.0.0",
+      "description": "유니태크(주) 통합 관리 시스템"
+    }
+  }
+}

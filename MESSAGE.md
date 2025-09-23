@@ -1,0 +1,3 @@
+Failed to load resource: the server responded with a status of 404 ()Understand this error
+(index):1 Access to fetch at 'https://total-admin.onrender.com/api/employees/login' from origin 'https://total-admin-brown.vercel.app' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.Understand this error
+total-admin.onrender.com/api/employees/login:1  Failed to load resource: net::ERR_FAILED

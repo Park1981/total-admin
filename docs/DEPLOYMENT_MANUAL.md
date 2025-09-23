@@ -1,4 +1,5 @@
-# 🚀 유니텍 관리시스템 배포 메뉴얼
+# 🚀 유니태크(주) 관리시스템 배포 메뉴얼
+> UNITECH Co., Ltd. - UNITECH PORTAL 배포 가이드
 
 ## 📋 프로젝트 개요
 
@@ -348,33 +349,67 @@ npm run dbpush     # DB 마이그레이션
 
 ---
 
-## 📊 API 엔드포인트
+## 📊 API 엔드포인트 (2025-09-23 업데이트)
 
 ### 현재 구현된 API
+#### 시스템 관리
 - `GET /healthz` - 서버 상태 확인
 - `GET /api` - API 정보
+
+#### 인증 시스템
+- `POST /api/employees/login` - 로그인 (username/password)
 - `GET /api/employees` - 직원 목록
 - `POST /api/employees` - 새 직원 추가
-- `GET /api/test-db` - DB 연결 테스트
+
+#### 제품관리 시스템 (NEW)
+- `GET /api/products/templates` - 제품 템플릿 목록
+- `GET /api/products/options/:templateId` - 템플릿별 옵션
+- `GET /api/products/categories` - 제품 카테고리
+- `POST /api/products/templates` - 새 템플릿 생성 (예정)
+
+### 데이터베이스 스키마 (2025-09-23)
+```sql
+-- 제품 관리 시스템
+product_templates (
+  template_id UUID PRIMARY KEY,
+  template_code VARCHAR(50) UNIQUE,
+  template_name VARCHAR(200),
+  category VARCHAR(100),
+  base_specifications JSONB,
+  is_consumable BOOLEAN
+);
+
+product_options (
+  option_id UUID PRIMARY KEY,
+  template_id UUID REFERENCES product_templates,
+  option_type VARCHAR(50),        -- size, channel, temperature
+  option_value VARCHAR(200),      -- 24m³, 9ch, 15~40°C
+  option_label VARCHAR(200)       -- 사용자 표시용
+);
+
+product_categories (
+  category_id UUID PRIMARY KEY,
+  category_code VARCHAR(50),      -- CHAMBER, EQUIPMENT, PARTS
+  category_name VARCHAR(100)      -- 챔버시스템, 측정장비, 소모품
+);
+```
 
 ### API 사용 예시
 ```javascript
-// 직원 목록 조회
-fetch('https://admin-system-i2qw.onrender.com/api/employees')
-  .then(response => response.json())
-  .then(data => console.log(data));
-
-// 새 직원 추가
-fetch('https://admin-system-i2qw.onrender.com/api/employees', {
+// 로그인
+fetch('https://total-admin.onrender.com/api/employees/login', {
   method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
-    name: 'John Doe',
-    email: 'john@example.com'
+    username: 'admin',
+    password: 'admin123'
   })
 });
+
+// 제품 템플릿 조회
+fetch('https://total-admin.onrender.com/api/products/templates')
+  .then(response => response.json())
+  .then(data => console.log(data));
 ```
 
 ---
@@ -461,22 +496,31 @@ curl https://your-api/api/test-db
 
 ---
 
-## 📈 향후 개발 계획
+## 📈 개발 현황 및 계획 (2025-09-23 업데이트)
 
-### Phase 1: 기본 CRUD
-- [ ] 제조장비 관리 모듈
-- [ ] A/S 요청 관리 시스템  
-- [ ] 부서별 권한 관리
+### ✅ 완료된 기능 (Phase 1)
+- [x] **인증 시스템**: 로그인, 세션 관리, bcrypt 암호화
+- [x] **글래스모피즘 UI**: 다크/라이트 테마, 반응형 디자인
+- [x] **대시보드**: 통계 카드, 최근 활동, 토스트 알림
+- [x] **제품관리 기반**: 템플릿+옵션 시스템, 카테고리 분류
+- [x] **자동화**: GitHub Actions, DB 유지 스크립트
 
-### Phase 2: 고급 기능
-- [ ] 실시간 알림 (WebSocket)
-- [ ] 데이터 내보내기 (Excel/CSV)
-- [ ] 대시보드 통계 차트
+### 🔄 현재 작업 중 (Phase 2)
+- [ ] **제품 추가 기능**: 새 템플릿 생성 폼
+- [ ] **옵션 관리**: 동적 옵션 추가/수정
+- [ ] **제품 수정/삭제**: CRUD 완성
 
-### Phase 3: 운영 개선
-- [ ] 로그 모니터링
-- [ ] 성능 최적화
-- [ ] 보안 강화 (JWT)
+### 📋 단기 계획 (1-2주)
+- [ ] **거래처 관리**: 고객사/공급업체 등록
+- [ ] **납품 관리**: 주문서/납품서 시스템
+- [ ] **A/S 관리**: 일정 포함 서비스 관리
+
+### 🚀 중장기 계획 (1-3개월)
+- [ ] **파일 업로드**: 이미지, 카탈로그 관리
+- [ ] **검색/필터**: 고급 검색 기능
+- [ ] **대시보드 차트**: 실시간 통계 시각화
+- [ ] **알림 시스템**: 웹푸시, 이메일 알림
+- [ ] **모바일 앱**: PWA 또는 React Native
 
 ---
 
@@ -539,6 +583,6 @@ curl https://your-api/api/test-db
 
 ---
 
-**📝 작성일**: 2025년 9월 16일  
-**🔄 업데이트**: 실제 사용 중 발견된 이슈 반영  
-**✅ 검증 완료**: 전체 배포 프로세스 테스트 완료
+**📝 작성일**: 2025년 9월 16일
+**🔄 마지막 업데이트**: 2025년 9월 23일 (제품관리 시스템 추가)
+**✅ 검증 완료**: 전체 배포 프로세스 및 제품관리 기능 테스트 완료

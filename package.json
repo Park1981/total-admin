@@ -1,7 +1,7 @@
 {
-  "name": "total-admin",
+  "name": "unitech-portal",
   "version": "1.0.0",
-  "description": "",
+  "description": "UNITECH Co., Ltd. - 유니태크(주) 통합 관리 포털 시스템",
   "main": "backend/server.js",
   "scripts": {
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
@@ -12,8 +12,8 @@
     "start": "node backend/server.js",
     "dev": "node backend/server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["unitech", "portal", "manufacturing", "chamber-system", "measurement-equipment"],
+  "author": "UNITECH Co., Ltd. <unitech@unitechco.co.kr>",
   "license": "ISC",
   "type": "module",
   "dependencies": {
