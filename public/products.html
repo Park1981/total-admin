@@ -14,32 +14,46 @@
 
         /* CSS Variables for Theme Support */
         :root {
-            --dashboard-bg-gradient: linear-gradient(135deg, #2c1810 0%, #8b4513 25%, #4a0e4e 75%, #1a1a2e 100%);
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-backdrop: blur(20px);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --text-primary: #ffffff;
-            --text-secondary: #e2e8f0;
+            --dashboard-bg-gradient: #090d13;
+            --header-bg: #0f172a;
+            --glass-bg: #111827;
+            --glass-backdrop: none;
+            --glass-border: #3b4554;
+            --text-primary: #f9fafb;
+            --text-secondary: #cbd5f5;
             --text-accent: #94a3b8;
-            --card-shadow: rgba(0, 0, 0, 0.3);
-            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --input-bg: rgba(255, 255, 255, 0.1);
-            --input-border: rgba(255, 255, 255, 0.2);
+            --text-muted: #6b7280;
+            --card-shadow: rgba(0, 0, 0, 0.55);
+            --accent-gradient: #2563eb;
+            --accent-hover: #1d4ed8;
+            --input-bg: #0f172a;
+            --input-border: #3b4554;
+            --divider-color: #3b4554;
+            --chip-bg: #1f2937;
+            --chip-border: #303b49;
+            --nav-hover-bg: rgba(37, 99, 235, 0.2);
         }
 
         @media (prefers-color-scheme: light) {
             :root {
-                --dashboard-bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 75%, #94a3b8 100%);
-                --glass-bg: rgba(255, 255, 255, 0.85);
-                --glass-backdrop: blur(15px);
-                --glass-border: rgba(0, 0, 0, 0.1);
-                --text-primary: #1e293b;
-                --text-secondary: #334155;
-                --text-accent: #64748b;
-                --card-shadow: rgba(0, 0, 0, 0.1);
-                --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-                --input-bg: rgba(255, 255, 255, 0.7);
-                --input-border: rgba(0, 0, 0, 0.1);
+                --dashboard-bg-gradient: #f3f4f6;
+                --header-bg: #ffffff;
+                --glass-bg: #ffffff;
+                --glass-backdrop: none;
+                --glass-border: #d1d5db;
+                --text-primary: #0f172a;
+                --text-secondary: #374151;
+                --text-accent: #6b7280;
+                --text-muted: #9ca3af;
+                --card-shadow: rgba(15, 23, 42, 0.12);
+                --accent-gradient: #2563eb;
+                --accent-hover: #1d4ed8;
+                --input-bg: #ffffff;
+                --input-border: #cbd5e1;
+                --divider-color: #e2e8f0;
+                --chip-bg: #f8fafc;
+                --chip-border: #e2e8f0;
+                --nav-hover-bg: rgba(37, 99, 235, 0.12);
             }
         }
 
@@ -53,12 +67,11 @@
 
         /* 헤더 스타일 */
         .header {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-backdrop);
-            border-bottom: 1px solid var(--glass-border);
+            background: var(--header-bg);
+            border-bottom: 1px solid var(--divider-color);
             color: var(--text-primary);
             padding: 0 30px;
-            box-shadow: 0 8px 32px var(--card-shadow);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -100,12 +113,12 @@
         }
 
         .breadcrumb a:hover {
-            color: var(--text-primary);
+            color: var(--accent-gradient);
         }
 
         .back-btn {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
+            background: var(--chip-bg);
+            border: 1px solid var(--chip-border);
             color: var(--text-primary);
             padding: 10px 20px;
             border-radius: 10px;
@@ -115,12 +128,13 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            backdrop-filter: var(--glass-backdrop);
         }
 
         .back-btn:hover {
+            background: var(--accent-gradient);
+            border-color: var(--accent-gradient);
+            color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px var(--card-shadow);
         }
 
         /* 메인 컨텐츠 */
@@ -158,12 +172,12 @@
 
         .btn {
             padding: 12px 24px;
-            border: none;
-            border-radius: 12px;
+            border-radius: 10px;
+            border: 1px solid transparent;
             font-size: 0.9rem;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -172,42 +186,106 @@
 
         .btn-primary {
             background: var(--accent-gradient);
-            color: white;
-            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.3);
+            border: 1px solid var(--accent-gradient);
+            color: #ffffff;
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.35);
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 16px 28px rgba(29, 78, 216, 0.4);
         }
 
         .btn-secondary {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            color: var(--text-primary);
-            backdrop-filter: var(--glass-backdrop);
+            background: var(--chip-bg);
+            border: 1px solid var(--chip-border);
+            color: var(--text-secondary);
         }
 
         .btn-secondary:hover {
+            background: var(--chip-border);
+            color: var(--text-primary);
+            border-color: var(--divider-color);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px var(--card-shadow);
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-edit-product,
+        .btn-delete-product {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-edit-product {
+            background: rgba(37, 99, 235, 0.16);
+            border: 1px solid var(--accent-gradient);
+            color: var(--text-secondary);
+        }
+
+        .btn-edit-product:hover {
+            background: var(--accent-gradient);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .btn-delete-product {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        .btn-delete-product:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .retry-button {
+            padding: 10px 20px;
+            background: var(--accent-gradient);
+            border: 1px solid var(--accent-gradient);
+            color: #ffffff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .retry-button:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+            box-shadow: 0 12px 24px rgba(29, 78, 216, 0.4);
+            transform: translateY(-2px);
         }
 
         /* 컨텐츠 컨테이너 */
         .content-container {
             background: var(--glass-bg);
-            backdrop-filter: var(--glass-backdrop);
             border-radius: 20px;
             border: 1px solid var(--glass-border);
-            box-shadow: 0 32px 64px var(--card-shadow);
+            box-shadow: 0 20px 40px var(--card-shadow);
             overflow: hidden;
         }
 
         /* 탭 네비게이션 */
         .tab-nav {
             display: flex;
-            background: rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid var(--glass-border);
+            background: var(--chip-bg);
+            border-bottom: 1px solid var(--divider-color);
         }
 
         .tab-btn {
@@ -225,13 +303,13 @@
 
         .tab-btn.active {
             color: var(--text-primary);
-            border-bottom-color: #4facfe;
-            background: rgba(79, 172, 254, 0.1);
+            border-bottom-color: var(--accent-gradient);
+            background: rgba(37, 99, 235, 0.16);
         }
 
         .tab-btn:hover {
             color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(37, 99, 235, 0.12);
         }
 
         /* 탭 컨텐츠 */
@@ -253,17 +331,17 @@
         }
 
         .product-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--chip-bg);
             border-radius: 15px;
             padding: 25px;
             border: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px var(--card-shadow);
-            border-color: rgba(79, 172, 254, 0.3);
+            box-shadow: 0 24px 48px var(--card-shadow);
+            border-color: var(--accent-gradient);
         }
 
         .product-header {
@@ -287,8 +365,9 @@
         }
 
         .product-category {
-            background: var(--accent-gradient);
-            color: white;
+            background: rgba(37, 99, 235, 0.15);
+            border: 1px solid var(--accent-gradient);
+            color: var(--text-secondary);
             padding: 4px 12px;
             border-radius: 12px;
             font-size: 0.75rem;
@@ -315,14 +394,14 @@
 
         .option-tag {
             display: inline-block;
-            background: rgba(79, 172, 254, 0.1);
-            color: #4facfe;
+            background: var(--chip-bg);
+            color: var(--text-secondary);
             padding: 4px 8px;
             border-radius: 8px;
             font-size: 0.75rem;
             margin-right: 8px;
             margin-bottom: 4px;
-            border: 1px solid rgba(79, 172, 254, 0.2);
+            border: 1px solid var(--chip-border);
         }
 
         /* 토스트 메시지 */
@@ -338,22 +417,23 @@
 
         .toast {
             background: var(--glass-bg);
-            backdrop-filter: var(--glass-backdrop);
             border: 1px solid var(--glass-border);
             color: var(--text-primary);
             padding: 16px 20px;
             border-radius: 12px;
-            box-shadow: 0 20px 40px var(--card-shadow);
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.45);
             display: flex;
             align-items: center;
             gap: 12px;
             min-width: 300px;
             transform: translateX(400px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+            opacity: 0;
         }
 
         .toast.show {
             transform: translateX(0);
+            opacity: 1;
         }
 
         .toast .toast-icon {
@@ -424,7 +504,6 @@
 
         .form-section {
             background: var(--glass-bg);
-            backdrop-filter: var(--glass-backdrop);
             border: 1px solid var(--glass-border);
             border-radius: 12px;
             padding: 25px;
@@ -442,10 +521,6 @@
 
         .section-title i {
             color: var(--accent-gradient);
-            background: var(--accent-gradient);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         .form-grid {
@@ -498,8 +573,8 @@
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #4facfe;
-            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+            border-color: var(--accent-gradient);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
         }
 
         .form-group small {
@@ -573,7 +648,7 @@
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.02);
+            background: var(--chip-bg);
         }
 
         .option-header {
@@ -641,11 +716,11 @@
 
         .btn-add-option-value,
         .btn-add-option-group {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            background: rgba(37, 99, 235, 0.16);
+            border: 1px solid var(--accent-gradient);
             border-radius: 6px;
             padding: 10px 14px;
-            color: #3b82f6;
+            color: var(--text-secondary);
             cursor: pointer;
             font-size: 0.9rem;
             display: flex;
@@ -656,7 +731,8 @@
 
         .btn-add-option-value:hover,
         .btn-add-option-group:hover {
-            background: rgba(59, 130, 246, 0.2);
+            background: var(--accent-gradient);
+            color: #ffffff;
         }
 
         /* 폼 액션 버튼 */
@@ -666,41 +742,7 @@
             gap: 15px;
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid var(--glass-border);
-        }
-
-        .btn-secondary {
-            background: rgba(107, 114, 128, 0.1);
-            border: 1px solid rgba(107, 114, 128, 0.3);
-            color: #6b7280;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(107, 114, 128, 0.2);
-        }
-
-        .btn-primary {
-            background: var(--accent-gradient);
-            border: none;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
-        }
-
-        .btn-secondary,
-        .btn-primary {
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            border-top: 1px solid var(--divider-color);
         }
 
         /* 반응형 디자인 */
@@ -1130,11 +1172,11 @@
                                 : '<span style="color: var(--text-accent); font-style: italic;">옵션 없음</span>'
                             }
                         </div>
-                        <div class="product-actions" style="margin-top: 15px; display: flex; gap: 10px;">
-                            <button class="btn-edit-product" onclick="editProduct('${product.template_id}')" style="padding: 6px 12px; border: 1px solid var(--glass-border); background: rgba(59, 130, 246, 0.1); color: #3b82f6; border-radius: 4px; font-size: 0.85rem; cursor: pointer;">
+                        <div class="product-actions">
+                            <button class="btn-edit-product" onclick="editProduct('${product.template_id}')">
                                 <i class="fas fa-edit"></i> 수정
                             </button>
-                            <button class="btn-delete-product" onclick="deleteProduct('${product.template_id}', '${product.template_name}')" style="padding: 6px 12px; border: 1px solid var(--glass-border); background: rgba(239, 68, 68, 0.1); color: #ef4444; border-radius: 4px; font-size: 0.85rem; cursor: pointer;">
+                            <button class="btn-delete-product" onclick="deleteProduct('${product.template_id}', '${product.template_name}')">
                                 <i class="fas fa-trash"></i> 삭제
                             </button>
                         </div>
@@ -1151,8 +1193,8 @@
                         <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ef4444; margin-bottom: 20px;"></i>
                         <h4 style="color: var(--text-primary); margin-bottom: 10px;">제품 목록을 불러올 수 없습니다</h4>
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">${error.message}</p>
-                        <button onclick="loadProducts()" style="padding: 10px 20px; background: var(--accent-gradient); color: white; border: none; border-radius: 6px; cursor: pointer;">
-                            <i class="fas fa-retry"></i> 다시 시도
+                        <button class="retry-button" onclick="loadProducts()">
+                            <i class="fas fa-repeat"></i> 다시 시도
                         </button>
                     </div>
                 `;

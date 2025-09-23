@@ -14,28 +14,44 @@
 
         /* CSS Variables for Theme Support */
         :root {
-            --dashboard-bg-gradient: linear-gradient(135deg, #2c1810 0%, #8b4513 25%, #4a0e4e 75%, #1a1a2e 100%);
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-backdrop: blur(20px);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --text-primary: #ffffff;
-            --text-secondary: #e2e8f0;
+            --dashboard-bg-gradient: #090d13;
+            --header-bg: #0f172a;
+            --glass-bg: #111827;
+            --glass-backdrop: none;
+            --glass-border: #3b4554;
+            --text-primary: #f9fafb;
+            --text-secondary: #cbd5f5;
             --text-accent: #94a3b8;
-            --card-shadow: rgba(0, 0, 0, 0.3);
-            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --text-muted: #6b7280;
+            --card-shadow: rgba(0, 0, 0, 0.55);
+            --accent-gradient: #2563eb;
+            --accent-hover: #1d4ed8;
+            --divider-color: #3b4554;
+            --chip-bg: #1f2937;
+            --chip-border: #303b49;
+            --nav-hover-bg: rgba(37, 99, 235, 0.2);
+            --avatar-bg: #1f2937;
         }
 
         @media (prefers-color-scheme: light) {
             :root {
-                --dashboard-bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 75%, #94a3b8 100%);
-                --glass-bg: rgba(255, 255, 255, 0.85);
-                --glass-backdrop: blur(15px);
-                --glass-border: rgba(0, 0, 0, 0.1);
-                --text-primary: #1e293b;
-                --text-secondary: #334155;
-                --text-accent: #64748b;
-                --card-shadow: rgba(0, 0, 0, 0.1);
-                --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+                --dashboard-bg-gradient: #f3f4f6;
+                --header-bg: #ffffff;
+                --glass-bg: #ffffff;
+                --glass-backdrop: none;
+                --glass-border: #d1d5db;
+                --text-primary: #0f172a;
+                --text-secondary: #374151;
+                --text-accent: #6b7280;
+                --text-muted: #9ca3af;
+                --card-shadow: rgba(15, 23, 42, 0.12);
+                --accent-gradient: #2563eb;
+                --accent-hover: #1d4ed8;
+                --divider-color: #e2e8f0;
+                --chip-bg: #f8fafc;
+                --chip-border: #e2e8f0;
+                --nav-hover-bg: rgba(37, 99, 235, 0.12);
+                --avatar-bg: #e2e8f0;
             }
         }
 
@@ -49,12 +65,11 @@
 
         /* 헤더 스타일 */
         .header {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-backdrop);
-            border-bottom: 1px solid var(--glass-border);
+            background: var(--header-bg);
+            border-bottom: 1px solid var(--divider-color);
             color: var(--text-primary);
             padding: 0 30px;
-            box-shadow: 0 8px 32px var(--card-shadow);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -88,7 +103,7 @@
         }
 
         .nav-item a {
-            color: white;
+            color: var(--text-primary);
             text-decoration: none;
             padding: 10px 15px;
             border-radius: 8px;
@@ -98,8 +113,7 @@
 
         .nav-item a:hover,
         .nav-item a.active {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
+            background: var(--nav-hover-bg);
         }
 
         .user-info {
@@ -113,15 +127,15 @@
             align-items: center;
             gap: 10px;
             padding: 8px 15px;
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--chip-bg);
+            border: 1px solid var(--chip-border);
             border-radius: 25px;
-            backdrop-filter: blur(10px);
         }
 
         .user-avatar {
             width: 35px;
             height: 35px;
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--avatar-bg);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -129,9 +143,9 @@
         }
 
         .logout-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
+            background: var(--chip-bg);
+            border: 1px solid var(--chip-border);
+            color: var(--text-primary);
             padding: 10px 15px;
             border-radius: 8px;
             cursor: pointer;
@@ -143,7 +157,9 @@
         }
 
         .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--accent-gradient);
+            border-color: var(--accent-gradient);
+            color: #ffffff;
             transform: translateY(-2px);
         }
 
@@ -165,7 +181,6 @@
             font-size: 2.5rem;
             font-weight: 600;
             margin-bottom: 8px;
-            text-shadow: 0 4px 12px var(--card-shadow);
         }
 
         .page-subtitle {
@@ -183,7 +198,7 @@
             align-items: center;
             margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 2px solid var(--glass-border);
+            border-bottom: 2px solid var(--divider-color);
         }
 
         .section-header h2 {
@@ -207,12 +222,11 @@
 
         .dashboard-card {
             background: var(--glass-bg);
-            backdrop-filter: var(--glass-backdrop);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 32px 64px var(--card-shadow);
+            box-shadow: 0 20px 40px var(--card-shadow);
             border: 1px solid var(--glass-border);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -229,9 +243,9 @@
         }
 
         .dashboard-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 40px 80px var(--card-shadow);
-            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-6px);
+            box-shadow: 0 28px 56px var(--card-shadow);
+            border-color: var(--accent-gradient);
         }
 
         .card-header {
@@ -255,13 +269,12 @@
             width: 50px;
             height: 50px;
             background: var(--accent-gradient);
-            border-radius: 15px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: #ffffff;
             font-size: 1.3rem;
-            box-shadow: 0 8px 20px rgba(79, 172, 254, 0.3);
         }
 
         .card-content {
@@ -285,7 +298,6 @@
             font-size: 2rem;
             font-weight: 700;
             color: var(--text-primary);
-            text-shadow: 0 2px 8px rgba(79, 172, 254, 0.3);
         }
 
         .stat-label {
@@ -299,29 +311,30 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            color: white;
+            color: #ffffff;
             text-decoration: none;
             font-weight: 500;
             padding: 12px 20px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
+            border-radius: 10px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
             background: var(--accent-gradient);
             cursor: pointer;
             font-size: 0.9rem;
-            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.3);
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.35);
             border: none;
         }
 
         .card-action:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 16px 28px rgba(29, 78, 216, 0.4);
         }
 
         /* 최근 활동 목록 */
         .recent-list {
             margin-top: 20px;
             padding-top: 20px;
-            border-top: 1px solid var(--glass-border);
+            border-top: 1px solid var(--divider-color);
         }
 
         .recent-list h4 {
@@ -338,7 +351,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--divider-color);
         }
 
         .recent-item:last-child {
@@ -357,9 +370,10 @@
         }
 
         .recent-item-badge {
-            background: var(--accent-gradient);
-            color: white;
-            padding: 2px 8px;
+            background: var(--chip-bg);
+            border: 1px solid var(--chip-border);
+            color: var(--text-secondary);
+            padding: 2px 10px;
             border-radius: 12px;
             font-size: 0.75rem;
             margin-left: 10px;
@@ -378,22 +392,23 @@
 
         .toast {
             background: var(--glass-bg);
-            backdrop-filter: var(--glass-backdrop);
             border: 1px solid var(--glass-border);
             color: var(--text-primary);
             padding: 16px 20px;
             border-radius: 12px;
-            box-shadow: 0 20px 40px var(--card-shadow);
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.45);
             display: flex;
             align-items: center;
             gap: 12px;
             min-width: 300px;
             transform: translateX(400px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+            opacity: 0;
         }
 
         .toast.show {
             transform: translateX(0);
+            opacity: 1;
         }
 
         .toast .toast-icon {
@@ -441,9 +456,8 @@
 
         /* 푸터 */
         .footer {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-backdrop);
-            border-top: 1px solid var(--glass-border);
+            background: var(--header-bg);
+            border-top: 1px solid var(--divider-color);
             color: var(--text-primary);
             padding: 25px 30px;
             margin-top: auto;
@@ -461,11 +475,11 @@
         .company-info h3 {
             font-size: 1.3rem;
             margin-bottom: 10px;
-            color: #4facfe;
+            color: var(--accent-gradient);
         }
 
         .company-info p {
-            color: #a0aec0;
+            color: var(--text-accent);
             line-height: 1.5;
         }
 
@@ -475,13 +489,13 @@
         }
 
         .footer-links a {
-            color: #a0aec0;
+            color: var(--text-accent);
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
-            color: #4facfe;
+            color: var(--accent-gradient);
         }
 
         /* 반응형 */
