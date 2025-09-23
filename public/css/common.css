@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --dashboard-bg: #0b111a;
+  --surface-primary: #111924;
+  --surface-elevated: #151f2b;
+  --surface-border: #1f2a3a;
+  --text-primary: #f5f7fa;
+  --text-secondary: #b6c2d4;
+  --text-accent: #8a97ab;
+  --text-muted: #5c6675;
+  --accent-primary: #2b6cb0;
+  --accent-hover: #1f4f82;
+  --accent-soft: rgba(43, 108, 176, 0.18);
+  --divider-color: #1f2a3a;
+  --chip-bg: #172130;
+  --chip-border: #243143;
+  --nav-hover-bg: rgba(43, 108, 176, 0.18);
+  --avatar-bg: #1a2534;
+  --shadow-elevated: 0 18px 32px rgba(4, 8, 14, 0.55);
+  --radius-card: 12px;
+  --radius-small: 8px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --dashboard-bg: #f5f6f8;
+    --surface-primary: #ffffff;
+    --surface-elevated: #f1f5f9;
+    --surface-border: #d5dbe5;
+    --text-primary: #0b1120;
+    --text-secondary: #334155;
+    --text-accent: #64748b;
+    --text-muted: #94a3af;
+    --accent-primary: #2b6cb0;
+    --accent-hover: #1f4f82;
+    --accent-soft: rgba(43, 108, 176, 0.12);
+    --divider-color: #d5dbe5;
+    --chip-bg: #f1f5f9;
+    --chip-border: #d8e1ef;
+    --nav-hover-bg: rgba(43, 108, 176, 0.12);
+    --avatar-bg: #dbe3ef;
+    --shadow-elevated: 0 12px 24px rgba(15, 23, 42, 0.15);
+  }
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-primary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}

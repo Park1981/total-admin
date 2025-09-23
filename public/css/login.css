@@ -1,0 +1,334 @@
+:root {
+  --login-bg: #0b111a;
+  --login-container-bg: #111924;
+  --login-border: #1f2a3a;
+  --login-text-primary: #f5f7fa;
+  --login-text-secondary: #b6c2d4;
+  --login-text-light: #8895aa;
+  --login-text-disabled: #5b6472;
+  --login-button-text: #f7fafc;
+  --login-input-bg: #0d1520;
+  --login-input-border: #243143;
+  --login-input-focus: rgba(59, 130, 246, 0.35);
+  --login-button-bg: #2b6cb0;
+  --login-button-hover: #1f4f82;
+  --login-button-disabled: #1c2f45;
+  --login-shadow: 0 18px 32px rgba(4, 8, 14, 0.55);
+  --login-divider: #1f2a3a;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --login-bg: #f5f6f8;
+    --login-container-bg: #ffffff;
+    --login-border: #cbd5e1;
+    --login-text-primary: #0b1120;
+    --login-text-secondary: #334155;
+    --login-text-light: #64748b;
+    --login-text-disabled: #94a3af;
+    --login-button-text: #f8fafc;
+    --login-input-bg: #ffffff;
+    --login-input-border: #cbd5e1;
+    --login-input-focus: rgba(59, 130, 246, 0.25);
+    --login-button-bg: #2b6cb0;
+    --login-button-hover: #1f4f82;
+    --login-button-disabled: #93b6de;
+    --login-shadow: 0 12px 24px rgba(15, 23, 42, 0.18);
+    --login-divider: #d5dbe5;
+  }
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--login-bg);
+  color: var(--login-text-primary);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.login-container {
+  background: var(--login-container-bg);
+  border: 1px solid var(--login-border);
+  border-radius: 14px;
+  box-shadow: var(--login-shadow);
+  overflow: hidden;
+  width: 100%;
+  max-width: 480px;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.login-header {
+  padding: 40px 40px 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--login-divider);
+}
+
+
+.company-logo {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+}
+
+.company-name {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--login-text-primary);
+}
+
+.company-subtitle {
+  font-size: 1rem;
+  color: var(--login-text-secondary);
+  margin-bottom: 10px;
+}
+
+
+.login-form {
+  padding: 30px 40px 40px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.welcome-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--login-text-primary);
+  margin-bottom: 8px;
+}
+
+.welcome-subtitle {
+  color: var(--login-text-light);
+  font-size: 0.9rem;
+}
+
+.form-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--login-text-secondary);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 48px 14px 14px;
+  border: 1px solid var(--login-input-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: var(--login-input-bg);
+  color: var(--login-text-primary);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--login-input-focus);
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 1px var(--login-input-focus);
+}
+
+.input-icon {
+  position: absolute;
+  right: 15px;
+  top: calc(50% + 12px);  /* label 높이 보정 */
+  transform: translateY(-50%);
+  color: var(--login-text-light);
+  font-size: 1.1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: 20px;
+}
+
+.password-toggle {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+  color: var(--login-text-primary);
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  font-size: 0.9rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  color: var(--login-text-secondary);
+}
+
+.remember-me input {
+  margin-right: 8px;
+}
+
+.forgot-password {
+  color: var(--login-text-light);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+  color: var(--login-text-primary);
+}
+
+.login-button {
+  width: 100%;
+  padding: 16px;
+  background: var(--login-button-bg);
+  color: var(--login-button-text);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 12px 24px rgba(10, 24, 42, 0.4);
+}
+
+.login-button:hover {
+  background: var(--login-button-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(15, 55, 110, 0.45);
+}
+
+.login-button:active {
+  transform: translateY(0);
+}
+
+.login-button:disabled,
+.login-button.loading {
+  background: var(--login-button-disabled);
+  color: var(--login-text-disabled);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.test-link {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 1px solid var(--login-divider);
+}
+
+.test-link a {
+  color: var(--login-text-light);
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.test-link a:hover {
+  color: var(--login-text-secondary);
+}
+
+.test-link i {
+  margin-right: 8px;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .login-container {
+    max-width: 380px;
+    margin: 20px;
+  }
+
+  .login-header {
+    padding: 30px 30px 20px;
+  }
+
+  .company-name {
+    font-size: 1.8rem;
+  }
+
+  .company-logo {
+    font-size: 2rem;
+  }
+
+  .login-form {
+    padding: 25px 30px 30px;
+  }
+
+  .welcome-text {
+    font-size: 1.3rem;
+  }
+}
+
+/* 로딩 애니메이션 */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* 에러 메시지 스타일 */
+.error-message {
+  margin-top: 15px;
+  padding: 12px 15px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.28);
+  border-radius: 8px;
+  color: #ef4444;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: fadeInDown 0.3s ease;
+}
+
+.error-message i {
+  font-size: 1rem;
+  color: #ef4444;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
