@@ -32,7 +32,8 @@
           }
       }
   
-      showToast('info', `${tabName === 'templates' ? '제품 템플릿' : '제품 추가'} 탭으로 전환되었습니다.`);
+      const tabLabel = tabName === 'templates' ? '제품 템플릿 목록' : '제품 추가 폼';
+      showToast('info', `${tabLabel}으로 이동했습니다.`);
   }
   
     // 제품 새로고침
@@ -76,7 +77,7 @@
                     <div style="text-align: center; padding: 60px 20px;">
                         <i class="fas fa-cube" style="font-size: 3rem; color: var(--text-accent); margin-bottom: 20px;"></i>
                         <h4 style="color: var(--text-primary); margin-bottom: 10px;">등록된 제품이 없습니다</h4>
-                        <p style="color: var(--text-secondary);">새 제품 추가 탭에서 제품을 등록해보세요.</p>
+                        <p style="color: var(--text-secondary);">새 제품 추가 버튼을 눌러 제품을 등록해보세요.</p>
                     </div>
                 `;
                 productCount.textContent = '총 0개';

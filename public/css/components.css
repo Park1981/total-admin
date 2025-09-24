@@ -133,6 +133,18 @@
   gap: 12px;
 }
 
+.header-actions--full {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.session-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
 .user-profile {
   display: inline-flex;
   align-items: center;

@@ -123,8 +123,26 @@
 /* 탭 네비게이션 */
 .tab-nav {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
   background: var(--surface-primary);
   border-bottom: 1px solid var(--divider-color);
+}
+
+.tab-nav-group {
+  display: flex;
+  flex: 1;
+  min-width: 240px;
+}
+
+.tab-nav-group .tab-btn {
+  flex: 1;
+}
+
+.tab-action-btn {
+  white-space: nowrap;
 }
 
 .tab-btn {
@@ -159,6 +177,12 @@
 
 .tab-content.active {
   display: block;
+}
+
+.form-toolbar {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 16px;
 }
 
 /* 목록 스타일 */
