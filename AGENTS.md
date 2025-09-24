@@ -1,38 +1,19 @@
 # Repository Guidelines
 
-## 프로젝트 구조 & 모듈
-- `backend/`: Express 앱 코어 (`app.js`, `server.js`), `routes/`, `controllers/`, `services/`, `lib/supabaseClient.js`
-- `public/`: 정적 자산과 HTML 엔트리
-- `supabase/migrations/`: Supabase CLI로 관리하는 SQL 마이그레이션
-- `scripts/`: 개발 유틸 스크립트 (`pipeline.ps1`, `seed.js`)
-- `src/types/db.ts`: Supabase 링크에서 생성된 타입 정의
-- `docs/`, `config/`, `.github/`: 문서, 배포 설정, CI/CD 워크플로
+## Project Structure & Module Organization
+Keep server-side code under `backend/` with Express entrypoints in `app.js` and `server.js`. Route, controller, and service layers follow the `feature.layer.js` pattern (for example, `employees.controller.js`). Shared database access lives in `backend/lib/supabaseClient.js`. Static assets and the HTML shell ship from `public/`. Supabase SQL migrations reside in `supabase/migrations/`, while generated typings land in `src/types/db.ts`. Utility scripts such as `seed.js` and `pipeline.ps1` stay in `scripts/`.
 
-## 빌드·테스트·로컬 실행
-- `npm run dev` / `npm start`: 로컬 API 실행 (기본 `PORT=3001`)
-- `npm test`: Jest(+Supertest) 테스트 실행 (ESM 구성)
-- `npm run seed`: 데모 데이터 시드 (Supabase 환경변수 필요)
-- `npm run typegen`: Supabase 타입 생성 → `src/types/db.ts`
-- `npm run dbpush`: 링크된 DB에 마이그레이션 적용
-- `npm run pipeline`: Windows PowerShell 작업 헬퍼
+## Build, Test, and Development Commands
+Use `npm run dev` for local development on port 3001. Run the production build with `npm start`. Execute the Jest + Supertest suite via `npm test`. Populate demo content using `npm run seed` once `SUPABASE_URL` and `SUPABASE_ANON_KEY` are exported. Refresh Supabase typings with `npm run typegen`, and push pending migrations through `npm run dbpush`.
 
-## 코딩 스타일 & 네이밍
-- Node.js ESM (`type: module`): `import`/`export` 사용
-- 들여쓰기 2칸, 탭 금지
-- 파일명: `kebab-case` + 레이어 접미사 (예: `employees.route.js`, `.controller.js`, `.service.js`)
-- 라우트는 얇게, 데이터 접근은 `services/`, Supabase는 `lib/supabaseClient.js` 재사용
+## Coding Style & Naming Conventions
+Author code in modern Node.js ESM—stick to `import`/`export`. Apply two-space indentation and avoid tabs. File names use kebab-case with layer suffixes, such as `reports.route.js` or `reports.service.js`. Keep modules cohesive, routing thin, and push database logic into services that consume the shared Supabase client.
 
-## 테스트 가이드
-- 프레임워크: Jest + Supertest (ESM)
-- ESM 모킹: `jest.unstable_mockModule` + 동적 `import()` 패턴 (참고: `backend/server.test.js`)
-- 테스트 파일명: 대상/행동 중심 (예: `server.test.js`)
-- 실행: `npm test` (단위 테스트 우선, 필요한 곳에 집중 추가)
+## Testing Guidelines
+Tests live beside their targets or within `backend/` using the `.test.js` suffix (for example, `server.test.js`). Rely on Jest with Supertest for HTTP coverage, and prefer `jest.unstable_mockModule` with dynamic `import()` when mocking ESM dependencies. Run `npm test` before submitting changes; add focused cases for new routes or services.
 
-## 커밋 & PR
-- 커밋: 명령형 한 줄 요약(“Add employees list endpoint”), 작은 단위로 묶기
-- 이슈 참조: 본문에 `#123` 링크
-- PR: 변경 요약, 이유, 스크린샷(UI 시), 테스트 방법 포함. 관련 이슈 연결
+## Commit & Pull Request Guidelines
+Write commits in imperative, single-sentence form like `Add employees list endpoint`. In pull requests, describe the change, motivation, and verification steps, and attach screenshots for UI-facing updates. Reference related issues with `#123` syntax. Call out config or migration impacts so reviewers can plan database operations.
 
-## 보안 & 설정
-- 필수 환경변수: `SUPABASE_URL`, `SUPABASE_ANON_KEY` (로컬 `.env`, 커밋 금지)
-- 배포/환경은 `config/`, `render.yaml` 참고. 비밀정보는 절대 저장소에 올리지 말기
+## Security & Configuration Tips
+Never commit secrets—load Supabase keys through a local `.env`. Review `config/` and deployment descriptors (for example, `render.yaml`) whenever infrastructure changes. Favor parameterized queries and validate inputs in services to keep Supabase interactions safe.
