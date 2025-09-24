@@ -12,3 +12,11 @@ supabase/.temp
 # 濡쒓렇
 npm-debug.log*
 .vercel
+
+# AI assistant artifacts (keep local only)
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+docs/ai-local/
+
+# Use scripts/git-safe-push.sh when pushing to avoid checking in the files above
