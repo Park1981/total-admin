@@ -6,9 +6,42 @@ describe('API Server', () => {
     jest.resetModules();
   });
 
-  it('GET /healthz should return a healthy status', async () => {
+  const buildSupabaseStub = (listData = []) => {
+    const defaultResponse = { data: listData, error: null };
+    const mutationResponse = (data = null) => ({
+      select: jest.fn(() => ({
+        single: jest.fn(() => Promise.resolve({ data, error: null }))
+      })),
+      single: jest.fn(() => Promise.resolve({ data, error: null }))
+    });
+
+    const chain = {
+      select: jest.fn(() => chain),
+      eq: jest.fn(() => chain),
+      order: jest.fn(() => Promise.resolve(defaultResponse)),
+      insert: jest.fn(rows => mutationResponse(Array.isArray(rows) ? rows[0] ?? null : rows)),
+      update: jest.fn(payload => mutationResponse(payload ?? null)),
+      delete: jest.fn(() => mutationResponse(null)),
+      single: jest.fn(() => Promise.resolve({ data: listData[0] ?? null, error: null })),
+      maybeSingle: jest.fn(() => Promise.resolve({ data: listData[0] ?? null, error: null }))
+    };
+
+    return {
+      supabase: {
+        from: jest.fn(() => chain)
+      }
+    };
+  };
+
+  async function loadAppWithSupabaseMock(listData = []) {
+    jest.unstable_mockModule('./lib/supabaseClient.js', () => buildSupabaseStub(listData));
     const app = (await import('./app.js')).default;
     const request = (await import('supertest')).default;
+    return { app, request };
+  }
+
+  it('GET /healthz should return a healthy status', async () => {
+    const { app, request } = await loadAppWithSupabaseMock();
 
     const response = await request(app)
       .get('/healthz')
@@ -19,31 +52,14 @@ describe('API Server', () => {
   });
 
   it('GET /api/employees should return a list of employees from a mocked database', async () => {
-    // 1. Set up the mock using the recommended API for ESM
-    jest.unstable_mockModule('./lib/supabaseClient.js', () => ({
-      supabase: {
-        from: jest.fn().mockReturnThis(),
-        select: jest.fn().mockReturnThis(),
-        eq: jest.fn().mockReturnThis(),
-        order: jest.fn().mockResolvedValue({
-          data: [{ id: 99, name: 'Unstable Mock Employee' }],
-          error: null,
-        }),
-      },
-    }));
+    const mockEmployees = [{ id: 99, name: 'Unstable Mock Employee' }];
+    const { app, request } = await loadAppWithSupabaseMock(mockEmployees);
 
-    // 2. Dynamically import modules AFTER mocking
-    const app = (await import('./app.js')).default;
-    const request = (await import('supertest')).default;
-    const { supabase } = await import('./lib/supabaseClient.js');
-
-    // 3. Run the test
     const response = await request(app)
       .get('/api/employees')
       .expect('Content-Type', /json/)
       .expect(200);
 
-    // 4. Assertions
-    expect(response.body).toEqual([{ id: 99, name: 'Unstable Mock Employee' }]);
+    expect(response.body).toEqual(mockEmployees);
   });
 });

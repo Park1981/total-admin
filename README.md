@@ -110,6 +110,9 @@ SUPABASE_DB_PW=your-db-password
 ```
 total-admin/
 ├── public/           # 프론트엔드 정적 파일
+│   ├── css/          # 공통/페이지별 스타일 시트
+│   ├── js/           # 공통/페이지별 스크립트 모듈
+│   └── *.html        # 페이지 템플릿
 ├── scripts/          # 자동화 스크립트
 ├── src/              # 소스 코드
 │   └── types/        # TypeScript 타입 정의
@@ -126,6 +129,12 @@ total-admin/
 - [ ] 사용자 권한 관리
 - [ ] 실시간 알림 기능
 - [ ] 데이터 내보내기 기능
+
+## 🗂️ 문서 & 작업 메모
+
+- 로컬 `docs/` 디렉터리는 참고용 문서 보관소이며 Git에는 포함되지 않습니다.
+- 협업용 문서는 Notion, Google Drive 등 외부 공간에 공유하고 README에는 링크만 유지하세요.
+- 금지된 파일이 푸시되지 않도록 `scripts/git-safe-push.sh origin master` 스크립트를 사용해 주세요.
 
 ## 🤝 기여하기
 
