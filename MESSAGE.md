@@ -1,3 +1,15 @@
-Failed to load resource: the server responded with a status of 404 ()Understand this error
-(index):1 Access to fetch at 'https://total-admin.onrender.com/api/employees/login' from origin 'https://total-admin-brown.vercel.app' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.Understand this error
-total-admin.onrender.com/api/employees/login:1  Failed to load resource: net::ERR_FAILED
+# 작업 메모
+
+## 빌드 & 배포 메모
+- Render 백엔드: `https://total-admin.onrender.com`
+- Vercel 프론트: `https://total-admin-brown.vercel.app`
+- Supabase 프로젝트: `total-admin`
+- 주요 npm 명령: `npm run dev`, `npm test`, `npm run seed`
+
+## Git 원격 주소 갱신 (토큰 포함)
+```bash
+git remote set-url origin https://<YOUR_GH_TOKEN>@github.com/Park1981/total-admin.git
+git push origin master
+```
+
+> `<YOUR_GH_TOKEN>` 자리에 GitHub Personal Access Token 입력 후 실행해줘.
