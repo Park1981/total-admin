@@ -198,16 +198,31 @@
 
 @media (max-width: 1024px) {
   .header-top {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr) auto;
+    gap: 14px;
+    align-items: flex-start;
   }
 
   .main-nav {
     justify-content: flex-start;
   }
 
+  .nav-menu {
+    gap: 16px;
+    row-gap: 10px;
+  }
+
   .header-bottom {
+    flex-direction: column;
     align-items: flex-start;
+    gap: 12px;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 }
 
@@ -220,8 +235,17 @@
     gap: 14px;
   }
 
+  .header-top {
+    grid-template-columns: 1fr;
+  }
+
   .nav-menu {
     gap: 14px;
+  }
+
+  .header-actions {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
