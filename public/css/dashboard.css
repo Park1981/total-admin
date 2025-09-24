@@ -9,28 +9,16 @@
   gap: 32px;
 }
 
-.dashboard-intro {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.dashboard-intro h1 {
-  font-size: clamp(2rem, 3.5vw, 2.75rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.dashboard-intro p {
-  color: var(--text-secondary);
-  font-size: 1rem;
-  max-width: 640px;
-}
-
 .dashboard-grid {
   display: grid;
   gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .dashboard-panel {
@@ -213,6 +201,10 @@
 @media (max-width: 640px) {
   .dashboard-main {
     padding: 32px 16px 28px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
   }
 
   .panel-item {
