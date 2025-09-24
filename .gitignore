@@ -17,6 +17,9 @@ npm-debug.log*
 AGENTS.md
 CLAUDE.md
 GEMINI.md
-docs/ai-local/
+MESSAGE.md
+
+# Docs are personal references; keep them local only
+docs/
 
 # Use scripts/git-safe-push.sh when pushing to avoid checking in the files above
