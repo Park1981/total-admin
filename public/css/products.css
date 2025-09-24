@@ -5,6 +5,34 @@
   margin-bottom: 30px;
 }
 
+.page-header-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.page-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.page-breadcrumb a {
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.page-breadcrumb a:hover {
+  color: var(--text-primary);
+}
+
+.page-breadcrumb span[aria-hidden="true"] {
+  opacity: 0.5;
+  font-size: 0.8rem;
+}
+
 .page-title h1 {
   color: var(--text-primary);
   font-size: 2.2rem;

@@ -8,283 +8,329 @@
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/dashboard.css">
-
 </head>
 <body class="app-shell">
     <!-- 헤더 -->
     <header class="header">
-        <div class="header-content">
-            <div class="company-brand">
-                <i class="fas fa-industry"></i>
-                UNITECH PORTAL
-            </div>
-            
-            <nav>
-                <ul class="nav-menu">
-                    <li class="nav-item"><a href="#" class="active">대시보드</a></li>
-                    <li class="nav-item"><a href="#" onclick="openProductManagement()">제품관리</a></li>
-                    <li class="nav-item"><a href="#">납품관리</a></li>
-                    <li class="nav-item"><a href="#">거래처관리</a></li>
-                    <li class="nav-item"><a href="#">A/S관리</a></li>
-                </ul>
-            </nav>
-
-            <div class="user-info">
-                <div class="user-profile">
-                    <div class="user-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <span>관리자님</span>
+        <div class="header-container">
+            <div class="header-top">
+                <div class="company-brand">
+                    <i class="fas fa-industry"></i>
+                    UNITECH PORTAL
                 </div>
-                <button class="logout-btn" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i>
-                    로그아웃
+
+                <nav class="main-nav" aria-label="주요 메뉴">
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="#" class="active">대시보드</a></li>
+                        <li class="nav-item"><a href="#" onclick="openProductManagement()">제품관리</a></li>
+                        <li class="nav-item"><a href="#" onclick="notifyPending('납품관리')">납품관리</a></li>
+                        <li class="nav-item"><a href="#" onclick="notifyPending('거래처관리')">거래처관리</a></li>
+                        <li class="nav-item"><a href="#" onclick="notifyPending('A/S관리')">A/S관리</a></li>
+                    </ul>
+                </nav>
+
+                <button class="settings-btn" type="button" onclick="openSettings()" aria-label="설정">
+                    <i class="fas fa-gear"></i>
                 </button>
+            </div>
+
+            <div class="header-bottom">
+                <div class="session-info">
+                    <strong>관리자님, 반갑습니다.</strong>
+                    <span class="session-meta">마지막 로그인 · 2025-09-23 09:30 KST</span>
+                </div>
+                <div class="header-actions">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span>시스템 관리자</span>
+                    </div>
+                    <button class="logout-btn" type="button" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        로그아웃
+                    </button>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- 메인 컨텐츠 -->
-    <main class="main-content">
-        <div class="page-title">
+    <main class="dashboard-main">
+        <div class="dashboard-intro">
             <h1>관리 대시보드</h1>
-            <p class="page-subtitle">UNITECH PORTAL 실시간 모니터링 대시보드</p>
+            <p>UNITECH PORTAL의 핵심 지표와 최근 활동을 한눈에 확인하고, 필요한 모듈로 빠르게 이동하세요.</p>
         </div>
 
-        <!-- 제품 관리 섹션 -->
-        <section class="dashboard-section">
-            <div class="section-header">
-                <h2>제품 관리</h2>
-                <i class="fas fa-boxes"></i>
-            </div>
-            <div class="cards-grid">
-                <div class="dashboard-card" onclick="openProductManagement()">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            제품 템플릿
-                        </h3>
-                        <div class="card-icon">
-                            <i class="fas fa-cube"></i>
-                        </div>
+        <div class="dashboard-grid">
+            <section class="dashboard-panel" aria-labelledby="products-overview">
+                <div class="panel-header">
+                    <div class="panel-heading">
+                        <i class="fas fa-box"></i>
+                        <h2 id="products-overview">제품 현황</h2>
                     </div>
-                    <div class="card-content">
-                        챔버시스템, 측정장비, 소모품 등 제품 템플릿 및 옵션 관리
-                    </div>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">12</div>
-                            <div class="stat-label">템플릿</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">48</div>
-                            <div class="stat-label">옵션</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">4</div>
-                            <div class="stat-label">카테고리</div>
-                        </div>
-                    </div>
-                    <div class="recent-list">
-                        <h4><i class="fas fa-plus"></i> 최근 추가</h4>
-                        <div class="recent-item">
-                            <span class="recent-item-text">대형 챔버 40m³ 옵션</span>
-                            <span class="recent-item-badge">옵션</span>
-                            <span class="recent-item-time">2일 전</span>
-                        </div>
-                        <div class="recent-item">
-                            <span class="recent-item-text">샘플링펀프 4ch 템플릿</span>
-                            <span class="recent-item-badge">템플릿</span>
-                            <span class="recent-item-time">1주 전</span>
-                        </div>
-                        <div class="recent-item">
-                            <span class="recent-item-text">멸균기 CLS-60S 모델</span>
-                            <span class="recent-item-badge">템플릿</span>
-                            <span class="recent-item-time">2주 전</span>
-                        </div>
-                    </div>
-                    <div style="margin-top: 20px;">
-                        <button class="card-action" onclick="openProductManagement()">
-                            <i class="fas fa-arrow-right"></i>
-                            관리하기
-                        </button>
-                    </div>
+                    <button class="panel-more" type="button" onclick="openProductManagement()">
+                        더보기
+                        <i class="fas fa-arrow-up-right-from-square"></i>
+                    </button>
                 </div>
+                <ul class="panel-list">
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">대형 챔버 40m³ 템플릿</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">템플릿</span>
+                                <span>승인 대기</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">2시간 전</span>
+                    </li>
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">샘플링펌프 4ch 옵션 묶음</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">옵션</span>
+                                <span>검토 중</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">5시간 전</span>
+                    </li>
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">멸균기 CLS-60S 업데이트</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">배포</span>
+                                <span>적용 완료</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">어제</span>
+                    </li>
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">소형 챔버 내장재 개선안</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">제안</span>
+                                <span>내부 검토</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">2일 전</span>
+                    </li>
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">VOC 측정 키트 패키지</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">프로모션</span>
+                                <span>판매 중</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">3일 전</span>
+                    </li>
+                </ul>
+            </section>
 
-                <div class="dashboard-card" onclick="openSection('delivery-management')">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            납품 관리
-                        </h3>
-                        <div class="card-icon">
-                            <i class="fas fa-truck"></i>
-                        </div>
+            <section class="dashboard-panel" aria-labelledby="delivery-overview">
+                <div class="panel-header">
+                    <div class="panel-heading">
+                        <i class="fas fa-truck"></i>
+                        <h2 id="delivery-overview">납품 현황</h2>
                     </div>
-                    <div class="card-content">
-                        주문서, 납품서 및 고객별 맞춤 제품 납품 관리
-                    </div>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">15</div>
-                            <div class="stat-label">진행중</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">8</div>
-                            <div class="stat-label">준비중</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">42</div>
-                            <div class="stat-label">완료</div>
-                        </div>
-                    </div>
-                    <div class="recent-list">
-                        <h4><i class="fas fa-shipping-fast"></i> 최근 납품</h4>
-                        <div class="recent-item">
-                            <span class="recent-item-text">A사 대형 챔버 26m³</span>
-                            <span class="recent-item-badge">납품완료</span>
-                            <span class="recent-item-time">1일 전</span>
-                        </div>
-                        <div class="recent-item">
-                            <span class="recent-item-text">B연구원 소형 9ch</span>
-                            <span class="recent-item-badge">제작중</span>
-                            <span class="recent-item-time">3일 전</span>
-                        </div>
-                        <div class="recent-item">
-                            <span class="recent-item-text">C대학 샘플링펀프</span>
-                            <span class="recent-item-badge">설치완료</span>
-                            <span class="recent-item-time">1주 전</span>
-                        </div>
-                    </div>
-                    <div style="margin-top: 20px;">
-                        <button class="card-action" onclick="showToast('info', '납품 관리 시스템에 접속하시겠습니까?')">
-                            <i class="fas fa-arrow-right"></i>
-                            관리하기
-                        </button>
-                    </div>
+                    <button class="panel-more" type="button" onclick="openSection('delivery-management')">
+                        더보기
+                        <i class="fas fa-arrow-up-right-from-square"></i>
+                    </button>
                 </div>
-            </div>
-        </section>
+                <ul class="panel-list">
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">A사 챔버 26m³ 출고</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">출고</span>
+                                <span>배송 중</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">1시간 전</span>
+                    </li>
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">B연구원 소형 9ch 설치</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">설치</span>
+                                <span>현장 진행</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">오늘 오전</span>
+                    </li>
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">C대학 펌프 패키지</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">출하</span>
+                                <span>서류 승인 완료</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">어제</span>
+                    </li>
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">환경부 시험실 장비</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">준비</span>
+                                <span>포장 완료</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">2일 전</span>
+                    </li>
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">D사 멸균기 CLS-40S</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">계약</span>
+                                <span>납품 일정 협의</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">3일 전</span>
+                    </li>
+                </ul>
+            </section>
 
-        <!-- 거래처 및 A/S 관리 섹션 -->
-        <section class="dashboard-section">
-            <div class="section-header">
-                <h2>거래처 및 A/S 관리</h2>
-                <i class="fas fa-handshake"></i>
-            </div>
-            <div class="cards-grid">
-                <div class="dashboard-card" onclick="openSection('partner-management')">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            거래처 관리
-                        </h3>
-                        <div class="card-icon">
-                            <i class="fas fa-building"></i>
-                        </div>
+            <section class="dashboard-panel" aria-labelledby="partner-overview">
+                <div class="panel-header">
+                    <div class="panel-heading">
+                        <i class="fas fa-handshake"></i>
+                        <h2 id="partner-overview">거래처 현황</h2>
                     </div>
-                    <div class="card-content">
-                        고객사, 공급업체 및 협력업체 정보 관리
-                    </div>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">128</div>
-                            <div class="stat-label">총 거래처</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">85</div>
-                            <div class="stat-label">고객사</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">43</div>
-                            <div class="stat-label">공급업체</div>
-                        </div>
-                    </div>
-                    <div class="recent-list">
-                        <h4><i class="fas fa-user-plus"></i> 최근 등록</h4>
-                        <div class="recent-item">
-                            <span class="recent-item-text">한국환경산업기술원</span>
-                            <span class="recent-item-badge">고객사</span>
-                            <span class="recent-item-time">2일 전</span>
-                        </div>
-                        <div class="recent-item">
-                            <span class="recent-item-text">삼성전자 연구소</span>
-                            <span class="recent-item-badge">고객사</span>
-                            <span class="recent-item-time">1주 전</span>
-                        </div>
-                        <div class="recent-item">
-                            <span class="recent-item-text">전자부품 전문업체</span>
-                            <span class="recent-item-badge">공급업체</span>
-                            <span class="recent-item-time">2주 전</span>
-                        </div>
-                    </div>
-                    <div style="margin-top: 20px;">
-                        <button class="card-action" onclick="showToast('info', '거래처 관리 시스템에 접속하시겠습니까?')">
-                            <i class="fas fa-arrow-right"></i>
-                            관리하기
-                        </button>
-                    </div>
+                    <button class="panel-more" type="button" onclick="openSection('partner-management')">
+                        더보기
+                        <i class="fas fa-arrow-up-right-from-square"></i>
+                    </button>
                 </div>
+                <ul class="panel-list">
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">한국환경산업기술원</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">고객사</span>
+                                <span>계약 체결</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">어제</span>
+                    </li>
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">삼성전자 연구소</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">고객사</span>
+                                <span>유지보수 협의</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">2일 전</span>
+                    </li>
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">에코소재 공급</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">공급업체</span>
+                                <span>등록 완료</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">3일 전</span>
+                    </li>
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">스타트랩랩스</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">협력사</span>
+                                <span>샘플 테스트</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">4일 전</span>
+                    </li>
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">그린테크 물류센터</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">물류</span>
+                                <span>계약 갱신</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">5일 전</span>
+                    </li>
+                </ul>
+            </section>
 
-                <div class="dashboard-card" onclick="openSection('service')">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            A/S 관리
-                        </h3>
-                        <div class="card-icon">
-                            <i class="fas fa-wrench"></i>
-                        </div>
+            <section class="dashboard-panel" aria-labelledby="service-overview">
+                <div class="panel-header">
+                    <div class="panel-heading">
+                        <i class="fas fa-screwdriver-wrench"></i>
+                        <h2 id="service-overview">A/S 현황</h2>
                     </div>
-                    <div class="card-content">
-                        고객 A/S 요청 및 처리 현황 관리
-                    </div>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">8</div>
-                            <div class="stat-label">신규 요청</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">15</div>
-                            <div class="stat-label">진행중</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">42</div>
-                            <div class="stat-label">완료</div>
-                        </div>
-                    </div>
-                    <div class="recent-list">
-                        <h4><i class="fas fa-headset"></i> 최근 A/S</h4>
-                        <div class="recent-item">
-                            <span class="recent-item-text">고객 A 전원 문제</span>
-                            <span class="recent-item-badge">진행중</span>
-                            <span class="recent-item-time">30분 전</span>
-                        </div>
-                        <div class="recent-item">
-                            <span class="recent-item-text">고객 B 소음 불량</span>
-                            <span class="recent-item-badge">완료</span>
-                            <span class="recent-item-time">1시간 전</span>
-                        </div>
-                        <div class="recent-item">
-                            <span class="recent-item-text">고객 C 뉴즈 교체</span>
-                            <span class="recent-item-badge">완료</span>
-                            <span class="recent-item-time">2시간 전</span>
-                        </div>
-                    </div>
-                    <div style="margin-top: 20px;">
-                        <button class="card-action" onclick="showToast('success', 'A/S 관리 시스템에 접속합니다.')">
-                            <i class="fas fa-arrow-right"></i>
-                            상세보기
-                        </button>
-                    </div>
+                    <button class="panel-more" type="button" onclick="openSection('service')">
+                        더보기
+                        <i class="fas fa-arrow-up-right-from-square"></i>
+                    </button>
                 </div>
-            </div>
-        </section>
+                <ul class="panel-list">
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">고객 A 전원 모듈 교체</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">긴급</span>
+                                <span>엔지니어 출동</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">30분 전</span>
+                    </li>
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">고객 B 내부 소음</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">정기</span>
+                                <span>부품 교체 중</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">1시간 전</span>
+                    </li>
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">고객 C 온도 센서 보정</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">예약</span>
+                                <span>내일 방문 예정</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">3시간 전</span>
+                    </li>
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">고객 D UI 원격 업데이트</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">원격</span>
+                                <span>배포 완료</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">어제</span>
+                    </li>
+                    <li class="panel-item">
+                        <div class="panel-item-main">
+                            <span class="panel-item-title">고객 E 유지보수 계약</span>
+                            <div class="panel-meta">
+                                <span class="panel-badge">계약</span>
+                                <span>서명 대기</span>
+                            </div>
+                        </div>
+                        <span class="panel-item-time">2일 전</span>
+                    </li>
+                </ul>
+            </section>
+        </div>
     </main>
 
     <!-- 푸터 -->
     <footer class="footer">
         <div class="footer-content">
             <div class="company-info">
-                <h3>유니태크(주)</h3>
-                <p>&copy; 2024 UniTech Corp. All rights reserved.</p>
-                <p>📍 서울시 금천구 디지털로 121, 1505 에이스가산타워</p>
+                <strong>유니태크(주)</strong>
+                <span>📍 서울시 금천구 디지털로 121, 1505 에이스가산타워</span>
             </div>
             <div class="footer-links">
                 <a href="#" onclick="openSection('test')">시스템 테스트</a>
@@ -297,9 +343,7 @@
     <!-- 토스트 메시지 컨테이너 -->
     <div class="toast-container" id="toastContainer"></div>
 
-    
     <script src="js/common.js"></script>
     <script src="js/dashboard.js"></script>
-
 </body>
 </html>

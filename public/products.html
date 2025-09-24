@@ -13,35 +13,49 @@
 <body class="app-shell">
     <!-- 헤더 -->
     <header class="header">
-        <div class="header-content">
-            <div class="company-brand">
-                <i class="fas fa-boxes"></i>
-                UNITECH PORTAL
-            </div>
+        <div class="header-container">
+            <div class="header-top">
+                <div class="company-brand">
+                    <i class="fas fa-cube"></i>
+                    UNITECH PORTAL
+                </div>
 
-            <nav aria-label="주요 메뉴">
-                <ul class="nav-menu">
-                    <li class="nav-item"><a href="dashboard.html"><i class="fas fa-chart-line"></i> 대시보드</a></li>
-                    <li class="nav-item"><a href="products.html" class="active" aria-current="page"><i class="fas fa-cube"></i> 제품관리</a></li>
-                    <li class="nav-item"><a href="#" onclick="return notifyPending('납품관리');"><i class="fas fa-truck"></i> 납품관리</a></li>
-                    <li class="nav-item"><a href="#" onclick="return notifyPending('거래처관리');"><i class="fas fa-handshake"></i> 거래처관리</a></li>
-                    <li class="nav-item"><a href="#" onclick="return notifyPending('A/S관리');"><i class="fas fa-tools"></i> A/S관리</a></li>
-                </ul>
-            </nav>
+                <nav class="main-nav" aria-label="주요 메뉴">
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="dashboard.html"><i class="fas fa-chart-line"></i> 대시보드</a></li>
+                        <li class="nav-item"><a href="products.html" class="active" aria-current="page"><i class="fas fa-cube"></i> 제품관리</a></li>
+                        <li class="nav-item"><a href="#" onclick="return notifyPending('납품관리');"><i class="fas fa-truck"></i> 납품관리</a></li>
+                        <li class="nav-item"><a href="#" onclick="return notifyPending('거래처관리');"><i class="fas fa-handshake"></i> 거래처관리</a></li>
+                        <li class="nav-item"><a href="#" onclick="return notifyPending('A/S관리');"><i class="fas fa-tools"></i> A/S관리</a></li>
+                    </ul>
+                </nav>
 
-            <div class="header-actions">
-                <button class="back-btn" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i>
-                    대시보드로
+                <button class="settings-btn" type="button" onclick="openSettings()" aria-label="설정">
+                    <i class="fas fa-gear"></i>
                 </button>
             </div>
-        </div>
 
-        <div class="sub-header">
-            <div class="breadcrumb" aria-label="현재 위치">
-                <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> 대시보드</a>
-                <i class="fas fa-chevron-right"></i>
-                <span><i class="fas fa-cube"></i> 제품관리</span>
+            <div class="header-bottom">
+                <div class="session-info">
+                    <strong>제품 관리 센터</strong>
+                    <span class="session-meta">템플릿과 옵션을 최신 상태로 유지하세요.</span>
+                </div>
+                <div class="header-actions">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span>시스템 관리자</span>
+                    </div>
+                    <button class="logout-btn" type="button" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        로그아웃
+                    </button>
+                    <button class="ghost-btn" type="button" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i>
+                        대시보드로
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -50,7 +64,12 @@
     <main class="main-content">
         <!-- 페이지 헤더 -->
         <div class="page-header">
-            <div>
+            <div class="page-header-meta">
+                <nav class="page-breadcrumb" aria-label="현재 위치">
+                    <a href="dashboard.html">대시보드</a>
+                    <span aria-hidden="true">/</span>
+                    <span aria-current="page">제품관리</span>
+                </nav>
                 <h1>제품관리</h1>
                 <p class="page-subtitle">제품 템플릿 및 옵션 관리 시스템</p>
             </div>

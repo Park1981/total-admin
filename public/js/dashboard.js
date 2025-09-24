@@ -1,14 +1,4 @@
 (function () {
-  function logout() {
-    showToast('info', '로그아웃을 진행합니다...');
-    setTimeout(() => {
-      sessionStorage.removeItem('isLoggedIn');
-      showToast('success', '로그아웃이 완료되었습니다.');
-      setTimeout(() => {
-        window.location.href = 'index.html';
-      }, 1000);
-    }, 1000);
-  }
 
   function openProductManagement() {
     showToast('success', '📦 제품관리 시스템에 접속합니다...');
@@ -16,6 +6,7 @@
       window.location.href = 'products.html';
     }, 800);
   }
+
 
   function openSection(section) {
     switch (section) {
@@ -45,7 +36,6 @@
     showToast('info', '🛠️ 기술 지원 - 시스템 문의사항이나 기술 지원이 필요하시면 관리자에게 문의해주세요. | 📧 support@unitech.co.kr');
   }
 
-  window.logout = logout;
   window.openProductManagement = openProductManagement;
   window.openSection = openSection;
   window.showInfo = showInfo;

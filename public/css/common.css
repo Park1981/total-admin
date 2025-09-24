@@ -4,7 +4,33 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('../fonts/Paperlogy-4Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('../fonts/Paperlogy-6SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('../fonts/Paperlogy-7Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
+  --font-family-base: 'Paperlogy', 'Segoe UI', 'Noto Sans KR', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  --font-family-heading: 'Paperlogy', 'Segoe UI', 'Noto Sans KR', system-ui, sans-serif;
   --dashboard-bg: #0b111a;
   --surface-primary: #111924;
   --surface-elevated: #151f2b;
@@ -22,8 +48,8 @@
   --nav-hover-bg: rgba(43, 108, 176, 0.18);
   --avatar-bg: #1a2534;
   --shadow-elevated: 0 18px 32px rgba(4, 8, 14, 0.55);
-  --radius-card: 12px;
-  --radius-small: 8px;
+  --radius-card: 10px;
+  --radius-small: 6px;
 }
 
 @media (prefers-color-scheme: light) {
@@ -54,8 +80,10 @@ body {
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--font-family-base);
   color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.55;
 }
 
 a {
@@ -65,4 +93,15 @@ a {
 
 button {
   font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-heading);
+  font-weight: 600;
+  line-height: 1.3;
 }

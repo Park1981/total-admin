@@ -65,8 +65,25 @@
     }, 800);
   }
 
+  function openSettings() {
+    showToast('info', '⚙️ 설정 패널은 준비 중입니다.');
+  }
+
+  function logout() {
+    showToast('info', '로그아웃을 진행합니다...');
+    setTimeout(() => {
+      sessionStorage.removeItem('isLoggedIn');
+      showToast('success', '로그아웃이 완료되었습니다.');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1000);
+    }, 1000);
+  }
+
   window.showToast = showToast;
   window.closeToast = closeToast;
   window.notifyPending = notifyPending;
   window.goBack = goBack;
+  window.openSettings = openSettings;
+  window.logout = logout;
 })();
