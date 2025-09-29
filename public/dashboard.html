@@ -69,56 +69,18 @@
                         <i class="fas fa-arrow-up-right-from-square"></i>
                     </button>
                 </div>
-                <ul class="panel-list">
-                    <li class="panel-item">
+                <ul class="panel-list" id="dashboard-products-list">
+                    <li class="panel-item" data-state="loading">
                         <div class="panel-item-main">
-                            <span class="panel-item-title">대형 챔버 40m³ 템플릿</span>
+                            <span class="panel-item-title">제품 정보를 불러오는 중입니다...</span>
                             <div class="panel-meta">
-                                <span class="panel-badge">템플릿</span>
-                                <span>승인 대기</span>
+                                <span class="panel-badge">Loading</span>
+                                <span>잠시만 기다려 주세요</span>
                             </div>
                         </div>
-                        <span class="panel-item-time">2시간 전</span>
-                    </li>
-                    <li class="panel-item">
-                        <div class="panel-item-main">
-                            <span class="panel-item-title">샘플링펌프 4ch 옵션 묶음</span>
-                            <div class="panel-meta">
-                                <span class="panel-badge">옵션</span>
-                                <span>검토 중</span>
-                            </div>
-                        </div>
-                        <span class="panel-item-time">5시간 전</span>
-                    </li>
-                    <li class="panel-item">
-                        <div class="panel-item-main">
-                            <span class="panel-item-title">멸균기 CLS-60S 업데이트</span>
-                            <div class="panel-meta">
-                                <span class="panel-badge">배포</span>
-                                <span>적용 완료</span>
-                            </div>
-                        </div>
-                        <span class="panel-item-time">어제</span>
-                    </li>
-                    <li class="panel-item">
-                        <div class="panel-item-main">
-                            <span class="panel-item-title">소형 챔버 내장재 개선안</span>
-                            <div class="panel-meta">
-                                <span class="panel-badge">제안</span>
-                                <span>내부 검토</span>
-                            </div>
-                        </div>
-                        <span class="panel-item-time">2일 전</span>
-                    </li>
-                    <li class="panel-item">
-                        <div class="panel-item-main">
-                            <span class="panel-item-title">VOC 측정 키트 패키지</span>
-                            <div class="panel-meta">
-                                <span class="panel-badge">프로모션</span>
-                                <span>판매 중</span>
-                            </div>
-                        </div>
-                        <span class="panel-item-time">3일 전</span>
+                        <span class="panel-item-time">
+                            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                        </span>
                     </li>
                 </ul>
             </section>
