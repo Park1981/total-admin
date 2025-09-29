@@ -131,6 +131,13 @@
   border-bottom: 1px solid var(--divider-color);
 }
 
+.tab-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
 .tab-nav-group {
   display: flex;
   flex: 1;

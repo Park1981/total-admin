@@ -364,6 +364,14 @@
   transform: translateY(-2px);
 }
 
+.btn-icon {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  justify-content: center;
+  gap: 0;
+}
+
 /* Toast notifications */
 .toast-container {
   position: fixed;

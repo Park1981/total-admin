@@ -66,12 +66,6 @@
                 <h1>제품관리</h1>
                 <p class="page-subtitle">제품 템플릿 및 옵션 관리 시스템</p>
             </div>
-            <div class="action-buttons">
-                <button class="btn btn-secondary" onclick="refreshProducts()">
-                    <i class="fas fa-sync-alt"></i>
-                    새로고침
-                </button>
-            </div>
         </div>
 
         <!-- 컨텐츠 컨테이너 -->
@@ -84,10 +78,15 @@
                         제품 템플릿
                     </button>
                 </div>
-                <button class="btn btn-primary tab-action-btn" type="button" onclick="showAddProductForm()">
-                    <i class="fas fa-plus"></i>
-                    새 제품 추가
-                </button>
+                <div class="tab-actions">
+                    <button class="btn btn-secondary btn-icon" type="button" onclick="refreshProducts()" aria-label="제품 목록 새로고침">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                    <button class="btn btn-primary tab-action-btn" type="button" onclick="showAddProductForm()">
+                        <i class="fas fa-plus"></i>
+                        새 제품 추가
+                    </button>
+                </div>
             </div>
 
             <!-- 제품 목록 탭 -->
