@@ -55,6 +55,9 @@
   --chip-border: #243143;
   --nav-hover-bg: rgba(43, 108, 176, 0.18);
   --avatar-bg: #1a2534;
+  --input-bg: #1c2736;
+  --input-border: #2f3c4f;
+  --input-border-strong: #3e4c63;
   --shadow-elevated: 0 18px 32px rgba(4, 8, 14, 0.55);
   --radius-card: 10px;
   --radius-small: 6px;
@@ -78,6 +81,9 @@
     --chip-border: #d8e1ef;
     --nav-hover-bg: rgba(43, 108, 176, 0.12);
     --avatar-bg: #dbe3ef;
+    --input-bg: #ffffff;
+    --input-border: #cbd5e1;
+    --input-border-strong: #94a3b8;
     --shadow-elevated: 0 12px 24px rgba(15, 23, 42, 0.15);
   }
 }
