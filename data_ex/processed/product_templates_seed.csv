@@ -1,0 +1,11 @@
+template_code,template_name,category,description,base_specifications,is_consumable,status
+LCS-001M,대형 챔버 시스템 01M,CHAMBER,대형(01M),"{""규격"":""01M"",""챔버수"":1}",false,active
+LCS-002M,대형 챔버 시스템 02M,CHAMBER,대형(02M),"{""규격"":""02M"",""챔버수"":1}",false,active
+LCS-005M,대형 챔버 시스템 05M,CHAMBER,대형(05M),"{""규격"":""05M"",""챔버수"":1}",false,active
+LCS-008M,대형 챔버 시스템 08M,CHAMBER,대형(08M),"{""규격"":""08M"",""챔버수"":1}",false,active
+LCS-014M,대형 챔버 시스템 14M,CHAMBER,대형(14M),"{""규격"":""14M"",""챔버수"":1}",false,active
+LCS-016M,대형 챔버 시스템 16M,CHAMBER,대형(16M),"{""규격"":""16M"",""챔버수"":1}",false,active
+LCS-024M,대형 챔버 시스템 24M,CHAMBER,대형(24M),"{""규격"":""24M"",""챔버수"":1}",false,active
+LCS-026M,대형 챔버 시스템 26M,CHAMBER,대형(26M),"{""규격"":""26M"",""챔버수"":1}",false,active
+LCS-030M,대형 챔버 시스템 30M,CHAMBER,대형(30M),"{""규격"":""30M"",""챔버수"":1}",false,active
+LCS-040M,대형 챔버 시스템 40M,CHAMBER,대형(40M),"{""규격"":""40M"",""챔버수"":1}",false,active

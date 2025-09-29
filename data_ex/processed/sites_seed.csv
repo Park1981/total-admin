@@ -1,0 +1,25 @@
+site_code,account_code,site_name,address,notes
+SITE-001-01,ACC-001,고양시,고양시,"Shinryo, Japen"
+SITE-002-01,ACC-002,수원 CS센터,수원 CS센터,"Shinryo, Japen -> 장치 폐기 예정(2025년)"
+SITE-003-01,ACC-003,실내환경과,실내환경과,"Shinryo, Japen -> 장치 폐기 (2023년)"
+SITE-003-02,ACC-003,인천 서구,인천 서구,
+SITE-004-01,ACC-004,군포 시험분석센터,군포 시험분석센터,"Shinryo, Japen"
+SITE-004-02,ACC-004,인천 목재가구센터,인천 목재가구센터,
+SITE-004-03,ACC-004,전남지원[여수],전남지원[여수],
+SITE-005-01,ACC-005,본사,본사,"Shinryo, Japen"
+SITE-005-02,ACC-005,평택,평택,다목적 대형챔버_미생물/부유먼지/냄새 등
+SITE-006-01,ACC-006,군포시,군포시,"Shinryo, Japen"
+SITE-007-01,ACC-007,(설치 : 김포 -> 이전 : 과천 중앙동),(설치 : 김포 -> 이전 : 과천 중앙동),"Shinryo, Japen"
+SITE-007-02,ACC-007,과천시,과천시,
+SITE-008-01,ACC-008,안양시,안양시,"Shinryo, Japen"
+SITE-009-01,ACC-009,오창,오창,"Shinryo, Japen"
+SITE-009-02,ACC-009,마곡,마곡,
+SITE-010-01,ACC-010,수원시,수원시,"Unitech, Korea"
+SITE-011-01,ACC-011,한국주택가구협동조합,한국주택가구협동조합,
+SITE-012-01,ACC-012,경기가구인증센터,경기가구인증센터,
+SITE-013-01,ACC-013,주택성능연구개발센터(HERI),주택성능연구개발센터(HERI),
+SITE-014-01,ACC-014,생활환경기술연구소,생활환경기술연구소,2023년 연구소 이전 / 장치 폐기됨
+SITE-015-01,ACC-015,화성시,화성시,
+SITE-016-01,ACC-016,성남,성남,
+SITE-017-01,ACC-017,[서울]건축대학 건축학부/산학협력단,[서울]건축대학 건축학부/산학협력단,
+SITE-018-01,ACC-018,동탄,동탄,

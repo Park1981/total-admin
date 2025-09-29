@@ -12,7 +12,13 @@
     "start": "node backend/server.js",
     "dev": "node backend/server.js"
   },
-  "keywords": ["unitech", "portal", "manufacturing", "chamber-system", "measurement-equipment"],
+  "keywords": [
+    "unitech",
+    "portal",
+    "manufacturing",
+    "chamber-system",
+    "measurement-equipment"
+  ],
   "author": "UNITECH Co., Ltd. <unitech@unitechco.co.kr>",
   "license": "ISC",
   "type": "module",
@@ -27,6 +33,7 @@
     "cross-env": "^10.0.0",
     "jest": "^30.1.3",
     "supabase": "^2.40.7",
-    "supertest": "^7.1.4"
+    "supertest": "^7.1.4",
+    "xlsx": "^0.18.5"
   }
 }
