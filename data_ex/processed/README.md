@@ -10,19 +10,21 @@ node scripts/convert-chamber-deliveries.js
 
 | 파일 | 설명 | 주요 컬럼 |
 | --- | --- | --- |
-| `accounts_seed.csv` | 거래처 초기 데이터 | `account_code`, `account_name`, `account_alias`, `region` |
+| `accounts_seed.csv` | 거래처 초기 데이터 | `account_code`, `account_name`, `account_alias`, `region`, `address` |
 | `sites_seed.csv` | 납품지 정보 (거래처별 다중 가능) | `site_code`, `account_code`, `site_name`, `address` |
 | `product_templates_seed.csv` | 모델 번호 기준 제품 템플릿 | `template_code`(=Model No.), `template_name`, `category`, `base_specifications` |
 | `deliveries_seed.csv` | 납품 이력(장비 시리얼 포함) | `delivery_code`, `account_code`, `site_code`, `template_code`, `serial_no`, `delivered_on` |
+| `account_contacts_seed.csv` | 연락처 및 담당자 메타 | `account_code`, `contact_name`, `title`, `mobile_phone`, `email`, `address` |
 
 > `account_code` / `site_code` / `template_code` 값은 이후 UUID 키를 생성할 때 일관된 키-값 매핑을 만들기 위한 레퍼런스 코드입니다.
 
 ## 데이터 개수 (2024-10-23 엑셀 기준)
 
-- 거래처(`accounts_seed.csv`): **33개**
-- 납품지(`sites_seed.csv`): **47개**
+- 거래처(`accounts_seed.csv`): **18개**
+- 납품지(`sites_seed.csv`): **24개**
 - 제품 템플릿(`product_templates_seed.csv`): **10종**
-- 납품 이력(`deliveries_seed.csv`): **52건**
+- 납품 이력(`deliveries_seed.csv`): **42건**
+- 거래처 연락처(`account_contacts_seed.csv`): **14명**
 
 ## Supabase / PostgreSQL에 넣는 방법 예시
 
@@ -46,6 +48,7 @@ ON CONFLICT (name) DO NOTHING;
 - Excel 1행 제목/2행 헤더를 건너뛰고 데이터만 추출했습니다.
 - 날짜(납품일)는 Excel serial 값을 ISO `YYYY-MM-DD` 형식으로 변환했습니다.
 - 모델 번호(`Model No.`) 기준으로 제품 템플릿을 dedupe 했고, 규격/챔버수를 JSON 사양에 포함했습니다.
+- 연락처 시트(`연락처.xlsx`)의 주소와 연락망을 계정/납품지/담당자에 매핑했습니다.
 - `notes` 컬럼에 엑셀 비고를 그대로 보존하여 향후 장비 상태 분류에 활용할 수 있습니다.
 
 필요에 따라 스크립트를 수정해서 추가 컬럼을 파생시키거나, SQL seed 파일을 자동 생성하도록 확장할 수 있습니다.

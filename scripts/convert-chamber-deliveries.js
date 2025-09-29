@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 
 const INPUT_FILE = path.resolve(__dirname, '..', 'data_ex', '목록_납품실적_대형챔버시스템(유니태크 주식회사)_241023.xlsx');
 const OUTPUT_DIR = path.resolve(__dirname, '..', 'data_ex', 'processed');
+const CONTACT_FILE = path.resolve(__dirname, '..', 'data_ex', '연락처.xlsx');
 
 if (!fs.existsSync(INPUT_FILE)) {
   console.error('❌ 입력 엑셀 파일을 찾을 수 없습니다:', INPUT_FILE);
@@ -22,6 +23,16 @@ function clean(value) {
   if (value == null) return '';
   if (typeof value === 'number') return String(value).trim();
   return String(value).replace(/\s+/g, ' ').trim();
+}
+
+function normalizeKey(value) {
+  const base = clean(value)
+    .replace(/\([^)]*\)/g, '')
+    .replace(/[㈜]/g, '')
+    .replace(/주식회사/gi, '')
+    .replace(/\//g, ' ')
+    .trim();
+  return base.replace(/\s+/g, '').toLowerCase();
 }
 
 function excelDateToISO(value) {
@@ -97,10 +108,12 @@ if (normalized.length === 0) {
 }
 
 const accountMap = new Map();
+const accountCodeMap = new Map();
 const siteMap = new Map();
 const templateMap = new Map();
 const siteCounters = new Map();
 const deliveries = [];
+const sitesByAccount = new Map();
 
 for (const record of normalized) {
   const accountKey = record.accountName;
@@ -118,9 +131,11 @@ for (const record of normalized) {
       account_alias: accountAlias,
       account_type: 'customer',
       region: '',
+      address: '',
       notes: ''
     };
     accountMap.set(accountKey, account);
+    accountCodeMap.set(accountCode, account);
   }
 
   if (!account.region && record.siteRaw) {
@@ -143,6 +158,10 @@ for (const record of normalized) {
       notes: ''
     };
     siteMap.set(siteKey, site);
+
+    const bucket = sitesByAccount.get(account.account_code) ?? [];
+    bucket.push(site);
+    sitesByAccount.set(account.account_code, bucket);
   }
 
   if (record.notes) {
@@ -200,6 +219,96 @@ for (const record of normalized) {
   });
 }
 
+const accountLookup = new Map();
+for (const [originalKey, account] of accountMap.entries()) {
+  const candidates = [
+    originalKey,
+    account.account_name,
+    account.account_alias
+  ];
+  candidates
+    .map(candidate => normalizeKey(candidate))
+    .filter(Boolean)
+    .forEach(key => {
+      if (!accountLookup.has(key)) {
+        accountLookup.set(key, account.account_code);
+      }
+    });
+}
+
+const accountContacts = [];
+if (fs.existsSync(CONTACT_FILE)) {
+  try {
+    const contactWorkbook = XLSX.readFile(CONTACT_FILE);
+    const preferredSheet = ['연락처DB', '연락처'].find(name => contactWorkbook.Sheets[name]);
+    const contactSheet = contactWorkbook.Sheets[preferredSheet || contactWorkbook.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(contactSheet, { range: 1, defval: '' });
+
+    rows.forEach(row => {
+      const companyRaw = clean(row['업체명']);
+      const contactNameRaw = clean(row['성명']);
+      if (!companyRaw || !contactNameRaw) return;
+
+      const normalizedKeys = [normalizeKey(companyRaw)]
+        .concat(companyRaw.split('/').map(part => normalizeKey(part)));
+
+      let accountCode = '';
+      for (const key of normalizedKeys) {
+        if (!key) continue;
+        const found = accountLookup.get(key);
+        if (found) {
+          accountCode = found;
+          break;
+        }
+      }
+
+      if (!accountCode) {
+        return;
+      }
+
+      const contactName = clean(contactNameRaw.replace(/\([^)]*\)/g, ''));
+      const title = clean(row['직급']);
+      const mobile = clean(row['핸드폰']);
+      const office = clean(row['사무실']);
+      const fax = clean(row['팩스']);
+      const email = clean(row['E-mail']).replace(/\r?\n/g, '; ');
+      const homepage = clean(row['홈페이지']);
+      const address = clean(row['주소']);
+      const notes = clean(row['비고']);
+      const group = clean(row['구분']);
+
+      accountContacts.push({
+        account_code: accountCode,
+        contact_name: contactName,
+        title,
+        mobile_phone: mobile,
+        office_phone: office,
+        fax,
+        email,
+        homepage,
+        address,
+        group,
+        notes
+      });
+
+      const account = accountCodeMap.get(accountCode);
+      if (account && !account.address && address) {
+        account.address = address;
+      }
+
+      const siteList = sitesByAccount.get(accountCode);
+      if (address && siteList && siteList.length === 1) {
+        const [site] = siteList;
+        if (!site.address || site.address === site.site_name) {
+          site.address = address;
+        }
+      }
+    });
+  } catch (error) {
+    console.warn('⚠️ 연락처 엑셀을 처리하는 중 문제가 발생했습니다:', error.message);
+  }
+}
+
 function writeCsv(filename, headers, rows) {
   const headerRow = headers;
   const dataRows = rows.map(row => headers.map(h => row[h] ?? ''));
@@ -211,7 +320,7 @@ function writeCsv(filename, headers, rows) {
 
 const accountRows = Array.from(accountMap.values())
   .sort((a, b) => a.account_code.localeCompare(b.account_code));
-writeCsv('accounts_seed.csv', ['account_code', 'account_name', 'account_alias', 'account_type', 'region', 'notes'], accountRows);
+writeCsv('accounts_seed.csv', ['account_code', 'account_name', 'account_alias', 'account_type', 'region', 'address', 'notes'], accountRows);
 
 const siteRows = Array.from(siteMap.values())
   .sort((a, b) => a.site_code.localeCompare(b.site_code));
@@ -223,5 +332,24 @@ writeCsv('product_templates_seed.csv', ['template_code', 'template_name', 'categ
 
 const deliveryRows = deliveries.sort((a, b) => a.delivery_code.localeCompare(b.delivery_code));
 writeCsv('deliveries_seed.csv', ['delivery_code', 'account_code', 'site_code', 'template_code', 'model_no', 'serial_no', 'chamber_count', 'delivered_on', 'notes'], deliveryRows);
+
+if (accountContacts.length > 0) {
+  const contactRows = accountContacts.sort((a, b) =>
+    a.account_code.localeCompare(b.account_code) || a.contact_name.localeCompare(b.contact_name)
+  );
+  writeCsv('account_contacts_seed.csv', [
+    'account_code',
+    'contact_name',
+    'title',
+    'group',
+    'mobile_phone',
+    'office_phone',
+    'fax',
+    'email',
+    'homepage',
+    'address',
+    'notes'
+  ], contactRows);
+}
 
 console.log('🎉 변환이 완료되었습니다.');
