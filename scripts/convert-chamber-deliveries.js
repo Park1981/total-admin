@@ -115,6 +115,23 @@ const siteCounters = new Map();
 const deliveries = [];
 const sitesByAccount = new Map();
 
+const ADDRESS_OVERRIDES = new Map([
+  ['ACC-002', '경기도 수원시 영통구 매탄동'],
+  ['ACC-005', '경기도 평택시 진위면 엘지로 222'],
+  ['ACC-010', '경기도 수원시 장안구 수일로123번길 20'],
+  ['ACC-011', '서울시 금천구 가산디지털 1로 88 IT 프리미어타워 15층'],
+  ['ACC-012', '경기도 포천시 자작로 155'],
+  ['ACC-013', '세종특별자치시 라온로 66'],
+  ['ACC-014', '서울특별시 마포구 성암로 179 한샘상암사옥'],
+  ['ACC-015', '경기도 화성시 초록로693번길 47'],
+  ['ACC-016', '경기도 성남시 수정구 연내개울로 26'],
+  ['ACC-018', '경기도 화성시 동탄산단10길 20']
+]);
+
+const ACCOUNT_NAME_OVERRIDES = new Map([
+  [normalizeKey('한국토지주택연구원'), { account_name: 'LH공사사', account_alias: 'LH' }]
+]);
+
 for (const record of normalized) {
   const accountKey = record.accountName;
   let account = accountMap.get(accountKey);
@@ -134,6 +151,12 @@ for (const record of normalized) {
       address: '',
       notes: ''
     };
+
+    const nameOverride = ACCOUNT_NAME_OVERRIDES.get(normalizeKey(account.account_name));
+    if (nameOverride) {
+      if (nameOverride.account_name) account.account_name = nameOverride.account_name;
+      if (nameOverride.account_alias) account.account_alias = nameOverride.account_alias;
+    }
     accountMap.set(accountKey, account);
     accountCodeMap.set(accountCode, account);
   }
@@ -308,6 +331,20 @@ if (fs.existsSync(CONTACT_FILE)) {
     console.warn('⚠️ 연락처 엑셀을 처리하는 중 문제가 발생했습니다:', error.message);
   }
 }
+
+ADDRESS_OVERRIDES.forEach((address, accountCode) => {
+  const account = accountCodeMap.get(accountCode);
+  if (account) {
+    account.address = address;
+  }
+
+  const siteList = sitesByAccount.get(accountCode) || [];
+  siteList.forEach(site => {
+    if (!site.address || site.address === site.site_name || site.address.trim() === '') {
+      site.address = address;
+    }
+  });
+});
 
 function writeCsv(filename, headers, rows) {
   const headerRow = headers;
