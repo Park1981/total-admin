@@ -2,7 +2,8 @@ import { createClient } from '@supabase/supabase-js';
 import 'dotenv/config';
 
 const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_ANON_KEY;
+// 서버 전용: Service Role Key 사용 (RLS 우회)
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
 
 const isTestEnv = process.env.NODE_ENV === 'test' || Boolean(process.env.JEST_WORKER_ID);
 
