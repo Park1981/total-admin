@@ -43,6 +43,11 @@ Key: PORT
 Value: 10000
 ```
 
+```
+Key: JWT_SECRET
+Value: (32자 이상 무작위 문자열, 예: openssl rand -base64 48)
+```
+
 ## 3단계: 배포 실행
 
 1. **"Create Web Service"** 클릭
@@ -64,5 +69,6 @@ Value: 10000
 1. **환경변수는 하나씩 추가** (한번에 붙여넣기 안됨)
 2. **배포 완료까지 기다리기** (처음엔 시간 걸림)
 3. **로그에서 오류 확인** (Environmental Variables 탭)
+4. **JWT 시크릿 회전**: Render 환경변수에서 새 값 저장 후 배포 재시작, 기존 토큰 만료 안내
 
 배포 URL 나오면 알려줘! 🎯

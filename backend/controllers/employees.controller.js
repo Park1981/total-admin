@@ -1,4 +1,10 @@
 import * as employeeService from '../services/employees.service.js';
+import {
+  issueAuthTokens,
+  sanitizeUser,
+  ACCESS_TOKEN_EXPIRES_IN,
+  REFRESH_TOKEN_EXPIRES_IN
+} from '../services/auth.service.js';
 
 // 데이터베이스 테스트
 export async function httpTestDb(req, res) {
@@ -89,12 +95,17 @@ export async function httpLogin(req, res) {
       return res.status(401).json({ error: '아이디 또는 비밀번호가 잘못되었습니다.' });
     }
 
-    // 비밀번호 제외하고 반환
-    const { password_hash, ...userInfo } = employee;
+    const { tokenType, accessToken, refreshToken } = issueAuthTokens(employee);
+    const userInfo = sanitizeUser(employee);
 
     res.status(200).json({
       success: true,
       message: 'Login successful',
+      tokenType,
+      accessToken,
+      refreshToken,
+      expiresIn: ACCESS_TOKEN_EXPIRES_IN,
+      refreshExpiresIn: REFRESH_TOKEN_EXPIRES_IN,
       user: userInfo
     });
 

@@ -4,6 +4,7 @@ import path from 'path';
 import 'dotenv/config';
 
 import apiRouter from './routes/index.js';
+import { authenticateAccess } from './middleware/auth.middleware.js';
 
 const app = express();
 
@@ -24,6 +25,20 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static('public')); // Serve static files
+
+const openApiRoutes = new Set(['/api/employees/login']);
+
+app.use((req, res, next) => {
+  if (!req.path.startsWith('/api')) {
+    return next();
+  }
+
+  if (req.method === 'OPTIONS' || openApiRoutes.has(req.path)) {
+    return next();
+  }
+
+  return authenticateAccess(req, res, next);
+});
 
 // App-level routes
 app.get('/healthz', (req, res) => {
