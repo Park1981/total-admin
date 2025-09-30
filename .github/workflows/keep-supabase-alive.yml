@@ -1,9 +1,9 @@
 name: Keep Supabase Database Alive
 
-# 4일마다 정오(UTC 기준)에 실행 = 한국 시간으로 밤 9시
+# 2일마다 정오(UTC 기준)에 실행 = 한국 시간으로 밤 9시
 on:
   schedule:
-    - cron: '0 12 */4 * *'  # 4일마다 UTC 12:00 (KST 21:00)
+    - cron: '0 12 */2 * *'  # 2일마다 UTC 12:00 (KST 21:00)
 
   # 수동 실행도 가능하도록 설정
   workflow_dispatch:
@@ -22,6 +22,12 @@ jobs:
             https://total-admin.onrender.com/healthz)
 
           echo "Health check response: $HEALTH_RESPONSE"
+
+          # Keep-alive 전용 엔드포인트 호출
+          KEEPALIVE_RESPONSE=$(curl -s -w "%{http_code}" \
+            https://total-admin.onrender.com/keep-alive)
+
+          echo "Keep-alive response: $KEEPALIVE_RESPONSE"
 
           # DB 연결 테스트 (실제 Supabase 쿼리)
           DB_RESPONSE=$(curl -s -w "%{http_code}" \

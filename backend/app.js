@@ -31,7 +31,19 @@ app.get('/healthz', (req, res) => {
     status: 'healthy',
     timestamp: new Date().toISOString(),
     service: 'total-admin',
-    version: '1.0.0'
+    version: '1.0.0',
+    uptime: process.uptime()
+  });
+});
+
+// Keep-alive 전용 엔드포인트 (GitHub Actions용)
+app.get('/keep-alive', (req, res) => {
+  console.log(`🔔 Keep-alive ping received at ${new Date().toISOString()}`);
+  res.json({
+    status: 'alive',
+    timestamp: new Date().toISOString(),
+    message: 'Server is awake and running',
+    uptime: `${Math.floor(process.uptime())} seconds`
   });
 });
 
