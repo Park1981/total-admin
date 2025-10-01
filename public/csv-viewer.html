@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV 데이터 뷰어 - 유니태크</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .file-selector {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-selector h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .file-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .file-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .file-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .file-btn.active {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+        }
+
+        .data-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .data-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .data-info h2 {
+            color: #333;
+            font-size: 20px;
+        }
+
+        .data-count {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        tbody tr:hover {
+            background: #f7fafc;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #666;
+            font-size: 16px;
+        }
+
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: #999;
+        }
+
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .file-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .data-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📊 CSV 데이터 뷰어</h1>
+            <p>data_ex/processed 폴더의 CSV 파일을 확인하세요</p>
+        </div>
+
+        <!-- File Selector -->
+        <div class="file-selector">
+            <h2>📁 파일 선택</h2>
+            <div class="file-buttons" id="fileButtons">
+                <div class="loading">파일 목록을 불러오는 중...</div>
+            </div>
+        </div>
+
+        <!-- Data Display -->
+        <div class="data-container">
+            <div id="dataDisplay">
+                <div class="empty-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <h3>파일을 선택하세요</h3>
+                    <p>위에서 CSV 파일을 선택하면 데이터가 표시됩니다</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API 기본 URL
+        const API_BASE_URL = 'https://total-admin.onrender.com';
+
+        // 토큰 가져오기
+        function getAuthToken() {
+            return sessionStorage.getItem('accessToken');
+        }
+
+        // 인증 헤더
+        function getAuthHeaders() {
+            const token = getAuthToken();
+            return {
+                'Content-Type': 'application/json',
+                'Authorization': token ? `Bearer ${token}` : ''
+            };
+        }
+
+        // 파일 목록 로드
+        async function loadFileList() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/csv/list`, {
+                    headers: getAuthHeaders()
+                });
+
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        showError('로그인이 필요합니다. 먼저 로그인해주세요.');
+                        setTimeout(() => {
+                            window.location.href = '/';
+                        }, 2000);
+                        return;
+                    }
+                    throw new Error('파일 목록을 불러올 수 없습니다');
+                }
+
+                const result = await response.json();
+                displayFileButtons(result.data);
+            } catch (error) {
+                console.error('Error loading file list:', error);
+                document.getElementById('fileButtons').innerHTML = `
+                    <div class="error">파일 목록을 불러오는데 실패했습니다: ${error.message}</div>
+                `;
+            }
+        }
+
+        // 파일 버튼 표시
+        function displayFileButtons(files) {
+            const container = document.getElementById('fileButtons');
+
+            if (files.length === 0) {
+                container.innerHTML = '<div class="empty-state">CSV 파일이 없습니다</div>';
+                return;
+            }
+
+            container.innerHTML = files.map(file => `
+                <button class="file-btn" onclick="loadCsvData('${file.filename}')">
+                    📄 ${file.name}
+                </button>
+            `).join('');
+        }
+
+        // CSV 데이터 로드
+        async function loadCsvData(filename) {
+            const dataDisplay = document.getElementById('dataDisplay');
+            dataDisplay.innerHTML = '<div class="loading">데이터를 불러오는 중...</div>';
+
+            // 버튼 활성화 상태 변경
+            document.querySelectorAll('.file-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.includes(filename.replace('_seed.csv', ''))) {
+                    btn.classList.add('active');
+                }
+            });
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/csv/data/${filename}`, {
+                    headers: getAuthHeaders()
+                });
+
+                if (!response.ok) {
+                    throw new Error('데이터를 불러올 수 없습니다');
+                }
+
+                const result = await response.json();
+                displayCsvData(result.data);
+            } catch (error) {
+                console.error('Error loading CSV data:', error);
+                dataDisplay.innerHTML = `
+                    <div class="error">데이터를 불러오는데 실패했습니다: ${error.message}</div>
+                `;
+            }
+        }
+
+        // CSV 데이터 테이블로 표시
+        function displayCsvData(data) {
+            const { filename, columns, records, count } = data;
+
+            const html = `
+                <div class="data-info">
+                    <h2>📋 ${filename}</h2>
+                    <span class="data-count">${count}개 레코드</span>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                ${columns.map(col => `<th>${col}</th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${records.map(record => `
+                                <tr>
+                                    ${columns.map(col => `<td>${record[col] || '-'}</td>`).join('')}
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            document.getElementById('dataDisplay').innerHTML = html;
+        }
+
+        // 에러 표시
+        function showError(message) {
+            document.getElementById('fileButtons').innerHTML = `
+                <div class="error">${message}</div>
+            `;
+        }
+
+        // 페이지 로드 시 실행
+        window.addEventListener('DOMContentLoaded', () => {
+            loadFileList();
+        });
+    </script>
+</body>
+</html>
