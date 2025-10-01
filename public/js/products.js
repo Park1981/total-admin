@@ -52,6 +52,18 @@
     const API_BASE = window.location.hostname.includes('vercel.app')
         ? 'https://total-admin.onrender.com'
         : '';
+
+    // JWT 인증 헤더 헬퍼 함수
+    function getAuthHeaders() {
+        const token = sessionStorage.getItem('accessToken');
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+        return headers;
+    }
   
     async function loadProducts() {
         const grid = document.getElementById('products-grid');
@@ -62,7 +74,9 @@
   
         try {
             // API에서 제품 템플릿 데이터 가져오기
-            const response = await fetch(`${API_BASE}/api/products/templates`);
+            const response = await fetch(`${API_BASE}/api/products/templates`, {
+                headers: getAuthHeaders()
+            });
             const result = await response.json();
   
             if (!result.success) {
@@ -171,7 +185,8 @@
   
         try {
             const response = await fetch(`${API_BASE}/api/products/templates/${templateId}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: getAuthHeaders()
             });
   
             const result = await response.json();
@@ -388,9 +403,7 @@
             // 템플릿 생성 API 호출
             const response = await fetch(`${API_BASE}/api/products/templates`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: getAuthHeaders(),
                 body: JSON.stringify(productData)
             });
   
@@ -486,9 +499,7 @@
         for (const option of options) {
             const response = await fetch(`${API_BASE}/api/products/templates/${templateId}/options`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: getAuthHeaders(),
                 body: JSON.stringify(option)
             });
   

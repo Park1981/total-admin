@@ -234,10 +234,22 @@
 
     <script>
         // API 기본 URL (배포 시 자동 감지)
-        const API_BASE = window.location.hostname === 'localhost' 
-            ? 'http://localhost:3001' 
+        const API_BASE = window.location.hostname === 'localhost'
+            ? 'http://localhost:3001'
             : 'https://total-admin.onrender.com';
-        
+
+        // JWT 인증 헤더 헬퍼 함수
+        function getAuthHeaders() {
+            const token = sessionStorage.getItem('accessToken');
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+            return headers;
+        }
+
         // API 상태 확인
         async function checkAPIStatus() {
             try {
@@ -271,9 +283,11 @@
         // 데이터베이스 테스트
         async function testDatabase() {
             showResults('데이터베이스 연결 테스트 중...');
-            
+
             try {
-                const response = await fetch(`${API_BASE}/api/employees/test-db`);
+                const response = await fetch(`${API_BASE}/api/employees/test-db`, {
+                    headers: getAuthHeaders()
+                });
                 const data = await response.json();
                 
                 if (response.ok) {
@@ -295,7 +309,9 @@
             list.innerHTML = '';
             
             try {
-                const response = await fetch(`${API_BASE}/api/employees`);
+                const response = await fetch(`${API_BASE}/api/employees`, {
+                    headers: getAuthHeaders()
+                });
                 const data = await response.json();
                 
                 loading.style.display = 'none';
