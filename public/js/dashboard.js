@@ -115,7 +115,15 @@
     `;
 
     try {
-      const response = await fetch(`${API_BASE}/api/products/templates`);
+      const token = sessionStorage.getItem('accessToken');
+      const headers = {
+        'Content-Type': 'application/json'
+      };
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
+      const response = await fetch(`${API_BASE}/api/products/templates`, { headers });
       if (!response.ok) {
         throw new Error('제품 정보를 불러오는 데 실패했습니다.');
       }

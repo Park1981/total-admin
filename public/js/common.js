@@ -66,7 +66,33 @@
   }
 
   function openSettings() {
-    showToast('info', '⚙️ 설정 패널은 준비 중입니다.');
+    // 설정 메뉴 표시
+    const menu = `
+      <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); z-index: 10000; min-width: 300px;">
+        <h3 style="margin: 0 0 20px; color: #333; font-size: 20px;">⚙️ 설정 메뉴</h3>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <button onclick="window.location.href='csv-viewer.html'" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 500; text-align: left;">
+            📊 CSV 데이터 뷰어
+          </button>
+          <button onclick="closeSettingsMenu()" style="background: #e2e8f0; color: #333; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 500;">
+            닫기
+          </button>
+        </div>
+      </div>
+      <div id="settingsOverlay" onclick="closeSettingsMenu()" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999;"></div>
+    `;
+
+    const menuContainer = document.createElement('div');
+    menuContainer.id = 'settingsMenu';
+    menuContainer.innerHTML = menu;
+    document.body.appendChild(menuContainer);
+  }
+
+  function closeSettingsMenu() {
+    const menu = document.getElementById('settingsMenu');
+    if (menu) {
+      menu.remove();
+    }
   }
 
   function logout() {
@@ -85,5 +111,6 @@
   window.notifyPending = notifyPending;
   window.goBack = goBack;
   window.openSettings = openSettings;
+  window.closeSettingsMenu = closeSettingsMenu;
   window.logout = logout;
 })();
