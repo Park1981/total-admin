@@ -69,6 +69,13 @@
         const data = await res.json().catch(() => ({}));
         if (res.ok && data && (data.success || data.user)) {
           sessionStorage.setItem('isLoggedIn', 'true');
+          // JWT 토큰 저장
+          if (data.accessToken) {
+            sessionStorage.setItem('accessToken', data.accessToken);
+          }
+          if (data.refreshToken) {
+            sessionStorage.setItem('refreshToken', data.refreshToken);
+          }
           window.location.replace('dashboard.html');
           return;
         }
