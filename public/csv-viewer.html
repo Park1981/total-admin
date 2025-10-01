@@ -3,96 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSV 데이터 뷰어 - 유니태크</title>
+    <title>CSV 데이터 뷰어 - UNITECH PORTAL</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+        .csv-viewer-main {
             padding: 20px;
+            min-height: calc(100vh - 180px);
         }
 
-        .container {
+        .csv-container {
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
+        .csv-header {
             margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
-        .header h1 {
-            color: #333;
-            font-size: 28px;
-            margin-bottom: 10px;
+        .csv-header h1 {
+            font-size: 2rem;
+            color: var(--text-primary, #1a202c);
+            margin-bottom: 8px;
         }
 
-        .header p {
-            color: #666;
-            font-size: 14px;
+        .csv-header p {
+            color: var(--text-secondary, #718096);
+            font-size: 0.95rem;
         }
 
-        .file-selector {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        .file-selector-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
-        .file-selector h2 {
-            color: #333;
-            font-size: 18px;
-            margin-bottom: 15px;
+        .file-selector-panel h2 {
+            font-size: 1.25rem;
+            color: var(--text-primary, #1a202c);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .file-buttons {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
+            gap: 12px;
         }
 
         .file-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
             border: none;
-            padding: 15px 20px;
-            border-radius: 12px;
+            padding: 14px 18px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 0.9rem;
             font-weight: 500;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .file-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 12px rgba(79, 172, 254, 0.3);
         }
 
         .file-btn.active {
             background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-            box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+            box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
         }
 
-        .data-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        .data-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .data-info {
@@ -100,28 +95,31 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         .data-info h2 {
-            color: #333;
-            font-size: 20px;
+            color: var(--text-primary, #1a202c);
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .data-count {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 14px;
+            font-size: 0.85rem;
             font-weight: 500;
         }
 
         .table-wrapper {
             overflow-x: auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
         }
 
         table {
@@ -131,25 +129,25 @@
         }
 
         thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
         }
 
         th {
-            padding: 15px;
+            padding: 14px 16px;
             text-align: left;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             white-space: nowrap;
         }
 
         td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e2e8f0;
-            font-size: 14px;
-            color: #4a5568;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.9rem;
+            color: var(--text-secondary, #4a5568);
         }
 
         tbody tr:hover {
@@ -160,38 +158,47 @@
             border-bottom: none;
         }
 
-        .loading {
+        .loading-state {
             text-align: center;
-            padding: 60px;
-            color: #666;
-            font-size: 16px;
+            padding: 60px 20px;
+            color: var(--text-secondary, #718096);
         }
 
-        .error {
+        .loading-state i {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            color: #4facfe;
+        }
+
+        .error-state {
             background: #fed7d7;
             color: #c53030;
             padding: 20px;
-            border-radius: 12px;
+            border-radius: 8px;
             text-align: center;
-            margin-top: 20px;
         }
 
         .empty-state {
             text-align: center;
-            padding: 60px;
-            color: #999;
+            padding: 60px 20px;
+            color: var(--text-muted, #a0aec0);
         }
 
-        .empty-state svg {
-            width: 64px;
-            height: 64px;
-            margin-bottom: 20px;
-            opacity: 0.5;
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            color: var(--text-secondary, #718096);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
         }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 22px;
+            .csv-header h1 {
+                font-size: 1.5rem;
             }
 
             .file-buttons {
@@ -203,63 +210,117 @@
                 align-items: flex-start;
                 gap: 10px;
             }
-
-            table {
-                font-size: 12px;
-            }
-
-            th, td {
-                padding: 10px;
-            }
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>📊 CSV 데이터 뷰어</h1>
-            <p>data_ex/processed 폴더의 CSV 파일을 확인하세요</p>
-        </div>
+<body class="app-shell">
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-top">
+                <div class="company-brand">
+                    <i class="fas fa-industry"></i>
+                    UNITECH PORTAL
+                </div>
 
-        <!-- File Selector -->
-        <div class="file-selector">
-            <h2>📁 파일 선택</h2>
-            <div class="file-buttons" id="fileButtons">
-                <div class="loading">파일 목록을 불러오는 중...</div>
+                <nav class="main-nav" aria-label="주요 메뉴">
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="dashboard.html">대시보드</a></li>
+                        <li class="nav-item"><a href="#" onclick="window.location.href='products.html'">제품관리</a></li>
+                        <li class="nav-item"><a href="#" onclick="notifyPending('납품관리')">납품관리</a></li>
+                        <li class="nav-item"><a href="#" onclick="notifyPending('거래처관리')">거래처관리</a></li>
+                        <li class="nav-item"><a href="#" onclick="notifyPending('A/S관리')">A/S관리</a></li>
+                    </ul>
+                </nav>
+
+                <button class="settings-btn" type="button" onclick="openSettings()" aria-label="설정">
+                    <i class="fas fa-gear"></i>
+                </button>
             </div>
-        </div>
 
-        <!-- Data Display -->
-        <div class="data-container">
-            <div id="dataDisplay">
-                <div class="empty-state">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    <h3>파일을 선택하세요</h3>
-                    <p>위에서 CSV 파일을 선택하면 데이터가 표시됩니다</p>
+            <div class="header-bottom">
+                <div class="session-info">
+                    <strong>CSV 데이터 뷰어</strong>
+                    <span class="session-meta">시드 데이터 확인 및 검증</span>
+                </div>
+                <div class="header-actions">
+                    <button class="logout-btn" type="button" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i>
+                        돌아가기
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
+    </header>
 
+    <!-- 메인 컨텐츠 -->
+    <main class="csv-viewer-main">
+        <div class="csv-container">
+            <!-- CSV 헤더 -->
+            <div class="csv-header">
+                <h1><i class="fas fa-table"></i> CSV 데이터 뷰어</h1>
+                <p>data_ex/processed 폴더의 시드 데이터를 확인할 수 있습니다</p>
+            </div>
+
+            <!-- 파일 선택 패널 -->
+            <section class="file-selector-panel">
+                <h2><i class="fas fa-folder-open"></i> 파일 선택</h2>
+                <div class="file-buttons" id="fileButtons">
+                    <div class="loading-state">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>파일 목록을 불러오는 중...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 데이터 표시 패널 -->
+            <section class="data-panel">
+                <div id="dataDisplay">
+                    <div class="empty-state">
+                        <i class="fas fa-file-csv"></i>
+                        <h3>파일을 선택하세요</h3>
+                        <p>위에서 CSV 파일을 선택하면 데이터가 표시됩니다</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="company-info">
+                <strong>유니태크(주)</strong>
+                <span>📍 서울시 금천구 디지털로 121, 1505 에이스가산타워</span>
+            </div>
+            <div class="footer-links">
+                <a href="dashboard.html">대시보드</a>
+                <a href="#" onclick="showInfo()">회사 정보</a>
+                <a href="#" onclick="showSupport()">기술 지원</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 토스트 메시지 컨테이너 -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/common.js"></script>
     <script>
         // API 기본 URL
-        const API_BASE_URL = 'https://total-admin.onrender.com';
+        const API_BASE_URL = window.location.hostname.includes('vercel.app')
+            ? 'https://total-admin.onrender.com'
+            : '';
 
-        // 토큰 가져오기
-        function getAuthToken() {
-            return sessionStorage.getItem('accessToken');
-        }
-
-        // 인증 헤더
+        // JWT 인증 헤더 헬퍼 함수
         function getAuthHeaders() {
-            const token = getAuthToken();
-            return {
-                'Content-Type': 'application/json',
-                'Authorization': token ? `Bearer ${token}` : ''
+            const token = sessionStorage.getItem('accessToken');
+            const headers = {
+                'Content-Type': 'application/json'
             };
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+            return headers;
         }
 
         // 파일 목록 로드
@@ -271,7 +332,7 @@
 
                 if (!response.ok) {
                     if (response.status === 401) {
-                        showError('로그인이 필요합니다. 먼저 로그인해주세요.');
+                        showToast('error', '로그인이 필요합니다. 로그인 페이지로 이동합니다.');
                         setTimeout(() => {
                             window.location.href = '/';
                         }, 2000);
@@ -285,8 +346,12 @@
             } catch (error) {
                 console.error('Error loading file list:', error);
                 document.getElementById('fileButtons').innerHTML = `
-                    <div class="error">파일 목록을 불러오는데 실패했습니다: ${error.message}</div>
+                    <div class="error-state">
+                        <i class="fas fa-exclamation-circle"></i>
+                        파일 목록을 불러오는데 실패했습니다: ${error.message}
+                    </div>
                 `;
+                showToast('error', `파일 목록 로드 실패: ${error.message}`);
             }
         }
 
@@ -301,7 +366,8 @@
 
             container.innerHTML = files.map(file => `
                 <button class="file-btn" onclick="loadCsvData('${file.filename}')">
-                    📄 ${file.name}
+                    <i class="fas fa-file-csv"></i>
+                    ${file.name}
                 </button>
             `).join('');
         }
@@ -309,7 +375,12 @@
         // CSV 데이터 로드
         async function loadCsvData(filename) {
             const dataDisplay = document.getElementById('dataDisplay');
-            dataDisplay.innerHTML = '<div class="loading">데이터를 불러오는 중...</div>';
+            dataDisplay.innerHTML = `
+                <div class="loading-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>데이터를 불러오는 중...</p>
+                </div>
+            `;
 
             // 버튼 활성화 상태 변경
             document.querySelectorAll('.file-btn').forEach(btn => {
@@ -330,11 +401,16 @@
 
                 const result = await response.json();
                 displayCsvData(result.data);
+                showToast('success', `${filename} 데이터를 불러왔습니다`);
             } catch (error) {
                 console.error('Error loading CSV data:', error);
                 dataDisplay.innerHTML = `
-                    <div class="error">데이터를 불러오는데 실패했습니다: ${error.message}</div>
+                    <div class="error-state">
+                        <i class="fas fa-exclamation-circle"></i>
+                        데이터를 불러오는데 실패했습니다: ${error.message}
+                    </div>
                 `;
+                showToast('error', `데이터 로드 실패: ${error.message}`);
             }
         }
 
@@ -344,7 +420,7 @@
 
             const html = `
                 <div class="data-info">
-                    <h2>📋 ${filename}</h2>
+                    <h2><i class="fas fa-table"></i> ${filename}</h2>
                     <span class="data-count">${count}개 레코드</span>
                 </div>
                 <div class="table-wrapper">
@@ -368,16 +444,12 @@
             document.getElementById('dataDisplay').innerHTML = html;
         }
 
-        // 에러 표시
-        function showError(message) {
-            document.getElementById('fileButtons').innerHTML = `
-                <div class="error">${message}</div>
-            `;
-        }
-
         // 페이지 로드 시 실행
         window.addEventListener('DOMContentLoaded', () => {
             loadFileList();
+            setTimeout(() => {
+                showToast('info', '📊 CSV 데이터 뷰어가 준비되었습니다. 파일을 선택하세요.');
+            }, 800);
         });
     </script>
 </body>
