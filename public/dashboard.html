@@ -15,39 +15,65 @@
         <div class="header-container">
             <div class="header-top">
                 <div class="company-brand">
-                    <i class="fas fa-industry"></i>
+                    <i class="fas fa-industry" aria-hidden="true"></i>
                     UNITECH PORTAL
                 </div>
 
                 <nav class="main-nav" aria-label="주요 메뉴">
                     <ul class="nav-menu">
-                        <li class="nav-item"><a href="#" class="active">대시보드</a></li>
-                        <li class="nav-item"><a href="#" onclick="openProductManagement()">제품관리</a></li>
-                        <li class="nav-item"><a href="#" onclick="notifyPending('납품관리')">납품관리</a></li>
-                        <li class="nav-item"><a href="#" onclick="notifyPending('거래처관리')">거래처관리</a></li>
-                        <li class="nav-item"><a href="#" onclick="notifyPending('A/S관리')">A/S관리</a></li>
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="active" aria-current="page">
+                                <i class="fas fa-chart-line" aria-hidden="true"></i>
+                                <span>대시보드</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="products.html">
+                                <i class="fas fa-cube" aria-hidden="true"></i>
+                                <span>제품관리</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" onclick="return notifyPending('납품관리');">
+                                <i class="fas fa-truck" aria-hidden="true"></i>
+                                <span>납품관리</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" onclick="return notifyPending('거래처관리');">
+                                <i class="fas fa-handshake" aria-hidden="true"></i>
+                                <span>거래처관리</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" onclick="return notifyPending('A/S관리');">
+                                <i class="fas fa-tools" aria-hidden="true"></i>
+                                <span>A/S관리</span>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
 
                 <button class="settings-btn" type="button" onclick="openSettings()" aria-label="설정">
-                    <i class="fas fa-gear"></i>
+                    <i class="fas fa-gear" aria-hidden="true"></i>
                 </button>
             </div>
 
             <div class="header-bottom">
                 <div class="session-info">
-                    <strong>관리자님, 반갑습니다.</strong>
-                    <span class="session-meta">마지막 로그인 · 2025-09-23 09:30 KST</span>
+                    <strong>대시보드</strong>
+                    <span class="session-meta">실시간 운영 현황 요약</span>
                 </div>
                 <div class="header-actions">
+                    <span class="session-label">로그인 정보</span>
                     <div class="user-profile">
                         <div class="user-avatar">
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-user" aria-hidden="true"></i>
                         </div>
                         <span>시스템 관리자</span>
                     </div>
                     <button class="logout-btn" type="button" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i>
+                        <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
                         로그아웃
                     </button>
                 </div>

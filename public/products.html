@@ -16,36 +16,65 @@
         <div class="header-container">
             <div class="header-top">
                 <div class="company-brand">
-                    <i class="fas fa-cube"></i>
+                    <i class="fas fa-industry" aria-hidden="true"></i>
                     UNITECH PORTAL
                 </div>
 
                 <nav class="main-nav" aria-label="주요 메뉴">
                     <ul class="nav-menu">
-                        <li class="nav-item"><a href="dashboard.html"><i class="fas fa-chart-line"></i> 대시보드</a></li>
-                        <li class="nav-item"><a href="products.html" class="active" aria-current="page"><i class="fas fa-cube"></i> 제품관리</a></li>
-                        <li class="nav-item"><a href="#" onclick="return notifyPending('납품관리');"><i class="fas fa-truck"></i> 납품관리</a></li>
-                        <li class="nav-item"><a href="#" onclick="return notifyPending('거래처관리');"><i class="fas fa-handshake"></i> 거래처관리</a></li>
-                        <li class="nav-item"><a href="#" onclick="return notifyPending('A/S관리');"><i class="fas fa-tools"></i> A/S관리</a></li>
+                        <li class="nav-item">
+                            <a href="dashboard.html">
+                                <i class="fas fa-chart-line" aria-hidden="true"></i>
+                                <span>대시보드</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="products.html" class="active" aria-current="page">
+                                <i class="fas fa-cube" aria-hidden="true"></i>
+                                <span>제품관리</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" onclick="return notifyPending('납품관리');">
+                                <i class="fas fa-truck" aria-hidden="true"></i>
+                                <span>납품관리</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" onclick="return notifyPending('거래처관리');">
+                                <i class="fas fa-handshake" aria-hidden="true"></i>
+                                <span>거래처관리</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" onclick="return notifyPending('A/S관리');">
+                                <i class="fas fa-tools" aria-hidden="true"></i>
+                                <span>A/S관리</span>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
 
                 <button class="settings-btn" type="button" onclick="openSettings()" aria-label="설정">
-                    <i class="fas fa-gear"></i>
+                    <i class="fas fa-gear" aria-hidden="true"></i>
                 </button>
             </div>
 
             <div class="header-bottom">
-                <div class="header-actions header-actions--full">
+                <div class="session-info">
+                    <strong>제품관리</strong>
+                    <span class="session-meta">제품 템플릿 및 옵션 관리</span>
+                </div>
+                <div class="header-actions">
                     <span class="session-label">로그인 정보</span>
                     <div class="user-profile">
                         <div class="user-avatar">
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-user" aria-hidden="true"></i>
                         </div>
                         <span>시스템 관리자</span>
                     </div>
                     <button class="logout-btn" type="button" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i>
+                        <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
                         로그아웃
                     </button>
                 </div>
