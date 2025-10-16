@@ -194,6 +194,11 @@
           return;
         }
 
+        const href = (this.getAttribute('href') || '').trim();
+        if (href && href !== '#') {
+          return;
+        }
+
         event.preventDefault();
 
         document.querySelectorAll('.nav-item a').forEach(l => l.classList.remove('active'));
