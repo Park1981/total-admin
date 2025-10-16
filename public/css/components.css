@@ -10,10 +10,10 @@
 /* Global header */
 .header {
   background: var(--surface-primary);
-  border-bottom: 1px solid var(--divider-color);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
   color: var(--text-primary);
-  padding: 18px 24px;
-  box-shadow: 0 10px 22px rgba(3, 7, 13, 0.45);
+  padding: 14px 24px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -24,7 +24,7 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 12px;
 }
 
 .header-top {
@@ -69,7 +69,7 @@
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   flex-wrap: wrap;
   margin: 0;
   padding: 0;
@@ -77,8 +77,8 @@
 
 .nav-item a {
   color: var(--text-primary);
-  padding: 8px 14px;
-  border-radius: var(--radius-small);
+  padding: 6px 12px;
+  border-radius: 6px;
   transition: background 0.2s ease, color 0.2s ease;
   font-weight: 500;
   display: inline-flex;
@@ -90,37 +90,37 @@
 
 .nav-item a:hover,
 .nav-item a.active {
-  background: var(--nav-hover-bg);
+  background: rgba(148, 163, 184, 0.12);
   color: var(--text-primary);
 }
 
 .settings-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid var(--chip-border);
-  background: transparent;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: none;
+  background: rgba(148, 163, 184, 0.12);
   color: var(--text-secondary);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .settings-btn:hover {
-  background: var(--accent-soft);
-  border-color: var(--accent-primary);
-  transform: translateY(-1px);
+  background: rgba(79, 70, 229, 0.18);
   color: var(--text-primary);
 }
 
 .header-bottom {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
+  padding-top: 8px;
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
 }
 
 .session-info {
@@ -146,6 +146,7 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .header-actions--full {
@@ -155,40 +156,42 @@
 }
 
 .session-label {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   font-weight: 600;
+  letter-spacing: 0.08em;
   color: var(--text-secondary);
+  text-transform: uppercase;
 }
 
 .user-profile {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   padding: 6px 12px;
-  background: var(--chip-bg);
-  border: 1px solid var(--chip-border);
-  border-radius: 20px;
+  background: rgba(148, 163, 184, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 6px;
 }
 
 .user-avatar {
-  width: 28px;
-  height: 28px;
-  background: var(--avatar-bg);
+  width: 26px;
+  height: 26px;
+  background: rgba(148, 163, 184, 0.25);
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 .logout-btn {
   background: transparent;
-  border: 1px solid var(--chip-border);
+  border: 1px solid rgba(94, 106, 132, 0.4);
   color: var(--text-secondary);
-  padding: 8px 16px;
-  border-radius: var(--radius-small);
+  padding: 8px 14px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   font-size: 0.9rem;
   display: inline-flex;
   align-items: center;
@@ -196,10 +199,9 @@
 }
 
 .logout-btn:hover {
-  background: var(--accent-soft);
-  border-color: var(--accent-primary);
+  background: rgba(79, 70, 229, 0.12);
+  border-color: rgba(79, 70, 229, 0.35);
   color: var(--text-primary);
-  transform: translateY(-1px);
 }
 
 .ghost-btn {
@@ -241,30 +243,28 @@
 /* 작은 화면: 레이아웃을 세로로 변경 */
 @media (max-width: 768px) {
   .header-top {
-    grid-template-columns: minmax(0, auto) minmax(0, 1fr) auto;
-    gap: 14px;
+    flex-direction: column;
     align-items: flex-start;
+    gap: 14px;
+  }
+
+  .header-top-right {
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
   }
 
   .main-nav {
-    justify-content: flex-start;
+    flex: 1;
   }
 
   .nav-menu {
-    gap: 16px;
+    gap: 14px;
     row-gap: 10px;
   }
 
   .header-bottom {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .header-actions {
-    width: 100%;
     justify-content: flex-start;
-    flex-wrap: nowrap;
     gap: 10px;
   }
 }
@@ -279,7 +279,7 @@
   }
 
   .header-top {
-    grid-template-columns: 1fr;
+    align-items: flex-start;
   }
 
   .nav-menu {
