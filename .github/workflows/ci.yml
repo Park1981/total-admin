@@ -1,4 +1,4 @@
-﻿name: CI
+name: CI
 on:
   push:
     branches: [ "**" ]
@@ -11,4 +11,4 @@ jobs:
         with: { node-version: '20' }
       - run: npm ci || npm i
       - run: npm run typegen || true
-      - run: echo "?㎦ ?ш린??lint/test/e2e 異붽? 媛??
+      - run: echo "CI completed - Future: add lint/test/e2e steps here"
