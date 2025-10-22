@@ -2,6 +2,12 @@ name: CI
 on:
   push:
     branches: [ "**" ]
+
+# 중복 실행 방지: 같은 브랜치에 연속 push 시 이전 실행 취소
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -10,6 +16,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'  # npm 패키지 캐싱으로 빌드 속도 향상
       - run: npm ci || npm i
       - run: npm run typegen || true
       - run: echo "CI completed successfully"
