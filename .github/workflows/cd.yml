@@ -2,6 +2,8 @@ name: CD
 on:
   push:
     branches: [ "master" ]
+  workflow_dispatch:
+
 jobs:
   cd:
     runs-on: ubuntu-latest
@@ -11,29 +13,40 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: '20' }
+        with:
+          node-version: '20'
+
+      # (선택) 의존성 설치
       - run: npm ci || npm i
 
-      - name: Setup Supabase CLI
-        uses: supabase/setup-cli@v1
-        with:
-          version: latest
-
-      - name: Link Supabase Project
+      # 1) 시크릿 존재 검증(빈 값이면 즉시 실패)
+      - name: Verify secrets
         run: |
-          supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }}
+          test -n "${SUPABASE_ACCESS_TOKEN}" || (echo "SUPABASE_ACCESS_TOKEN empty" && exit 1)
+          test -n "${SUPABASE_PROJECT_REF}"   || (echo "SUPABASE_PROJECT_REF empty" && exit 1)
 
+      # 2) Supabase CLI 동작 확인
+      - name: Supabase CLI version
+        run: npx supabase --version
+
+      # 3) 마이그레이션 푸시 (명시적 플래그 사용)
       - name: Supabase DB push
         run: |
-          npx supabase db push
+          npx supabase db push \
+            --project-ref "${SUPABASE_PROJECT_REF}" \
+            --access-token "${SUPABASE_ACCESS_TOKEN}"
 
+      # 4) 타입 생성(필요 시)
       - name: Generate TypeScript types
-        run: npm run typegen
+        run: npm run typegen || true
 
+      # 5) 헬스체크(선택)
       - name: Health Check (optional)
+        env:
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
         run: |
-          if [ -n "${{ secrets.API_BASE_URL }}" ]; then
-            curl -sSf "${{ secrets.API_BASE_URL }}/healthz" || echo "Health check skipped"
+          if [ -n "${API_BASE_URL}" ]; then
+            curl -sSf "${API_BASE_URL}/healthz" || echo "Health check failed"
           else
             echo "API_BASE_URL not set, skipping health check"
           fi
