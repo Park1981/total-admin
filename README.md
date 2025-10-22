@@ -76,6 +76,8 @@ npm run dbpush     # 마이그레이션 적용
 
 ## 🌐 배포
 
+> **배포 테스트**: 2025-10-22 - GitHub Actions + Vercel + Render 자동 배포 파이프라인 검증 완료
+
 ### Vercel (프론트엔드)
 ```bash
 # Vercel CLI 설치 및 배포
@@ -87,6 +89,12 @@ vercel --prod
 - GitHub 저장소를 Render에 연결
 - `render.yaml` 설정 자동 적용
 - 환경변수 설정 필요
+
+### 자동 배포 프로세스
+1. `master` 브랜치에 푸시
+2. GitHub Actions CD 워크플로우 자동 실행
+3. Supabase 마이그레이션 자동 적용
+4. Vercel/Render 자동 배포 트리거
 
 ## 📊 API 엔드포인트
 
