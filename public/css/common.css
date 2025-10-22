@@ -39,52 +39,111 @@
 :root {
   --font-family-base: 'Paperlogy', 'Segoe UI', 'Noto Sans KR', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
   --font-family-heading: 'Paperlogy', 'Segoe UI', 'Noto Sans KR', system-ui, sans-serif;
-  --dashboard-bg: #0b111a;
-  --surface-primary: #111924;
-  --surface-elevated: #151f2b;
-  --surface-border: #1f2a3a;
-  --text-primary: #f5f7fa;
-  --text-secondary: #b6c2d4;
-  --text-accent: #8a97ab;
-  --text-muted: #5c6675;
-  --accent-primary: #2b6cb0;
-  --accent-hover: #1f4f82;
-  --accent-soft: rgba(43, 108, 176, 0.18);
-  --divider-color: #1f2a3a;
-  --chip-bg: #172130;
-  --chip-border: #243143;
-  --nav-hover-bg: rgba(43, 108, 176, 0.18);
-  --avatar-bg: #1a2534;
-  --input-bg: #1c2736;
-  --input-border: #2f3c4f;
-  --input-border-strong: #3e4c63;
-  --shadow-elevated: 0 18px 32px rgba(4, 8, 14, 0.55);
-  --radius-card: 10px;
-  --radius-small: 6px;
+
+  /* Vercel-style Pure Black Theme */
+  --dashboard-bg: #000000;
+  --surface-primary: #0a0a0a;
+  --surface-elevated: #111111;
+  --surface-border: #1a1a1a;
+
+  /* High Contrast Text */
+  --text-primary: #ededed;
+  --text-secondary: #a1a1a1;
+  --text-accent: #707070;
+  --text-muted: #525252;
+
+  /* Subtle Blue Accent */
+  --accent-primary: #0070f3;
+  --accent-hover: #0761d1;
+  --accent-soft: rgba(0, 112, 243, 0.1);
+
+  /* UI Elements */
+  --divider-color: #1a1a1a;
+  --chip-bg: #0a0a0a;
+  --chip-border: #2a2a2a;
+  --nav-hover-bg: rgba(0, 112, 243, 0.1);
+  --avatar-bg: #1a1a1a;
+  --input-bg: #0a0a0a;
+  --input-border: #2a2a2a;
+  --input-border-strong: #3a3a3a;
+
+  /* Minimal Shadows */
+  --shadow-elevated: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-inset: inset 0 1px 2px rgba(5, 12, 20, 0.35);
+  --shadow-focus: 0 0 0 1px rgba(43, 108, 176, 0.45);
+
+  /* Sharp Corners - Vercel Style */
+  --radius-card: 6px;
+  --radius-small: 4px;
+
+  /* Tight Spacing System */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+
+  /* Compact Font Sizes */
+  --font-size-xs: 11px;
+  --font-size-sm: 13px;
+  --font-size-base: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+
+  /* Semantic Colors - Status & Actions */
+  --color-success: #10b981;
+  --color-success-light: rgba(16, 185, 129, 0.1);
+  --color-success-border: rgba(16, 185, 129, 0.3);
+
+  --color-error: #ef4444;
+  --color-error-light: rgba(239, 68, 68, 0.1);
+  --color-error-border: rgba(239, 68, 68, 0.3);
+
+  --color-info: #3b82f6;
+  --color-info-light: rgba(59, 130, 246, 0.1);
+  --color-info-border: rgba(59, 130, 246, 0.3);
+
+  --color-warning: #f59e0b;
+  --color-warning-light: rgba(245, 158, 11, 0.1);
+  --color-warning-border: rgba(245, 158, 11, 0.3);
+
+  --color-white: #ffffff;
+  --color-black: #000000;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --dashboard-bg: #f5f6f8;
+    /* Vercel-style Light Theme */
+    --dashboard-bg: #fafafa;
     --surface-primary: #ffffff;
-    --surface-elevated: #f1f5f9;
-    --surface-border: #d5dbe5;
-    --text-primary: #0b1120;
-    --text-secondary: #334155;
-    --text-accent: #64748b;
-    --text-muted: #94a3af;
-    --accent-primary: #2b6cb0;
-    --accent-hover: #1f4f82;
-    --accent-soft: rgba(43, 108, 176, 0.12);
-    --divider-color: #d5dbe5;
-    --chip-bg: #f1f5f9;
-    --chip-border: #d8e1ef;
-    --nav-hover-bg: rgba(43, 108, 176, 0.12);
-    --avatar-bg: #dbe3ef;
-    --input-bg: #ffffff;
-    --input-border: #cbd5e1;
-    --input-border-strong: #94a3b8;
-    --shadow-elevated: 0 12px 24px rgba(15, 23, 42, 0.15);
+    --surface-elevated: #fafafa;
+    --surface-border: #e5e5e5;
+
+    /* High Contrast Text */
+    --text-primary: #000000;
+    --text-secondary: #666666;
+    --text-accent: #888888;
+    --text-muted: #999999;
+
+    /* Subtle Blue Accent */
+    --accent-primary: #0070f3;
+    --accent-hover: #0761d1;
+    --accent-soft: rgba(0, 112, 243, 0.1);
+
+    /* UI Elements */
+    --divider-color: #e5e5e5;
+    --chip-bg: #f5f5f5;
+    --chip-border: #d4d4d4;
+    --nav-hover-bg: rgba(0, 112, 243, 0.08);
+    --avatar-bg: #e5e5e5;
+    --input-bg: #fafafa;
+    --input-border: #d4d4d4;
+    --input-border-strong: #a3a3a3;
+
+    /* Minimal Shadows */
+    --shadow-elevated: 0 2px 4px rgba(0, 0, 0, 0.08);
   }
 }
 
@@ -102,8 +161,8 @@ html {
 body {
   font-family: var(--font-family-base);
   color: var(--text-primary);
-  font-size: 16px;
-  line-height: 1.55;
+  font-size: var(--font-size-base);
+  line-height: 1.5;
 }
 
 a {

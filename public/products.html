@@ -7,134 +7,71 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/products.css">
 
 </head>
 <body class="app-shell">
     <!-- 헤더 -->
-    <header class="header">
-        <div class="header-container">
-            <div class="header-top">
-                <div class="header-top-left">
-                    <div class="company-brand">
-                        <i class="fas fa-industry" aria-hidden="true"></i>
-                        UNITECH PORTAL
-                    </div>
-                </div>
-                <div class="header-top-right">
-                    <nav class="main-nav" aria-label="주요 메뉴">
-                        <ul class="nav-menu">
-                            <li class="nav-item">
-                                <a href="dashboard.html">
-                                    <i class="fas fa-chart-line" aria-hidden="true"></i>
-                                    <span>대시보드</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="products.html" class="active" aria-current="page">
-                                    <i class="fas fa-cube" aria-hidden="true"></i>
-                                    <span>제품관리</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" onclick="return notifyPending('납품관리');">
-                                    <i class="fas fa-truck" aria-hidden="true"></i>
-                                    <span>납품관리</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" onclick="return notifyPending('거래처관리');">
-                                    <i class="fas fa-handshake" aria-hidden="true"></i>
-                                    <span>거래처관리</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" onclick="return notifyPending('A/S관리');">
-                                    <i class="fas fa-tools" aria-hidden="true"></i>
-                                    <span>A/S관리</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-
-                    <button class="settings-btn" type="button" onclick="openSettings()" aria-label="설정">
-                        <i class="fas fa-gear" aria-hidden="true"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="header-bottom">
-                <div class="header-actions">
-                    <span class="session-label">로그인 정보</span>
-                    <div class="user-profile">
-                        <div class="user-avatar">
-                            <i class="fas fa-user" aria-hidden="true"></i>
-                        </div>
-                        <span>시스템 관리자</span>
-                    </div>
-                    <button class="logout-btn" type="button" onclick="logout()">
-                        <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
-                        로그아웃
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
+    <div id="app-header"></div>
 
     <!-- 메인 컨텐츠 -->
-    <main class="main-content">
+    <main class="dashboard-main">
         <!-- 페이지 헤더 -->
-        <div class="page-header">
-            <div class="page-header-meta">
-                <nav class="page-breadcrumb" aria-label="현재 위치">
-                    <a href="dashboard.html">대시보드</a>
-                    <span aria-hidden="true">/</span>
-                    <span aria-current="page">제품관리</span>
-                </nav>
-                <h1>제품관리</h1>
-                <p class="page-subtitle">제품 템플릿 및 옵션 관리 시스템</p>
-            </div>
-        </div>
-
-        <!-- 컨텐츠 컨테이너 -->
-        <div class="content-container">
-            <!-- 탭 네비게이션 -->
-            <div class="tab-nav">
-                <div class="tab-nav-group" role="tablist">
-                    <button class="tab-btn active" data-tab="templates" onclick="switchTab('templates', event)">
-                        <i class="fas fa-cube"></i>
-                        제품 템플릿
-                    </button>
+        <div class="card" style="margin-bottom: var(--spacing-xl);">
+            <div class="card-header">
+                <div>
+                    <nav class="breadcrumb" style="margin-bottom: var(--spacing-sm);">
+                        <a href="dashboard.html">대시보드</a>
+                        <span>/</span>
+                        <span>제품관리</span>
+                    </nav>
+                    <h1 style="font-size: 2rem; margin: 0;">제품관리</h1>
+                    <p style="color: var(--text-secondary); margin-top: var(--spacing-xs);">제품 템플릿 및 옵션 관리 시스템</p>
                 </div>
-                <div class="tab-actions">
+                <div class="card-actions">
                     <button class="btn btn-secondary btn-icon" type="button" onclick="refreshProducts()" aria-label="제품 목록 새로고침">
                         <i class="fas fa-sync-alt"></i>
                     </button>
-                    <button class="btn btn-primary tab-action-btn" type="button" onclick="showAddProductForm()">
+                    <button class="btn btn-primary" type="button" onclick="showAddProductForm()">
                         <i class="fas fa-plus"></i>
                         새 제품 추가
                     </button>
+                    <a class="btn btn-secondary" href="products_v2.html" style="text-decoration: none;">
+                        <i class="fas fa-vial"></i>
+                        v2 실험 보기
+                    </a>
                 </div>
             </div>
+        </div>
 
-            <!-- 제품 목록 탭 -->
-            <div id="templates-tab" class="tab-content active">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h3 style="color: var(--text-primary); margin: 0;">등록된 제품 템플릿</h3>
-                    <span id="product-count" style="color: var(--text-accent); font-size: 0.9rem;">총 0개</span>
-                </div>
-
-                <div id="products-grid" class="product-grid">
+        <!-- 제품 목록 -->
+        <div id="templates-tab" class="card">
+            <div class="card-header">
+                <h2 class="card-title">등록된 제품 템플릿</h2>
+                <span id="product-count" class="badge badge--neutral">총 0개</span>
+            </div>
+            <div class="card-body">
+                <div id="products-grid" class="grid grid--auto">
                     <!-- 제품 목록이 여기에 로드됩니다 -->
                 </div>
             </div>
+        </div>
 
-            <!-- 제품 추가 탭 -->
-            <div id="add-tab" class="tab-content">
-                <h3 style="color: var(--text-primary); margin-bottom: 20px;">새 제품 템플릿 추가</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 30px;">
-                    기본 제품 템플릿을 생성하고 다양한 옵션을 설정할 수 있습니다.
-                </p>
+        <!-- 제품 추가 폼 (기본 숨김) -->
+        <div id="add-tab" style="display: none; margin-top: var(--spacing-xl);">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">새 제품 템플릿 추가</h2>
+                        <p class="card-subtitle">기본 제품 템플릿을 생성하고 다양한 옵션을 설정할 수 있습니다.</p>
+                    </div>
+                    <button class="btn btn-secondary" onclick="hideAddProductForm()" type="button">
+                        <i class="fas fa-times"></i>
+                        닫기
+                    </button>
+                </div>
+                <div class="card-body">
 
                 <!-- 제품 추가 폼 -->
                 <form id="addProductForm" class="product-form">
@@ -264,16 +201,23 @@
                         </button>
                     </div>
                 </form>
+                </div>
             </div>
         </div>
     </main>
 
+    <!-- 푸터 -->
+    <div id="app-footer"></div>
+
     <!-- 토스트 메시지 컨테이너 -->
     <div class="toast-container" id="toastContainer"></div>
 
-    
     <script src="js/common.js"></script>
     <script src="js/products.js"></script>
-
+    <script>
+        if (typeof renderAppFooter === 'function') {
+            renderAppFooter();
+        }
+    </script>
 </body>
 </html>

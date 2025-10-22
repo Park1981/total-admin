@@ -10,74 +10,7 @@
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body class="app-shell">
-    <!-- 헤더 -->
-    <header class="header">
-        <div class="header-container">
-            <div class="header-top">
-                <div class="header-top-left">
-                    <div class="company-brand">
-                        <i class="fas fa-industry" aria-hidden="true"></i>
-                        UNITECH PORTAL
-                    </div>
-                </div>
-                <div class="header-top-right">
-                    <nav class="main-nav" aria-label="주요 메뉴">
-                        <ul class="nav-menu">
-                            <li class="nav-item">
-                                <a href="dashboard.html" class="active" aria-current="page">
-                                    <i class="fas fa-chart-line" aria-hidden="true"></i>
-                                    <span>대시보드</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="products.html">
-                                    <i class="fas fa-cube" aria-hidden="true"></i>
-                                    <span>제품관리</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" onclick="return notifyPending('납품관리');">
-                                    <i class="fas fa-truck" aria-hidden="true"></i>
-                                    <span>납품관리</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" onclick="return notifyPending('거래처관리');">
-                                    <i class="fas fa-handshake" aria-hidden="true"></i>
-                                    <span>거래처관리</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" onclick="return notifyPending('A/S관리');">
-                                    <i class="fas fa-tools" aria-hidden="true"></i>
-                                    <span>A/S관리</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <button class="settings-btn" type="button" onclick="openSettings()" aria-label="설정">
-                        <i class="fas fa-gear" aria-hidden="true"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="header-bottom">
-                <div class="header-actions">
-                    <span class="session-label">로그인 정보</span>
-                    <div class="user-profile">
-                        <div class="user-avatar">
-                            <i class="fas fa-user" aria-hidden="true"></i>
-                        </div>
-                        <span>시스템 관리자</span>
-                    </div>
-                    <button class="logout-btn" type="button" onclick="logout()">
-                        <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
-                        로그아웃
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
+    <div id="app-header"></div>
 
     <!-- 메인 컨텐츠 -->
     <main class="dashboard-main">
@@ -307,24 +240,17 @@
     </main>
 
     <!-- 푸터 -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="company-info">
-                <strong>유니태크(주)</strong>
-                <span>📍 서울시 금천구 디지털로 121, 1505 에이스가산타워</span>
-            </div>
-            <div class="footer-links">
-                <a href="#" onclick="openSection('test')">시스템 테스트</a>
-                <a href="#" onclick="showInfo()">회사 정보</a>
-                <a href="#" onclick="showSupport()">기술 지원</a>
-            </div>
-        </div>
-    </footer>
+    <div id="app-footer"></div>
 
     <!-- 토스트 메시지 컨테이너 -->
     <div class="toast-container" id="toastContainer"></div>
 
     <script src="js/common.js"></script>
     <script src="js/dashboard.js"></script>
+    <script>
+        if (typeof renderAppFooter === 'function') {
+            renderAppFooter();
+        }
+    </script>
 </body>
 </html>

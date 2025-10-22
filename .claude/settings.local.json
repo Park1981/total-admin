@@ -30,7 +30,13 @@
       "mcp__playwright__browser_evaluate",
       "mcp__playwright__browser_resize",
       "Bash(gh workflow run:*)",
-      "Bash(gh run list:*)"
+      "Bash(gh run list:*)",
+      "Bash(tree:*)",
+      "Bash(cat:*)",
+      "Bash(npm test:*)",
+      "mcp__playwright__browser_take_screenshot",
+      "Bash(awk:*)",
+      "Bash(git config:*)"
     ],
     "deny": [],
     "ask": []

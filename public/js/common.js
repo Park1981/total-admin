@@ -106,6 +106,116 @@
     }, 1000);
   }
 
+  function renderAppHeader(options = {}) {
+    const mount = document.getElementById('app-header');
+    if (!mount) {
+      return;
+    }
+
+    const {
+      active = '',
+      showBackButton = false
+    } = options;
+
+    const navItems = [
+      { id: 'dashboard', label: '대시보드', href: 'dashboard.html', icon: 'fas fa-chart-line' },
+      { id: 'products', label: '제품관리', href: 'products.html', icon: 'fas fa-cube' },
+      { id: 'deliveries', label: '납품관리', href: 'delivery.html', icon: 'fas fa-truck' },
+      { id: 'contacts', label: '거래처관리', href: 'partners.html', icon: 'fas fa-handshake' },
+      { id: 'service', label: 'A/S관리', href: 'service.html', icon: 'fas fa-tools' }
+    ];
+
+    const navMarkup = navItems.map(item => {
+      if (item.pendingLabel) {
+        return `
+          <li class="nav-item">
+            <a href="#" onclick="return notifyPending('${item.pendingLabel}');">
+              <i class="${item.icon}" aria-hidden="true"></i>
+              <span>${item.label}</span>
+            </a>
+          </li>
+        `;
+      }
+
+      const isActive = item.id === active;
+      const activeAttrs = isActive ? ' class="active" aria-current="page"' : '';
+
+      return `
+        <li class="nav-item">
+          <a href="${item.href}"${activeAttrs}>
+            <i class="${item.icon}" aria-hidden="true"></i>
+            <span>${item.label}</span>
+          </a>
+        </li>
+      `;
+    }).join('');
+
+    const backButton = showBackButton
+      ? `<button class="ghost-btn" type="button" onclick="goBack()"><i class="fas fa-arrow-left" aria-hidden="true"></i>대시보드로</button>`
+      : '';
+
+    mount.innerHTML = `
+      <header class="header">
+        <div class="header-container">
+          <div class="header-top">
+            <div class="header-top-left">
+              <div class="company-brand">
+                <i class="fas fa-industry" aria-hidden="true"></i>
+                UNITECH PORTAL
+              </div>
+            </div>
+            <div class="header-top-right">
+              <nav class="main-nav" aria-label="주요 메뉴">
+                <ul class="nav-menu">
+                  ${navMarkup}
+                </ul>
+              </nav>
+              <button class="settings-btn" type="button" onclick="openSettings()" aria-label="설정">
+                <i class="fas fa-gear" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="header-bottom">
+            <div class="header-actions">
+              ${backButton}
+              <div class="user-profile">
+                <div class="user-avatar">
+                  <i class="fas fa-user" aria-hidden="true"></i>
+                </div>
+                <span>시스템 관리자</span>
+              </div>
+              <button class="logout-btn" type="button" onclick="logout()">
+                <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                로그아웃
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+    `;
+  }
+
+  function renderAppFooter() {
+    const mount = document.getElementById('app-footer');
+    if (!mount) return;
+
+    mount.innerHTML = `
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="company-info">
+            <strong>유니태크(주)</strong>
+            <span>서울시 금천구 디지털로 121, 1505 에이스가산타워</span>
+          </div>
+          <div class="footer-links">
+            <a href="dashboard.html">대시보드</a>
+            <a href="#" onclick="showToast('info', '회사 정보 페이지 준비 중입니다.')">회사 정보</a>
+            <a href="#" onclick="showToast('info', '기술 지원 페이지 준비 중입니다.')">기술 지원</a>
+          </div>
+        </div>
+      </footer>
+    `;
+  }
+
   window.showToast = showToast;
   window.closeToast = closeToast;
   window.notifyPending = notifyPending;
@@ -113,4 +223,6 @@
   window.openSettings = openSettings;
   window.closeSettingsMenu = closeSettingsMenu;
   window.logout = logout;
+  window.renderAppHeader = renderAppHeader;
+  window.renderAppFooter = renderAppFooter;
 })();

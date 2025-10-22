@@ -1,4 +1,8 @@
 (function () {
+    if (typeof renderAppHeader === 'function') {
+        renderAppHeader({ active: 'products' });
+    }
+
     // 페이지 로드 시 로그인 상태 확인
     (function() {
         const isLoggedIn = sessionStorage.getItem('isLoggedIn');
@@ -44,14 +48,34 @@
   
     // 제품 추가 폼 표시
   function showAddProductForm() {
-      switchTab('add');
+      const addTab = document.getElementById('add-tab');
+      const templatesTab = document.getElementById('templates-tab');
+
+      addTab.style.display = 'block';
+      templatesTab.style.display = 'none';
       showToast('success', '제품 추가 폼으로 이동합니다.');
+
+      // 페이지 맨 위로 스크롤
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // 제품 추가 폼 숨기기
+  function hideAddProductForm() {
+      const addTab = document.getElementById('add-tab');
+      const templatesTab = document.getElementById('templates-tab');
+
+      addTab.style.display = 'none';
+      templatesTab.style.display = 'block';
+      showToast('info', '제품 목록으로 돌아갑니다.');
+
+      // 페이지 맨 위로 스크롤
+      window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   
     // 제품 목록 로드 (실제 API 데이터)
     const API_BASE = window.location.hostname.includes('vercel.app')
         ? 'https://total-admin.onrender.com'
-        : '';
+        : 'http://localhost:3001';
 
     // JWT 인증 헤더 헬퍼 함수
     function getAuthHeaders() {
@@ -427,7 +451,7 @@
             // 폼 초기화 및 템플릿 탭으로 이동
             setTimeout(() => {
                 resetForm();
-                switchTab('templates');
+                hideAddProductForm();
                 loadProducts(); // 제품 목록 새로고침
             }, 1500);
   
@@ -514,6 +538,7 @@
       switchTab,
       refreshProducts,
       showAddProductForm,
+      hideAddProductForm,
       loadProducts,
       editProduct,
       deleteProduct,

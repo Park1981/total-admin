@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNITECH PORTAL - A/S관리</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="app-shell">
+    <!-- 헤더 -->
+    <div id="app-header"></div>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="dashboard-main">
+        <!-- 페이지 헤더 -->
+        <div class="card" style="margin-bottom: var(--spacing-xl);">
+            <div class="card-header">
+                <div>
+                    <nav class="breadcrumb" style="margin-bottom: var(--spacing-sm);">
+                        <a href="dashboard.html">대시보드</a>
+                        <span>/</span>
+                        <span>A/S관리</span>
+                    </nav>
+                    <h1 style="font-size: 2rem; margin: 0;">A/S 관리</h1>
+                    <p style="color: var(--text-secondary); margin-top: var(--spacing-xs);">고객 서비스 요청부터 완료까지 전체 프로세스 관리</p>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-calendar"></i>
+                        스케줄
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        서비스 요청 등록
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 통계 카드 -->
+        <div class="grid grid--4" style="margin-bottom: var(--spacing-xl);">
+            <div class="card card--compact">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <div style="width: 48px; height: 48px; background: var(--color-error-light); border-radius: var(--radius-small); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-exclamation-circle" style="color: var(--color-error); font-size: 1.5rem;"></i>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-accent); font-size: var(--font-size-sm);">긴급</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary);">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card--compact">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <div style="width: 48px; height: 48px; background: var(--color-warning-light); border-radius: var(--radius-small); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-clock" style="color: var(--color-warning); font-size: 1.5rem;"></i>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-accent); font-size: var(--font-size-sm);">진행중</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary);">8</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card--compact">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <div style="width: 48px; height: 48px; background: var(--color-info-light); border-radius: var(--radius-small); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-calendar-check" style="color: var(--color-info); font-size: 1.5rem;"></i>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-accent); font-size: var(--font-size-sm);">예약</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary);">12</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card--compact">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <div style="width: 48px; height: 48px; background: var(--color-success-light); border-radius: var(--radius-small); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-check-double" style="color: var(--color-success); font-size: 1.5rem;"></i>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-accent); font-size: var(--font-size-sm);">완료 (이번달)</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary);">64</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- A/S 요청 목록 -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">최근 서비스 요청</h2>
+                <div class="card-actions">
+                    <select class="form-select" style="width: auto; padding: 6px 12px;">
+                        <option>전체</option>
+                        <option>긴급</option>
+                        <option>정기</option>
+                        <option>예약</option>
+                        <option>원격</option>
+                    </select>
+                </div>
+            </div>
+            <div class="card-body">
+                <ul class="list list--spacious">
+                    <li class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">고객 A - 전원 모듈 교체</div>
+                            <div class="list-item-meta">
+                                <span class="badge badge--error">긴급</span>
+                                <span>엔지니어 출동</span>
+                                <span>장비: CH-001</span>
+                            </div>
+                        </div>
+                        <div class="list-item-aside">30분 전</div>
+                    </li>
+                    <hr class="divider">
+                    <li class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">고객 B - 내부 소음</div>
+                            <div class="list-item-meta">
+                                <span class="badge badge--warning">정기</span>
+                                <span>부품 교체 중</span>
+                                <span>장비: EQ-042</span>
+                            </div>
+                        </div>
+                        <div class="list-item-aside">1시간 전</div>
+                    </li>
+                    <hr class="divider">
+                    <li class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">고객 C - 온도 센서 보정</div>
+                            <div class="list-item-meta">
+                                <span class="badge badge--info">예약</span>
+                                <span>내일 방문 예정</span>
+                                <span>장비: CH-078</span>
+                            </div>
+                        </div>
+                        <div class="list-item-aside">3시간 전</div>
+                    </li>
+                    <hr class="divider">
+                    <li class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">고객 D - UI 원격 업데이트</div>
+                            <div class="list-item-meta">
+                                <span class="badge badge--primary">원격</span>
+                                <span>배포 완료</span>
+                                <span>장비: CLS-023</span>
+                            </div>
+                        </div>
+                        <div class="list-item-aside">어제</div>
+                    </li>
+                    <hr class="divider">
+                    <li class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">고객 E - 유지보수 계약</div>
+                            <div class="list-item-meta">
+                                <span class="badge badge--neutral">계약</span>
+                                <span>서명 대기</span>
+                                <span>장비: AC-105</span>
+                            </div>
+                        </div>
+                        <div class="list-item-aside">2일 전</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- 푸터 -->
+    <div id="app-footer"></div>
+
+    <!-- 토스트 메시지 컨테이너 -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/common.js"></script>
+    <script>
+        if (typeof renderAppHeader === 'function') {
+            renderAppHeader({ active: 'service' });
+        }
+        if (typeof renderAppFooter === 'function') {
+            renderAppFooter();
+        }
+    </script>
+</body>
+</html>

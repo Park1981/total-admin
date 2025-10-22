@@ -1,4 +1,8 @@
 (function () {
+  if (typeof renderAppHeader === 'function') {
+    renderAppHeader({ active: 'dashboard' });
+  }
+
   const API_BASE = window.location.hostname.includes('vercel.app')
     ? 'https://total-admin.onrender.com'
     : '';

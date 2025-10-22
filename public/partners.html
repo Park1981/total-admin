@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNITECH PORTAL - 거래처관리</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="app-shell">
+    <!-- 헤더 -->
+    <div id="app-header"></div>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="dashboard-main">
+        <!-- 페이지 헤더 -->
+        <div class="card" style="margin-bottom: var(--spacing-xl);">
+            <div class="card-header">
+                <div>
+                    <nav class="breadcrumb" style="margin-bottom: var(--spacing-sm);">
+                        <a href="dashboard.html">대시보드</a>
+                        <span>/</span>
+                        <span>거래처관리</span>
+                    </nav>
+                    <h1 style="font-size: 2rem; margin: 0;">거래처관리</h1>
+                    <p style="color: var(--text-secondary); margin-top: var(--spacing-xs);">고객사, 공급업체, 협력사 정보 통합 관리</p>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-download"></i>
+                        내보내기
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        거래처 추가
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 통계 카드 -->
+        <div class="grid grid--4" style="margin-bottom: var(--spacing-xl);">
+            <div class="card card--compact">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <div style="width: 48px; height: 48px; background: var(--accent-soft); border-radius: var(--radius-small); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-building" style="color: var(--accent-primary); font-size: 1.5rem;"></i>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-accent); font-size: var(--font-size-sm);">총 거래처</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary);">87</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card--compact">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <div style="width: 48px; height: 48px; background: var(--color-success-light); border-radius: var(--radius-small); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-users" style="color: var(--color-success); font-size: 1.5rem;"></i>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-accent); font-size: var(--font-size-sm);">고객사</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary);">52</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card--compact">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <div style="width: 48px; height: 48px; background: var(--color-info-light); border-radius: var(--radius-small); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-truck-loading" style="color: var(--color-info); font-size: 1.5rem;"></i>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-accent); font-size: var(--font-size-sm);">공급업체</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary);">23</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card--compact">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <div style="width: 48px; height: 48px; background: var(--color-warning-light); border-radius: var(--radius-small); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-handshake" style="color: var(--color-warning); font-size: 1.5rem;"></i>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-accent); font-size: var(--font-size-sm);">협력사</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary);">12</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 거래처 목록 -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">최근 등록 거래처</h2>
+                <div class="card-actions">
+                    <select class="form-select" style="width: auto; padding: 6px 12px;">
+                        <option>전체</option>
+                        <option>고객사</option>
+                        <option>공급업체</option>
+                        <option>협력사</option>
+                    </select>
+                </div>
+            </div>
+            <div class="card-body">
+                <ul class="list list--spacious">
+                    <li class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">한국환경산업기술원</div>
+                            <div class="list-item-meta">
+                                <span class="badge badge--success">고객사</span>
+                                <span>담당자: 김철수</span>
+                                <span>02-1234-5678</span>
+                            </div>
+                        </div>
+                        <div class="list-item-aside">어제</div>
+                    </li>
+                    <hr class="divider">
+                    <li class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">삼성전자 연구소</div>
+                            <div class="list-item-meta">
+                                <span class="badge badge--success">고객사</span>
+                                <span>담당자: 이영희</span>
+                                <span>031-2345-6789</span>
+                            </div>
+                        </div>
+                        <div class="list-item-aside">2일 전</div>
+                    </li>
+                    <hr class="divider">
+                    <li class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">에코소재 공급</div>
+                            <div class="list-item-meta">
+                                <span class="badge badge--info">공급업체</span>
+                                <span>담당자: 박민수</span>
+                                <span>051-3456-7890</span>
+                            </div>
+                        </div>
+                        <div class="list-item-aside">3일 전</div>
+                    </li>
+                    <hr class="divider">
+                    <li class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">스타트랩랩스</div>
+                            <div class="list-item-meta">
+                                <span class="badge badge--warning">협력사</span>
+                                <span>담당자: 최지훈</span>
+                                <span>02-4567-8901</span>
+                            </div>
+                        </div>
+                        <div class="list-item-aside">4일 전</div>
+                    </li>
+                    <hr class="divider">
+                    <li class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">그린테크 물류센터</div>
+                            <div class="list-item-meta">
+                                <span class="badge badge--info">물류</span>
+                                <span>담당자: 정수연</span>
+                                <span>032-5678-9012</span>
+                            </div>
+                        </div>
+                        <div class="list-item-aside">5일 전</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- 푸터 -->
+    <div id="app-footer"></div>
+
+    <!-- 토스트 메시지 컨테이너 -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/common.js"></script>
+    <script>
+        if (typeof renderAppHeader === 'function') {
+            renderAppHeader({ active: 'contacts' });
+        }
+        if (typeof renderAppFooter === 'function') {
+            renderAppFooter();
+        }
+    </script>
+</body>
+</html>

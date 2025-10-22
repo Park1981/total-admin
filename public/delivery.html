@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNITECH PORTAL - 납품관리</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="app-shell">
+    <!-- 헤더 -->
+    <div id="app-header"></div>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="dashboard-main">
+        <!-- 페이지 헤더 -->
+        <div class="card" style="margin-bottom: var(--spacing-xl);">
+            <div class="card-header">
+                <div>
+                    <nav class="breadcrumb" style="margin-bottom: var(--spacing-sm);">
+                        <a href="dashboard.html">대시보드</a>
+                        <span>/</span>
+                        <span>납품관리</span>
+                    </nav>
+                    <h1 style="font-size: 2rem; margin: 0;">납품관리</h1>
+                    <p style="color: var(--text-secondary); margin-top: var(--spacing-xs);">제품 출고부터 설치까지 전체 납품 프로세스 관리</p>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-filter"></i>
+                        필터
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        새 납품 등록
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 통계 카드 -->
+        <div class="grid grid--4" style="margin-bottom: var(--spacing-xl);">
+            <div class="card card--compact">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <div style="width: 48px; height: 48px; background: var(--color-info-light); border-radius: var(--radius-small); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-box" style="color: var(--color-info); font-size: 1.5rem;"></i>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-accent); font-size: var(--font-size-sm);">출고 대기</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary);">12</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card--compact">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <div style="width: 48px; height: 48px; background: var(--color-warning-light); border-radius: var(--radius-small); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-truck" style="color: var(--color-warning); font-size: 1.5rem;"></i>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-accent); font-size: var(--font-size-sm);">배송 중</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary);">8</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card--compact">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <div style="width: 48px; height: 48px; background: var(--accent-soft); border-radius: var(--radius-small); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-tools" style="color: var(--accent-primary); font-size: 1.5rem;"></i>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-accent); font-size: var(--font-size-sm);">설치 진행</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary);">5</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card--compact">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <div style="width: 48px; height: 48px; background: var(--color-success-light); border-radius: var(--radius-small); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-check-circle" style="color: var(--color-success); font-size: 1.5rem;"></i>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-accent); font-size: var(--font-size-sm);">완료</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary);">143</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 납품 목록 -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">최근 납품 현황</h2>
+                <div class="card-actions">
+                    <button class="btn btn-secondary btn-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <ul class="list list--spacious">
+                    <li class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">A사 챔버 26m³ 출고</div>
+                            <div class="list-item-meta">
+                                <span class="badge badge--warning">배송중</span>
+                                <span>주문번호: ORD-2025-001</span>
+                            </div>
+                        </div>
+                        <div class="list-item-aside">1시간 전</div>
+                    </li>
+                    <hr class="divider">
+                    <li class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">B연구원 소형 9ch 설치</div>
+                            <div class="list-item-meta">
+                                <span class="badge badge--primary">설치진행</span>
+                                <span>주문번호: ORD-2025-002</span>
+                            </div>
+                        </div>
+                        <div class="list-item-aside">오늘 오전</div>
+                    </li>
+                    <hr class="divider">
+                    <li class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">C대학 펌프 패키지</div>
+                            <div class="list-item-meta">
+                                <span class="badge badge--info">출하준비</span>
+                                <span>주문번호: ORD-2025-003</span>
+                            </div>
+                        </div>
+                        <div class="list-item-aside">어제</div>
+                    </li>
+                    <hr class="divider">
+                    <li class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">환경부 시험실 장비</div>
+                            <div class="list-item-meta">
+                                <span class="badge badge--info">포장완료</span>
+                                <span>주문번호: ORD-2025-004</span>
+                            </div>
+                        </div>
+                        <div class="list-item-aside">2일 전</div>
+                    </li>
+                    <hr class="divider">
+                    <li class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">D사 멸균기 CLS-40S</div>
+                            <div class="list-item-meta">
+                                <span class="badge badge--success">납품완료</span>
+                                <span>주문번호: ORD-2025-005</span>
+                            </div>
+                        </div>
+                        <div class="list-item-aside">3일 전</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- 푸터 -->
+    <div id="app-footer"></div>
+
+    <!-- 토스트 메시지 컨테이너 -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/common.js"></script>
+    <script>
+        if (typeof renderAppHeader === 'function') {
+            renderAppHeader({ active: 'deliveries' });
+        }
+        if (typeof renderAppFooter === 'function') {
+            renderAppFooter();
+        }
+    </script>
+</body>
+</html>
