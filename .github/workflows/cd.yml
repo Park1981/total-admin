@@ -1,4 +1,4 @@
-﻿name: CD
+name: CD
 on:
   push:
     branches: [ "master" ]
@@ -10,12 +10,26 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: '20' }
       - run: npm ci || npm i
-      - name: Supabase DB push (linked)
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Link Supabase Project
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
         run: |
-          npx supabase db push --linked
-      - name: ????앹꽦
+          supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }}
+
+      - name: Supabase DB push
+        run: |
+          npx supabase db push
+
+      - name: Generate TypeScript types
         run: npm run typegen
-      - name: ?ъ뒪泥댄겕 (?듭뀡)
+
+      - name: Health Check (optional)
         run: |
           if [ -n "${{ secrets.API_BASE_URL }}" ]; then
             curl -sSf "${{ secrets.API_BASE_URL }}/healthz" || echo "skip"
